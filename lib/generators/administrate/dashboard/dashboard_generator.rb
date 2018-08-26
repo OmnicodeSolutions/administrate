@@ -138,7 +138,7 @@ module Administrate
         if klass.respond_to?(:attribute_types)
           klass.attribute_types[attr].type
         else
-          klass.columns.detect { |column| column.name == attr }.try(:type)
+          klass.columns.find { |column| column.name == attr }.try(:type)
         end
       end
 
