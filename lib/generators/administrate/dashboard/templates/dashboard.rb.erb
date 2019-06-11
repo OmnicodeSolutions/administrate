@@ -9,7 +9,7 @@ class <%= class_name %>Dashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
 <% attributes.each do |attr| -%>
-    <%= attr %>: <%= field_type(attr) %>,
+    <%= attr_name(attr) %>: <%= field_type(attr) %>,
 <% end -%>
   }.freeze
 
