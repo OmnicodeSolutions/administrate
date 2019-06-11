@@ -51,15 +51,20 @@ module Administrate
         template("controller.rb.erb", destination)
       end
 
-      def add_route
-        in_root do
-          inject_into_file "config/routes.rb", "resources :#{plural_route_name}", after: /namespace :#{namespace} do\s*\n/m, verbose: false, force: false
-        end
+      def admin_route
+        return unless options[:routes]
+
+        routes   = Rails.root.join("config/routes.rb")
+        content  = "resources :#{plural_route_name}\n"
+        sentinel = /namespace :#{admin_namespace}.*\n/
+        indent   = File.binread(routes)[/\n(\s*)namespace :#{admin_namespace}/, 1] || ""
+
+        inject_into_file routes, indent + "  " + content, after: sentinel
       end
 
       private
 
-      def namespace
+      def admin_namespace
         options[:namespace]
       end
 
