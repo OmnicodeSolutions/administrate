@@ -31,7 +31,7 @@ module Administrate
       def create_dashboard_controller
         template(
           "application_controller.rb.erb",
-          "app/controllers/#{namespace}/application_controller.rb",
+          "app/controllers/#{admin_namespace}/application_controller.rb",
         )
       end
 

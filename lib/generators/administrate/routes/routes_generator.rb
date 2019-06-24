@@ -46,7 +46,7 @@ module Administrate
 
       private
 
-      def namespace
+      def admin_namespace
         options[:namespace]
       end
 
