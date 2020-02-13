@@ -20,12 +20,14 @@ module Administrate
     end
 
     def display_resource_name(resource_name)
+      # t(
       class_from_resource(resource_name).
         model_name.
         human(
           count: PLURAL_MANY_COUNT,
           default: resource_name.to_s.pluralize.titleize,
         )
+      # )
     end
 
     def sort_order(order)
