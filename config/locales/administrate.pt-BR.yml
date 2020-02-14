@@ -22,8 +22,8 @@ pt-BR:
         more: "Exibindo %{count} de %{total_count}"
         none: Nenhum
     form:
-      error: error
-      errors: "%{pluralized_errors} impediu que %{resource_name} fosse salvo(a):"
+      error: "%{error_count} erro impediu que %{resource_name} fosse salvo(a):"
+      errors: "%{error_count} erros impediram que %{resource_name} fossem salvos(as):"
     search:
       clear: Limpar pesquisa
       label: Pesquisa %{resource}
