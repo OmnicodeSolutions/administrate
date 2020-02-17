@@ -3,7 +3,6 @@ module Administrate
     protect_from_forgery with: :exception
 
     def index
-      binding.pry
 
       search_term = params[:search].to_s.strip
       resources = Administrate::Search.new(scoped_resource,
