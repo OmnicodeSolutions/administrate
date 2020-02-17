@@ -23,7 +23,7 @@ pt-BR:
         none: Nenhum
     form:
       error: "%{error_count} erro impediu que %{resource_name} fosse salvo(a):"
-      errors: "%{error_count} erros impediram que %{resource_name} fossem salvos(as):"
+      errors: "%{error_count} erros impediram que %{resource_name} fosse salvo(a):"
     search:
       clear: Limpar pesquisa
       label: Pesquisa %{resource}
