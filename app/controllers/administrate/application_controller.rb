@@ -165,7 +165,6 @@ module Administrate
         "administrate.controller.#{key}",
         resource: resource_resolver.resource_title,
       )
-      # t("activerecord.models.#{resource_resolver.resource_title.downcase}.one", resource_resolver.resource_title
     end
 
     def show_search_bar?
