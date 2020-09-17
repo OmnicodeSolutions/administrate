@@ -18,3 +18,10 @@ module Administrate
     end
   end
 end
+
+      def format
+        options.fetch(:format, :default)
+      end
+    end
+  end
+end
