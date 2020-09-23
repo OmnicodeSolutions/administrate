@@ -5,10 +5,10 @@ $(function () {
   });
   $('[data-type="datetime"]').datetimepicker({
     debug: false,
-    format: "YYYY-MM-DD HH:mm:ss",
+    format: "DD/MM/YYYY HH:mm:ss",
   });
   $('[data-type="date"]').datetimepicker({
     debug: false,
-    format: "YYYY-MM-DD",
+    format: "DD/MM/YYYY",
   });
 });
