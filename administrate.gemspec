@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,docs}/**/*", "LICENSE", "Rakefile"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "actionpack", ">= 4.2", "< 6.0"
+  s.add_dependency "actionpack", ">= 4.2", "< 7.0"
   s.add_dependency "actionview", ">= 4.2", "< 6.0"
   s.add_dependency "activerecord", ">= 4.2", "< 6.0"
 
