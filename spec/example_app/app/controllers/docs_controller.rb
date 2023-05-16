@@ -1,40 +1,36 @@
 class DocsController < ApplicationController
-  REDCARPET_CONFIG = {
-    fenced_code_blocks: true,
-    autolink: true,
-  }.freeze
-
   def index
-    render_page "README"
+    render_page("README")
   end
 
   def show
-    render_page "docs/#{params[:page]}"
+    case params[:page]
+    when "contributing", "CONTRIBUTING"
+      render_page("CONTRIBUTING", "Contributing Guide")
+    when "license", "LICENSE"
+      render_page("LICENSE", "LICENSE")
+    when "security", "SECURITY"
+      render_page("SECURITY", "Security Policy")
+    else
+      render_page("docs/#{params[:page]}")
+    end
   end
 
   private
 
-  def render_page(name)
-    path = full_page_path(name)
+  def render_page(name, title = nil)
+    page = DocPage.find(name)
 
-    if File.exist?(path)
-      render layout: "docs", html: render_markdown(path).html_safe
-    else
-      render file: "#{Rails.root}/public/404.html",
-             layout: false,
-             status: :not_found
-    end
-  end
-
-  def full_page_path(page)
-    Rails.root + "../../#{page}.md"
-  end
-
-  def render_markdown(path)
-    text = File.read(path)
-    renderer = Redcarpet::Render::HTML
-    markdown = Redcarpet::Markdown.new(renderer, REDCARPET_CONFIG)
-
-    markdown.render(text)
+    title = title || page.title
+    @page_title = [title, "Administrate"].compact.join(" - ")
+    # rubocop:disable Rails/OutputSafety
+    render layout: "docs", html: page.body.html_safe
+    # rubocop:enable Rails/OutputSafety
+  rescue DocPage::PageNotAllowed, DocPage::PageNotFound
+    render(
+      file: Rails.root.join("public", "404.html"),
+      layout: false,
+      status: :not_found,
+    )
   end
 end

@@ -3,16 +3,16 @@ require_relative "associative"
 module Administrate
   module Field
     class Polymorphic < BelongsTo
+      def self.permitted_attribute(attr, _options = {})
+        { attr => %i{type value} }
+      end
+
       def associated_resource_grouped_options
         classes.map do |klass|
           [klass.to_s, candidate_resources_for(klass).map do |resource|
             [display_candidate_resource(resource), resource.to_global_id]
           end]
         end
-      end
-
-      def self.permitted_attribute(attr, _options = nil)
-        { attr => %i{type value} }
       end
 
       def permitted_attribute
@@ -23,7 +23,7 @@ module Administrate
         data ? data.to_global_id : nil
       end
 
-      protected
+      private
 
       def associated_dashboard(klass = data.class)
         "#{klass.name}Dashboard".constantize.new

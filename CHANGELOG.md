@@ -13,14 +13,350 @@
 * `[I18n]`: Internationalization. Changes to translations or localizations.
 * `[OPTIM]`: Optimization or performance increase.
 * `[DOC]`: Documentation changes. No changes to the library's behavior.
+* `[SECURITY]`: A change which fixes a security vulnerability.
 
 ## Changes
+
+### 0.18.0 (August 12, 2022)
+
+This is a general catchup release. We've added `dart-sass` compatibility,
+improved a i18n handling, dropped support for Rails 5.x and Ruby 2.6, dropped
+`datetime_picker_rails` because now browser support is good enough, plus many
+others.
+
+The following templates have changed since v0.17.0:
+
+  app/views/administrate/application/_collection.html.erb
+  app/views/administrate/application/_collection_header_actions.html.erb
+  app/views/administrate/application/_collection_item_actions.html.erb
+  app/views/administrate/application/_index_header.html.erb
+  app/views/administrate/application/_navigation.html.erb
+  app/views/administrate/application/_pagination.html.erb
+  app/views/administrate/application/edit.html.erb
+  app/views/administrate/application/index.html.erb
+  app/views/administrate/application/show.html.erb
+  app/views/fields/belongs_to/_index.html.erb
+  app/views/fields/belongs_to/_show.html.erb
+  app/views/fields/date/_form.html.erb
+  app/views/fields/date_time/_form.html.erb
+  app/views/fields/has_many/_index.html.erb
+  app/views/fields/has_one/_form.html.erb
+  app/views/fields/has_one/_index.html.erb
+  app/views/fields/has_one/_show.html.erb
+  app/views/fields/polymorphic/_index.html.erb
+  app/views/fields/polymorphic/_show.html.erb
+  app/views/fields/time/_form.html.erb
+  app/views/fields/url/_index.html.erb
+  app/views/fields/url/_show.html.erb
+
+If your application overrides any of them, make sure to review your
+custom templates to ensure that they remain compatible.
+
+* [DOC] [#2154] Ensure we read from sanitised paths
+* [FEATURE] [#2154] Try out GitHub's code scanning tool
+* [DOC] [#2243] Add guide on how to scope has_many relations
+* [UI] [#2239] Move pagination into partial
+* [FEATURE] [#2237] Move bundle-audit to GitHub Actions
+* [i18n] [#2200] Fix HasOne association translations
+* BUGFIX] [#2235] Guess correct name for namespaced associations
+* [BUGFIX] [#2215] Fix typos and formatting in hiding dashboard docs
+* [FEATURE] [#1941] Unify Action Checks
+* [FEATURE] [#2181] Allow overriding the sample app database config
+* [COMPAT] [#2201] Drop support for Rails 5.x
+* [DOC] [#2225] Document how to customize Field::Select option labels
+* [SECURITY] [#2227] Update Rails out of CVE-2022-32224
+* [FEATURE] [#2216] Move pagination into private method for overriding
+* [FEATURE] [#2208] Enable ordering the BelongsTo fields by using `order` option.
+* [i18n] [#2219] Add Slovenian translations
+* [FEATURE] [#2211] Improve index eager load performance
+* [COMPAT] [#2198] Dart-sass compatibility
+* [COMPAT] [#2194] Drop support for Ruby 2.6, which reached EOL
+* [i18n] [#2186] Correct grammar on German error messages
+* [i18n] [#2183] Only include locales when bundling
+* [OPTIM] [#2182] Change ApplicationController's routes's class to Set to speed up "valid_action?"
+* [DOC] [#2153] How to customise the search
+* [BUGFIX] [#2164] Use field.name rather than resource_name for has_one relationships
+* [BUGFIX] [#2163] Check the routes before render link in collection.html
+* [COMPAT] [#2161] Bump Rails dependencies from 6.1.4.6 to 6.1.5
+* [FEATURE] [#2133] Sort dashboard attributes
+* [BUGFIX] [#2152] Fix typos in example view for Adding Controllers
+* [UI] [#2146] Add destroy link in the show template
+* [BUGFIX] [#2145] Fix table header classes of has_many field
+* [COMPAT] [#2141] Fix Pundit >2.2.0 include
+* [UI] [#2139] Add HTML options to the URL field
+* [COMPAT] [#2144] Update Rails to 6.1.4.6
+* [UI] [#2136] Drop datetime_picker_rails and use browser fields
+* [CHANGE] [#2138] Provide a stylelint config that we can tweak
+* [CHANGE] [#2096] Make search easier to override and adapt to custom use cases
+* [i18n] [#2114] Add i18n support for Field::HasMany
+
+### 0.17.0 (January 31, 2022)
+
+This release incorporates nearly a year of minor changes, starts testing
+against Ruby 3 and up, plus Rails 7. We've not heard of any incompatibilities
+yet, but there are known issues around asset handling ([notably with
+sassc][#2091]) that we're working on.
+
+[#2091]: https://github.com/thoughtbot/administrate/issues/2091
+
+The following templates have changed since v0.16.0:
+
+  app/views/administrate/application/_collection.html.erb
+  app/views/administrate/application/_collection_header_actions.html.erb
+  app/views/administrate/application/_collection_item_actions.html.erb
+  app/views/administrate/application/_flashes.html.erb
+  app/views/administrate/application/_form.html.erb
+  app/views/administrate/application/_icons.html.erb
+  app/views/administrate/application/_index_header.html.erb
+  app/views/administrate/application/index.html.erb
+  app/views/fields/belongs_to/_index.html.erb
+  app/views/fields/belongs_to/_show.html.erb
+  app/views/fields/select/_form.html.erb
+  app/views/fields/time/_index.html.erb
+  app/views/fields/time/_show.html.erb
+
+If your application overrides any of them, make sure to review your
+custom templates to ensure that they remain compatible.
+
+* [BUGFIX] [#2117] Use `camelize` rather than `classify` for the namespace
+* [COMPAT] [#2132] Add Rails 7 to tests
+* [COMPAT] [#2120] Add Ruby 3.1 to Circle tests
+* [COMPAT] [#2118] Handle Selenium "options" deprecation
+* [COMPAT] [#2127] Add Ruby 3 to Circle tests
+* [COMPAT] [#2126] Drop patch for Rails 4
+* [COMPAT] [#2123] Update Bundler to 2.3.5
+* [COMPAT] [#2122] Update Ruby version in ".ruby-version"
+* [COMPAT] [#2121] Remove "rspec-rails" from gemspec
+* [COMPAT] [#2120] Add "webrick" to Gemfile
+* [UI] [#2115] Remove inline style from icon svg
+* [COMPAT] [#2102] Update browsers used in CI
+* [COMPAT] [#2097] Manage Selenium drivers automatically
+* [BUGFIX] [#2125] Fix rspec invocation in CircleCI
+* [BUGFIX] Typo navigation:back_to_app
+* [BUGFIX] [#2108] Hide link if user is not authorized to access resource
+* [COMPAT] [#2107] Relax momentjs-rails version constraint
+* [UI] [#2105] Add resource/attribute name to table headers
+* [COMPAT] [#2074] gemspec: Drop unused directive test_files
+* [COMPAT] [#2101] Limit the highest momentjs-rails version to 2.20.1
+* [DOCS] [#2046] Remove password field from Extending Administrate
+* [FEATURE] [#2029] Add format option to time field
+* [FEATURE] [#1998] Reformulate authorization in example app
+* [COMPAT] [#2027] Drop support for Ruby `< 2.6`
+* [FEATURE] [#2018] Add :include_blank option to Field::Select
+* [COMPAT] [#2023] Avoid version not compatible with Ruby 2.5
+* [BUGFIX] [#2015] Only call html_safe on flash message that responds to it
+* [FEATURE] [#2005] Add params to collection filter
+* [UI] [#2013] Fix nav styles for namespaced resources
+* [COMPAT] [#2001] Remove shims that force deprecated form of methods
+* [COMPAT] [#2008] Fix deprecation warning
+* [FEATURE] [#1991] Allow different form attributes for new/update actions
+* [BUGFIX] [#2003] Only allow HTTP(S) URLs in example app
+* [DOC] [#2002] Create SECURITY.md
+* [FEATURE] [#1995] Allow customising redirects after actions
+* [UI] [#1996] Opt-out of FLoC: https://amifloced.org/
+* [DOC] [#1968] Add a script to list recent changes to templates
+
+### 0.16.0 (May 6, 2021)
+
+This release incorporates a fix for breakages on Rails 6.1.3.2 and 6.0.3.7
+which were released to fix some security issues.
+
+The following templates have changed since v0.15.0:
+
+  app/views/administrate/application/_navigation.html.erb
+  app/views/administrate/application/index.html.erb
+  app/views/fields/url/_index.html.erb
+  app/views/fields/url/_show.html.erb
+
+If your application overrides any of them, make sure to review your
+custom templates to ensure that they remain compatible.
+
+* [COMPAT] [#1972] Support Rails 6.1.3.2 & 6.0.3.7.
+* [DOC] [#1962] Allow both /contributing and /CONTRIBUTING.md.
+* [UI] [#1956] Isolate spacing properties for 'button--alt' class.
+* [COMPAT] [#1961] Fix deprecation warning about i18n errors.
+* [COMPAT] [#1960] Fix deprecation warning about dots in paths.
+* [DOC] [#1937] Add guides for Fields::Url.
+* [DOC] [#1933] Update bin/setup.
+
+### 0.15.0 (February 26, 2021)
+
+* [BUGFIX] [#1762] Better error message if key is not specified in ATTRIBUTE_TYPES (#1762).
+* [BUGFIX] [#1827] Correct "required" asterisk when using validation option `:on`,
+* [DOC] [#1839] Link "How to"^W^WGuides" section from navigation.
+* [DOC] [#1829] Show the LICENSE in the Docs.
+* [DOC] [#1899] Let readers know that plugins are available.
+* [COMPAT] [#1904] Add assets.precompile config to Engine.
+* [i18n] [#1916] Add Finnish locale.
+* [i18n] [#1905] Fix typos in administrate.fr.yml.
+* [FEATURE] [#1909] Rely on Rails' `route` method to be correct.
+* [BUGFIX] [#1910] Fix an issue where loading in routes blew up.
+* [BUGFIX] [#1880] Turbo compatibility: return status unprocessable_entity.
+* [COMPAT] [#1900] Update to Heroku's recommended Unicorn config.
+* [DOC] [#1870] Update getting_started.md.
+* [BUGFIX] [#1869] Ensure we regularly destroy all models.
+* [BUGFIX] [#1868] Correct text of misleading specs.
+* [FEATURE] [#1844] Select field selected value.
+* [BUGFIX] [#1794] Don't show unpersisted `has_one` associations.
+* [FEATURE] [#1832] Namespace option view generators.
+* [BUGFIX] [#1788] Pass page local when rendering field, as has_one's rely on page existing.
+* [DOC] [#1776] Improve how documentation pages are rendered.
+* [FEATURE] [#1234] Allow authorize_resource to be called on index.
+* [FEATURE] [#1782] Adding an error message during 'administrate' initialize when there are no models in db.
+* [FEATURE] [#1797] Add delimiter option for number fields.
+* [DOC] [#1811] Provide a single, unified source of documentation.
+* [DOC] [#1813] Document both demo apps consistently.
+* [FEATURE] [#1804] Enable Selectize for polymorphic fields.
+* [BUGFIX] [#1799] Conditionals mark fields as optional.
+* [BUGFIX] Move field requireness logic to Field::Base.
+* [FEATURE] [#1633] Add automatic associations.
+* [BUGFIX] [#1800] Use correct values when sorting by has_many associations.
+* [SECURITY] [#1786] Prevent dangerous query method on #order_by_id.
+* [COMPAT] [#1791] Upgrade bundler to 2.1.4.
+* [COMPAT] [#1602] Upgrade Ruby to 2.7.2.
+* [COMPAT] [#1548] Test against Ruby 2.7 on CircleCI.
+* [COMPAT] [#1785] Switch to using suspender's Capybara configuration.
+* [UI] [#1630] Add CSP tags to default layout.
+* [i18n] [#1626] Allow translating resource names in flashes.
+* [FEATURE] [#991] Add generator helper to find project's routes.rb.
+* [COMPAT] [#1784] Add kaminari-i18n to Appraisal's gemfiles.
+* [i18n] [#1777] Translate model name label on Dashboard index.
+* [DOC] [#1781] Document hiding Dashboards in a How To section.
+* [CHANGE] [#1404] UUID's should be rendered Field::String.
+* [FEATURE] [#1222] include_blank in Belongs to form.
+* [FEATURE] [#1259] Use show page attributes when rendering has_one.
+* [BUGFIX] [#1226] Fix Time fields bug which occurs when Time value is nil.
+* [BUGFIX] [#1063] Use number_field for Field::Number.
+* [DOC] [#1439] Fix collection filters example in dashboard template.
+* [UI] [#1064] human_attribute_name instead of raw attr_name.
+* [UI] [#1357] Add word-break to attribute-data.
+* [i18n] [#1769] Update nl translations.
+* [CHANGE] [#1581] Use left join instead of inner join when searching.
+* [COMPAT] [#1749] Remove autoprefixer.
+* [DOC] [#1751] Add example for adding controllers without a related model docs.
+* [BUGFIX] [#1744] Don't delete `/tmp` before generator tests.
+* [DOC] [#1742] Add missing title to Without Related Model doc.
+* [COMPAT] [#1740] Drop support for Rails 4.2.
+* [DOC] [#1634] Add YARD for inline documentation.
+* [UI] [#1737] Change the way polymorphic fields display links.
+* [BUGFIX] [#1738] Fix indentation on generated Dashboards.
+* [BUGFIX] [#1725] Fix pagination of "Page" models.
+* [COMPAT] [#1726] Use Rails defaults from v6.0.3.2 for gitignore.
+* [DOC] [#1698] Allow fetching special files in the documentation.
+* [COMPAT] [#1718] Replace phantomjs with Selenium/WebDrivers.
+* [UI] [#1702] Increase percentage for attribute label.
+* [UI] [#1701] Add min-width to main-content.
+* [i18n] [#1713] Add Turkish translations.
+* [i18n] [#1703] Update Portuguese translations.
+
+### 0.14.0 (July 2, 2020)
+
+* [BUGFIX] [#1695] Fix local development by keeping tmp/pids around.
+* [DOC] [#1679] Any view can be replaced, not only from generators.
+* [BUGFIX] [#1690] Restore destroy functionality.
+* [OPTIM] [#1687] Remove usages of `protected` visibility.
+* [BUGFIX] [#1672] Fix time fields default to 8pm.
+* [FEATURE] [#1591] Check if routes can be shown in navigation.
+* [FEATURE] [#1655] Detect enum fields as Selects rather than as Strings.
+* [FEATURE] [#1648] Recursively handle polymorphic parameters.
+* [FEATURE] [#1644] Allow overriding default sorting.
+* [OPTIM] [#1649] Use singular resource name for error explanation.
+* [I18n] [#1651] Translate "Back to app" label.
+* [FEATURE] [#1646] Allow for label/value setting in Field::Select collection.
+* [UI] [#1620] Dry up flashes SCSS and remove unused variables.
+* [COMPAT] [#1618] Remove jQuery ujs.
+* [FEATURE] [#1203] Support for searching over multiple fields.
+* [DOC] [#1621] Add Appraisal install to the setup script.
+* [I18n] [#1604] Use proper translation for "clear" I18n key in nl.
+* [BUGFIX] [#1596] Render all records allowed by the authorization scope.
+* [FEATURE] [#1589] Allow collections to accept proc as value.
+* [FEATURE] [#1579] Allow controllers without a related model.
+* [OPTIM] [#1097] Use new_resource in new action.
+* [UI] [#1557] Provide more natural tabbing across rows in table.
+* [BUGFIX] [#1574] Fix non defined root_url bug.
+* [I18n] [#1165] Change Albanian two-letter code to "sq" as per ISO 639-1.
+* [BUGIFX] [#1576] Simplify detection of associative fields.
+* [FEATURE] [#1569] Allow tables which are not named after models.
+* [FEATURE] [#1566] Enable Selectize for BelongsTo.
+* [FEATURE] [#1398] Support association search for other types of association
+  fields.
+
+### 0.13.0 (March 13, 2020)
+
+**NOTE:** This release contains the fix for [`CVE-2020-5257`][cve-5257], which
+fixes a potential SQL injection on dashboard sorting.
+
+* [SECURITY] Fix Sort order SQL injection.
+* [BUGFIX] [#1561] Fix very narrow nested fields.
+* [BUGFIX] [#1565] Fix unterminated single quote.
+* [UI] [#1537] Provide <title> tags for doc pages.
+* [BUGFIX] [#1552] Use the correct foreign key when sorting belongs_to
+  associations.
+* [FEATURE] [#1551] More readable warnings.
+* [FEATURE] [#1512] Avoid confusion with class methods and protected/private
+  modifiers.
+* [FEATURE] [#1513] Accessible from templates; avoids having to create new
+  field types.
+* [UI] [#1536] Declare doctype, language and charset.
+* [DOC] [#1540] Add new Date field to docs.
+* [FEATURE] [#1530] Include Date Field.
+* [BUGFIX] [#1522] Align label and data on show page.
+* [FEATURE] [#1521] Expose required fields on form.
+* [DOC] [#1531] Remove project level rubocop.yml.
+* [DOC] [#1534] Move documentation of how to disable some actions on
+  controller.
+* [UI] [#1524] Hide resources without index in the navigation.
+* [DOC] [#1523] Update screenshot.
+* [UI] [#1376] Add a "back" link to the navigation.
+* [DOC] [#1187] Update comment with new namespace.
+* [DOC] [#1514] Rewrite the contributing guide.
+* [BUGFIX] [#1495] Attempt to fix random CI failures.
+* [BUGFIX] [#1507] Remove query from link, to avoid triggering banned params.
+* [DOC] [#1479] Document controller APIs.
+* [COMPAT] [#1475] Allows running specs individually.
+* [UI] [#1484] Double-click to select attribute text.
+* [DOC] Configure GitHub Sponsors.
+* [COMPAT] [#1457] Fix PhantomJS test behaviour on Linux.
+* [BUGFIX] [#920] Remove NameError rescue in page base.
+* [BUGFIX] [#1447] Don't pass raw SQL when changing sort order.
+* [FEATURE] [#1452] Support Sprockets 4.
+* [DOC] [#1426] Add issue templates.
+
+[cve-5257]: https://github.com/thoughtbot/administrate/security/advisories/GHSA-2p5p-m353-833w
+
+### 0.12.0 (September 10, 2019)
+
+* [COMPAT] [#1331] Drop active_job from the dependencies.
+* [COMPAT] [#1402] Upgrade to Rails 6.
+* [COMPAT] [#1402] Drop support for Ruby 2.4.
+* [COMPAT] [#1406] Use Zeitwerk for loading models in Rails 6.
+* [i18n] [#1400] Fix unusable expressions and wrong spacing in Korean.
+* [BUGFIX] [#1285] Added icons to copied templates.
+* [DOC] [#1378] Break Rails API documentation out to it's own page.
+* [DOC] [#1379] Document using a custom namespace.
+* [COMPAT] [#1377] AR models should inherit from ApplicationRecord.
+* [FEAT] [#947] Add search filters to dashboards.
+* [BUGFIX] [#1394] Fix loading of `Punditize`.
+* [i18n] [#1362] Fix spanish locale.
+* [BUGFIX] [#1336] Run a subset of appraisals fro Ruby 2.4.
+* [BUGFIX] [#1334] Fix warning message related to 'text-decoration-skip: ink'.
+* [BUGFIX] [#1334] Fix warning message related to Faker::LordOfTheRings.
+* [DOC] [#1310] Fix typo: `polymporphic` -> `polymorphic`.
+* [COMPAT] [#1197] Switch to sassc-rails.
+* [BUGFIX] [#1320] Patch Rails 4.2 tests to work with Ruby 2.6.
+* [COMPAT] [#1318] Drop support for Ruby 2.2, 2.3.
+* [BUGFIX] [#1290] Fix generator for non-association/columnar attrs.
+* [FEAT] [#1262] Introduce `Fields::Url`.
+* [BUGFIX] [#1268] Fix multiple association pagination.
+* [i18n] [#1239] Translate form error keys in chinese.
+* [FEAT] [#1176] Support for other types of association fields.
+* [DOC] [#1214] Adds missing colon to :name in Rails API docs.
 
 ### 0.11.0 (September 17, 2018)
 
 * [COMPAT] [#1260] Upgrade Ruby to 2.5.1.
 * [COMPAT] [#1216] Update ffi from 1.9.23 to 1.9.25.
-* [DOC] [#1166] Add forgotten .with_options in documentation .
+* [DOC] [#1166] Add forgotten .with_options in documentation.
 * [DOC] [#1199] Update customizing_dashboards doc.
 * [i18n] [#1200] Fix error in suggested translation key.
 * [DOC] [#1177] Return a 404 when docs pages are not found.

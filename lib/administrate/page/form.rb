@@ -10,8 +10,8 @@ module Administrate
 
       attr_reader :resource
 
-      def attributes
-        dashboard.form_attributes.map do |attribute|
+      def attributes(action = nil)
+        dashboard.form_attributes(action).map do |attribute|
           attribute_field(dashboard, resource, attribute, :form)
         end
       end
@@ -20,7 +20,7 @@ module Administrate
         dashboard.display_resource(resource)
       end
 
-      protected
+      private
 
       attr_reader :dashboard
     end

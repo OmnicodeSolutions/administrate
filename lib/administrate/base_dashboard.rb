@@ -1,6 +1,7 @@
 require "administrate/field/belongs_to"
 require "administrate/field/boolean"
 require "administrate/field/date_time"
+require "administrate/field/date"
 require "administrate/field/email"
 require "administrate/field/has_many"
 require "administrate/field/has_one"
@@ -16,6 +17,18 @@ require "administrate/field/password"
 module Administrate
   class BaseDashboard
     include Administrate
+
+    DASHBOARD_SUFFIX = "Dashboard".freeze
+
+    class << self
+      def model
+        to_s.chomp(DASHBOARD_SUFFIX).classify.constantize
+      end
+
+      def resource_name(opts)
+        model.model_name.human(opts)
+      end
+    end
 
     def attribute_types
       self.class::ATTRIBUTE_TYPES
@@ -37,13 +50,31 @@ module Administrate
       attribute_types.keys
     end
 
-    def form_attributes
-      self.class::FORM_ATTRIBUTES
+    def form_attributes(action = nil)
+      action =
+        case action
+        when "update" then "edit"
+        when "create" then "new"
+        else action
+        end
+      specific_form_attributes_for(action) || self.class::FORM_ATTRIBUTES
     end
 
-    def permitted_attributes
-      form_attributes.map do |attr|
-        attribute_types[attr].permitted_attribute(attr)
+    def specific_form_attributes_for(action)
+      return unless action
+
+      cname = "FORM_ATTRIBUTES_#{action.upcase}"
+
+      self.class.const_get(cname) if self.class.const_defined?(cname)
+    end
+
+    def permitted_attributes(action = nil)
+      form_attributes(action).map do |attr|
+        attribute_types[attr].permitted_attribute(
+          attr,
+          resource_class: self.class.model,
+          action: action,
+        )
       end.uniq
     end
 
@@ -55,6 +86,12 @@ module Administrate
       self.class::COLLECTION_ATTRIBUTES
     end
 
+    def search_attributes
+      attribute_types.keys.select do |attribute|
+        attribute_types[attribute].searchable?
+      end
+    end
+
     def display_resource(resource)
       "#{resource.class} ##{resource.id}"
     end
@@ -64,7 +101,13 @@ module Administrate
     end
 
     def item_includes
+      # Deprecated, internal usage has moved to #item_associations
+      Administrate.warn_of_deprecated_method(self.class, :item_includes)
       attribute_includes(show_page_attributes)
+    end
+
+    def item_associations
+      attribute_associated(show_page_attributes)
     end
 
     private
@@ -73,18 +116,19 @@ module Administrate
       "Attribute #{attr} could not be found in #{self.class}::ATTRIBUTE_TYPES"
     end
 
-    def association_classes
-      @association_classes ||=
-        ObjectSpace.each_object(Class).
-          select { |klass| klass < Administrate::Field::Associative }
-    end
-
     def attribute_includes(attributes)
       attributes.map do |key|
-        field = self.class::ATTRIBUTE_TYPES[key]
+        field = attribute_type_for(key)
 
-        next key if association_classes.include?(field)
-        key if association_classes.include?(field.try(:deferred_class))
+        key if field.eager_load?
+      end.compact
+    end
+
+    def attribute_associated(attributes)
+      attributes.map do |key|
+        field = attribute_type_for(key)
+
+        key if field.associative?
       end.compact
     end
   end

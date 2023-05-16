@@ -23,7 +23,11 @@ module Administrate
         dashboard.try(:item_includes) || []
       end
 
-      protected
+      def item_associations
+        dashboard.try(:item_associations) || []
+      end
+
+      private
 
       def attribute_field(dashboard, resource, attribute_name, page)
         value = get_attribute_value(resource, attribute_name)
@@ -33,8 +37,6 @@ module Administrate
 
       def get_attribute_value(resource, attribute_name)
         resource.public_send(attribute_name)
-      rescue NameError
-        nil
       end
 
       attr_reader :dashboard, :options

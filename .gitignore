@@ -8,12 +8,17 @@
 /coverage/*
 /db/*.sqlite3
 /log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
 /spec/example_app/log/*
+/spec/example_app/tmp/*
+!/spec/example_app/log/.keep
+!/spec/example_app/tmp/.keep
 /spec/example_app/public/system
 /spec/example_app/public/assets
+/spec/example_app/config/database.yml
 /tags
-/tmp/*
-/spec/example_app/tmp/*
 pkg
 *.ipr
 *.iws
@@ -21,3 +26,5 @@ pkg
 /.idea
 .byebug_history
 gemfiles/.bundle/
+.yardoc
+/doc

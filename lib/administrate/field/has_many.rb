@@ -7,7 +7,17 @@ module Administrate
     class HasMany < Associative
       DEFAULT_LIMIT = 5
 
-      def self.permitted_attribute(attr, _options = nil)
+      def self.permitted_attribute(attr, _options = {})
+        # This may seem arbitrary, and improvable by using reflection.
+        # Worry not: here we do exactly what Rails does. Regardless of the name
+        # of the foreign key, has_many associations use the suffix `_ids`
+        # for this.
+        #
+        # Eg: if the associated table and primary key are `countries.code`,
+        # you may expect `country_codes` as attribute here, but it will
+        # be `country_ids` instead.
+        #
+        # See https://github.com/rails/rails/blob/b30a23f53b52e59d31358f7b80385ee5c2ba3afe/activerecord/lib/active_record/associations/builder/collection_association.rb#L48
         { "#{attr.to_s.singularize}_ids".to_sym => [] }
       end
 
@@ -20,32 +30,45 @@ module Administrate
       end
 
       def associated_resource_options
-        candidate_resources.map do |resource|
-          [display_candidate_resource(resource), resource.send(primary_key)]
+        candidate_resources.map do |associated_resource|
+          [
+            display_candidate_resource(associated_resource),
+            associated_resource.send(association_primary_key),
+          ]
         end
       end
 
       def selected_options
         return if data.empty?
 
-        data.map { |object| object.send(primary_key) }
+        data.map { |object| object.send(association_primary_key) }
       end
 
       def limit
         options.fetch(:limit, DEFAULT_LIMIT)
       end
 
+      def paginate?
+        limit.respond_to?(:positive?) ? limit.positive? : limit.present?
+      end
+
       def permitted_attribute
-        self.class.permitted_attribute(attribute)
+        self.class.permitted_attribute(
+          attribute,
+          resource_class: resource.class,
+        )
       end
 
       def resources(page = 1, order = self.order)
-        resources = order.apply(data).page(page).per(limit)
+        resources = order.apply(data)
+        if paginate?
+          resources = resources.page(page).per(limit)
+        end
         includes.any? ? resources.includes(*includes) : resources
       end
 
       def more_than_limit?
-        data.count(:all) > limit
+        paginate? && data.count(:all) > limit
       end
 
       def data

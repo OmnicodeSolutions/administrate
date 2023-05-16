@@ -1,4 +1,6 @@
-# Customizing controller actions
+---
+title: Customizing controller actions
+---
 
 When you install Administrate into your app,
 we generate empty controllers for each of your resources.
@@ -40,4 +42,54 @@ class Admin::FoosController < Admin::ApplicationController
   #  end
   # end
 end
+```
+
+## Customizing Actions
+
+To disable certain actions globally, you can disable their
+routes in `config/routes.rb`, using the usual Rails
+facilities for this. For example:
+
+```ruby
+Rails.application.routes.draw do
+  # ...
+  namespace :admin do
+    # ...
+
+    # Payments can only be listed or displayed
+    resources :payments, only: [:index, :show]
+  end
+end
+```
+
+## Customizing Default Sorting
+
+To set the default sorting on the index action you could override `default_sorting_attribute` or `default_sorting_direction` in your dashboard controller like this:
+
+```ruby
+def default_sorting_attribute
+  :age
+end
+
+def default_sorting_direction
+  :desc
+end
+```
+
+## Customizing Redirects after actions
+
+To set custom redirects after the actions `create`, `update` and `destroy` you can override `after_resource_created_path`, `after_resource_updated_path` or `after_resource_destroyed_path` like this:
+
+```ruby
+    def after_resource_destroyed_path(_requested_resource)
+      { action: :index, controller: :some_other_resource }
+    end
+
+    def after_resource_created_path(requested_resource)
+      [namespace, requested_resource.some_other_resource]
+    end
+
+    def after_resource_updated_path(requested_resource)
+      [namespace, requested_resource.some_other_resource]
+    end
 ```

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :customer do
-    country
+    association :territory, factory: :country
     sequence(:name) { |n| "Customer #{n}" }
     email { name.downcase.gsub(" ", "_") + "@example.com" }
 
@@ -44,6 +44,7 @@ FactoryBot.define do
       "https://cdn.recombu.com/mobile/images/news/M11370/1264769196_w670.jpg"
     end
     product_meta_tag
+    release_year { [2018, 2019, 2020].sample }
   end
 
   factory :product_meta_tag do
@@ -60,6 +61,10 @@ FactoryBot.define do
     body { "Empty" }
   end
 
+  factory :blog_tag, class: "Blog::Tag" do
+    name { Faker::NatoPhoneticAlphabet.code_word.downcase }
+  end
+
   factory :series do
     sequence(:name) { |n| "Series #{n}" }
   end
@@ -68,4 +73,6 @@ FactoryBot.define do
     sequence(:name) { |n| "Country #{n}" }
     sequence(:code) { |n| "C#{n}" }
   end
+
+  factory :page
 end

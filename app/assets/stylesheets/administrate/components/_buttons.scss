@@ -41,3 +41,23 @@ input[type="submit"],
     }
   }
 }
+
+.button--alt {
+  background-color: transparent;
+  border: $base-border;
+  border-color: $blue;
+  color: $blue;
+}
+
+.button--danger {
+  background-color: $red;
+
+  &:hover {
+    background-color: mix($black, $red, 20%);
+    color: $white;
+  }
+}
+
+.button--nav {
+  margin-bottom: $base-spacing;
+}

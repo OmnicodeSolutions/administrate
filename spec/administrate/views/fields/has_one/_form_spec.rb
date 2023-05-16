@@ -8,10 +8,11 @@ describe "fields/has_one/_form", type: :view do
       attribute: "Meta",
       data: nil,
       nested_form: nested_form,
+      name: "product_tag",
     )
 
     render(
-      partial: "fields/has_one/form.html.erb",
+      partial: "fields/has_one/form",
       locals: { field: has_one, f: form_builder },
     )
 

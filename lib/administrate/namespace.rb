@@ -1,7 +1,7 @@
 module Administrate
   class Namespace
     def initialize(namespace)
-      @namespace = namespace
+      @namespace = namespace.to_sym
     end
 
     def resources
@@ -16,6 +16,10 @@ module Administrate
       end.map do |controller, action|
         [controller.gsub(/^#{namespace}\//, ""), action]
       end
+    end
+
+    def resources_with_index_route
+      routes.select { |_resource, route| route == "index" }.map(&:first).uniq
     end
 
     private

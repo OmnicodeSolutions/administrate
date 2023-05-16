@@ -21,17 +21,40 @@ module Administrate
           options == other.options
       end
 
+      def associative?
+        deferred_class.associative?
+      end
+
+      def eager_load?
+        deferred_class.eager_load?
+      end
+
       def searchable?
         options.fetch(:searchable, deferred_class.searchable?)
       end
 
       def searchable_field
+        ActiveSupport::Deprecation.warn(
+          "searchable_field is deprecated, use searchable_fields instead",
+        )
         options.fetch(:searchable_field)
       end
 
-      def permitted_attribute(attr, _options = nil)
-        options.fetch(:foreign_key,
-          deferred_class.permitted_attribute(attr, options))
+      def searchable_fields
+        if options.key?(:searchable_field)
+          [searchable_field]
+        else
+          options.fetch(:searchable_fields)
+        end
+      end
+
+      def permitted_attribute(attr, opts = {})
+        if options.key?(:foreign_key)
+          Administrate.warn_of_deprecated_option(:foreign_key)
+          options.fetch(:foreign_key)
+        else
+          deferred_class.permitted_attribute(attr, options.merge(opts))
+        end
       end
 
       delegate :html_class, to: :deferred_class

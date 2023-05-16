@@ -9,7 +9,7 @@ module Administrate
     end
 
     def namespace
-      controller_path.split("/").first
+      controller_path.split("/").first.to_sym
     end
 
     def resource_class
@@ -21,7 +21,7 @@ module Administrate
     end
 
     def resource_title
-      model_path_parts.join(" ")
+      resource_class.model_name.human
     end
 
     private
@@ -35,7 +35,8 @@ module Administrate
     end
 
     def controller_path_parts
-      controller_path.split("/")[1..-1].map(&:singularize)
+      path_parts = controller_path.split("/")[1..-1]
+      path_parts << path_parts.pop.singularize
     end
 
     attr_reader :controller_path

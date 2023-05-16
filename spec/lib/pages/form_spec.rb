@@ -1,4 +1,4 @@
-require "administrate/page/form"
+require "rails_helper"
 
 describe Administrate::Page::Form do
   describe "#page_title" do
@@ -7,6 +7,52 @@ describe Administrate::Page::Form do
       page = Administrate::Page::Form.new(CustomerDashboard.new, customer)
 
       expect(page.page_title).to eq("Worf")
+    end
+  end
+
+  describe "#attributes" do
+    let(:line_item) { build(:line_item) }
+    let(:page) { described_class.new(LineItemDashboard.new, line_item) }
+    let(:attributes) { page.attributes(action).map(&:attribute) }
+
+    context "for a new action" do
+      let(:action) { "new" }
+
+      it "returns the attributes from FORM_ATTRIBUTES_NEW" do
+        expect(attributes).to match(
+          %i[
+            order
+            product
+          ],
+        )
+      end
+    end
+
+    context "for a create action" do
+      let(:action) { "create" }
+
+      it "returns the attributes from FORM_ATTRIBUTES_NEW" do
+        expect(attributes).to match(
+          %i[
+            order
+            product
+          ],
+        )
+      end
+    end
+
+    context "for an update action" do
+      let(:action) { "update" }
+
+      it "returns the attributes from FORM_ATTRIBUTES_EDIT" do
+        expect(attributes).to match(
+          %i[
+            order
+            product
+            quantity
+          ],
+        )
+      end
     end
   end
 end

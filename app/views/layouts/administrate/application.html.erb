@@ -19,10 +19,11 @@ By default, it renders:
   <meta name="ROBOTS" content="NOODP">
   <meta name="viewport" content="initial-scale=1">
   <title>
-    <%= content_for(:title) %> - <%= Rails.application.class.parent_name.titlecase %>
+    <%= content_for(:title) %> - <%= application_title %>
   </title>
   <%= render "stylesheet" %>
   <%= csrf_meta_tags %>
+  <%= csp_meta_tag if defined?(csp_meta_tag) %>
 </head>
 <body>
   <%= render "icons" %>
@@ -30,7 +31,7 @@ By default, it renders:
   <div class="app-container">
     <%= render "navigation" -%>
 
-    <main class="main-content" role="main">
+    <main class="main-content">
       <%= render "flashes" -%>
       <%= yield %>
     </main>

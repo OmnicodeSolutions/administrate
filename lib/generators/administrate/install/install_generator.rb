@@ -1,3 +1,9 @@
+if defined?(Zeitwerk)
+  Zeitwerk::Loader.eager_load_all
+else
+  Rails.application.eager_load!
+end
+
 require "rails/generators/base"
 require "administrate/generator_helpers"
 require "administrate/namespace"
@@ -8,12 +14,17 @@ module Administrate
       include Administrate::GeneratorHelpers
       source_root File.expand_path("../templates", __FILE__)
 
-      class_option :namespace, type: :string, default: "admin"
+      class_option(
+        :namespace,
+        type: :string,
+        desc: "Namespace where the admin dashboards will live",
+        default: "admin",
+      )
 
       def run_routes_generator
         if dashboard_resources.none?
           call_generator("administrate:routes", "--namespace", namespace)
-          load Rails.root.join("config/routes.rb")
+          Rails.application.reload_routes!
         end
       end
 
@@ -31,6 +42,12 @@ module Administrate
         end
       end
 
+      def model_check
+        if valid_dashboard_models.none?
+          puts "WARNING: Add models before installing Administrate."
+        end
+      end
+
       private
 
       def namespace
@@ -43,6 +60,30 @@ module Administrate
 
       def dashboard_resources
         Administrate::Namespace.new(namespace).resources
+      end
+
+      def valid_dashboard_models
+        database_models - invalid_dashboard_models
+      end
+
+      def database_models
+        ActiveRecord::Base.descendants.reject(&:abstract_class?)
+      end
+
+      def invalid_dashboard_models
+        (models_without_tables + namespaced_models + unnamed_constants).uniq
+      end
+
+      def models_without_tables
+        database_models.reject(&:table_exists?)
+      end
+
+      def namespaced_models
+        database_models.select { |model| model.to_s.include?("::") }
+      end
+
+      def unnamed_constants
+        ActiveRecord::Base.descendants.reject { |d| d.name == d.to_s }
       end
     end
   end

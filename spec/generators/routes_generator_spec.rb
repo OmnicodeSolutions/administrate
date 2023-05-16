@@ -1,7 +1,7 @@
 require "rails_helper"
-require "generators/administrate/routes/routes_generator"
-require "support/generator_spec_helpers"
 require "support/constant_helpers"
+require "support/generator_spec_helpers"
+require "generators/administrate/routes/routes_generator"
 
 describe Administrate::Generators::RoutesGenerator, :generator do
   before { stub_generator_dependencies }
@@ -46,13 +46,13 @@ describe Administrate::Generators::RoutesGenerator, :generator do
 
       expect(output).to include <<-MSG.strip_heredoc
         WARNING: Unable to generate a dashboard for Blog::Post.
-                 Administrate does not yet support namespaced models.
+               - Administrate does not yet support namespaced models.
       MSG
     end
 
     it "skips models that aren't backed by the database with a warning" do
       begin
-        class ModelWithoutDBTable < ActiveRecord::Base; end
+        class ModelWithoutDBTable < ApplicationRecord; end
         routes = file("config/routes.rb")
 
         output = run_generator
@@ -69,7 +69,7 @@ describe Administrate::Generators::RoutesGenerator, :generator do
       ActiveRecord::Migration.suppress_messages do
         ActiveRecord::Schema.define { create_table(:foos) }
       end
-      _unnamed_model = Class.new(ActiveRecord::Base) do
+      _unnamed_model = Class.new(ApplicationRecord) do
         def self.table_name
           :foos
         end
@@ -86,7 +86,7 @@ describe Administrate::Generators::RoutesGenerator, :generator do
       routes = file("config/routes.rb")
 
       begin
-        class AbstractModel < ActiveRecord::Base
+        class AbstractModel < ApplicationRecord
           self.abstract_class = true
         end
 
@@ -97,6 +97,22 @@ describe Administrate::Generators::RoutesGenerator, :generator do
           "dashboard for AbstractModel")
       end
     end
+
+    it "groups together warnings related to the same model" do
+      class TestModelNamespace
+        class ModelWithoutDBTable < ApplicationRecord; end
+      end
+
+      model_name = TestModelNamespace::ModelWithoutDBTable.to_s
+      output = run_generator
+
+      warning = "WARNING: Unable to generate a dashboard " \
+        "for #{model_name}."
+      occurrences = output.scan(warning).count
+      expect(occurrences).to eq(1)
+    ensure
+      remove_constants :TestModelNamespace
+    end
   end
 
   it "creates a root route for the admin namespace" do
@@ -104,6 +120,6 @@ describe Administrate::Generators::RoutesGenerator, :generator do
 
     run_generator
 
-    expect(routes).to contain('root to: "customers#index')
+    expect(routes).to contain('root to: "countries#index')
   end
 end
