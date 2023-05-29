@@ -23,7 +23,7 @@ pt-BR:
         none: Nenhum
     form:
       error: erro
-      errors: "%{error_count} impediram %{resource_name} de ser gravado:"
+      errors: "%{error_count} erros impediram %{resource_name} de ser gravado:"
     navigation:
       back_to_app: Voltar ao aplicativo
     search:
