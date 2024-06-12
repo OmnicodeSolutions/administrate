@@ -10,12 +10,11 @@ gem "front_matter_parser"
 gem "globalid"
 gem "kaminari-i18n"
 gem "pg"
-gem "pundit"
+gem "pundit", "~> 2.1.0"
 gem "redcarpet"
 gem "sentry-rails"
 gem "sentry-ruby"
 gem "unicorn"
-gem "rails", "~> 6.0.3.4"
 
 group :development, :test do
   gem "appraisal"

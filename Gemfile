@@ -11,7 +11,8 @@ gem "kaminari-i18n"
 gem "pg"
 gem "pundit"
 gem "redcarpet"
-gem "sentry-raven"
+gem "sentry-rails"
+gem "sentry-ruby"
 gem "unicorn"
 
 group :development, :test do
@@ -20,7 +21,7 @@ group :development, :test do
   gem "byebug"
   gem "dotenv-rails"
   gem "factory_bot_rails"
-  gem "i18n-tasks", "1.0.12"
+  gem "i18n-tasks", "1.0.13"
   gem "pry"
   gem "yard"
 end
@@ -34,7 +35,6 @@ group :test do
   gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "timecop"
-  gem "webdrivers"
   gem "webmock"
   gem "webrick"
   gem "xpath", "3.2.0"

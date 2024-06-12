@@ -10,6 +10,7 @@ require "administrate/field/polymorphic"
 require "administrate/field/rich_text"
 require "administrate/field/select"
 require "administrate/field/string"
+require "administrate/field/rich_text"
 require "administrate/field/text"
 require "administrate/field/time"
 require "administrate/field/url"
@@ -70,7 +71,13 @@ module Administrate
     end
 
     def permitted_attributes(action = nil)
-      form_attributes(action).map do |attr|
+      attributes = form_attributes action
+
+      if attributes.is_a? Hash
+        attributes = attributes.values.flatten
+      end
+
+      attributes.map do |attr|
         attribute_types[attr].permitted_attribute(
           attr,
           resource_class: self.class.model,
@@ -84,7 +91,11 @@ module Administrate
     end
 
     def collection_attributes
-      self.class::COLLECTION_ATTRIBUTES
+      if self.class::COLLECTION_ATTRIBUTES.is_a?(Hash)
+        self.class::COLLECTION_ATTRIBUTES.values.flatten
+      else
+        self.class::COLLECTION_ATTRIBUTES
+      end
     end
 
     def search_attributes
@@ -108,7 +119,12 @@ module Administrate
     end
 
     def item_associations
-      attribute_associated(show_page_attributes)
+      attributes = if show_page_attributes.is_a?(Hash)
+                     show_page_attributes.values.flatten
+                   else
+                     show_page_attributes
+                   end
+      attribute_associated attributes
     end
 
     private
