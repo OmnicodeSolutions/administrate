@@ -34,7 +34,7 @@ module Administrate
         else
           ps.resolve
         end
-       end
+      end
 
       def authorize_resource(resource)
         namespaced_resource = policy_namespace + [resource]
