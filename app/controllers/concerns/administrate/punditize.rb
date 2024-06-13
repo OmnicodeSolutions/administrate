@@ -11,7 +11,6 @@ module Administrate
 
       private
 
-
       def authorize_resource(resource)
         authorize resource
       end
@@ -24,9 +23,6 @@ module Administrate
         namespaced_scope = policy_namespace + [super]
         policy_scope!(pundit_user, namespaced_scope)
       end
-
-
-      private
 
       # Like the policy_scope method in stock Pundit, but allows the 'resolve'
       # to be overridden by 'resolve_admin' for a different index scope in Admin
