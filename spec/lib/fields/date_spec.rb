@@ -48,11 +48,3 @@ describe Administrate::Field::Date do
     end
   end
 end
-
-        with_translations(:en, formats) do
-          expect(field.date).to eq("2015")
-        end
-      end
-    end
-  end
-end
