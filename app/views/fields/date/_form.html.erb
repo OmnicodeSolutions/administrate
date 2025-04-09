@@ -18,5 +18,5 @@ This partial renders an input element for a date attribute.
   <%= f.label field.attribute %>
 </div>
 <div class="field-unit__field">
-  <%= f.date_field field.attribute %>
+  <%= f.text_field field.attribute, data: { type: 'date' }  %>
 </div>
