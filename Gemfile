@@ -24,6 +24,7 @@ group :development, :test do
   gem "i18n-tasks", "1.0.13"
   gem "pry"
   gem "yard"
+  gem 'rspec-rails', '~> 5.0'
 end
 
 group :test do
