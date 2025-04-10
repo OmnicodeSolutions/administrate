@@ -31,7 +31,7 @@ module Administrate
       def create_dashboard_controller
         template(
           "application_controller.rb.erb",
-          "app/controllers/#{admin_namespace}/application_controller.rb",
+          File.join("app/controllers", namespace, "application_controller.rb"),
         )
       end
 
@@ -50,6 +50,10 @@ module Administrate
 
       private
 
+      def namespace
+        options[:namespace] || "admin"
+      end
+
       def admin_namespace
         options[:namespace]
       end
@@ -59,7 +63,7 @@ module Administrate
       end
 
       def dashboard_resources
-        Administrate::Namespace.new(namespace).resources
+        Administrate::Namespace.new(namespace || options[:namespace]).resources
       end
 
       def valid_dashboard_models
