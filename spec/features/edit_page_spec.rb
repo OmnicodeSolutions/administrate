@@ -41,8 +41,8 @@ describe "customer edit page" do
 
     visit edit_admin_customer_path(customer)
 
-    find(".selectize-input #customer_kind-selectized").click
-    find(:xpath, "//div[@data-selectable and contains(., 'vip')]").click
+    find("#customer_kind").click
+    find("option", text: "vip").click
 
     click_on "Update Customer"
 
@@ -50,10 +50,8 @@ describe "customer edit page" do
     expect(page).to have_text("vip")
 
     visit edit_admin_customer_path(customer)
-    expect(page).to have_css(
-      ".selectize-input.items > [data-value]",
-      text: "vip",
-    )
+    expect(page).to have_text("vip")
+    expect(page).to have_select("customer_kind", selected: "vip")
   end
 
   it "displays an error when the submitted form is invalid" do
