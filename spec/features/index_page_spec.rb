@@ -23,7 +23,7 @@ describe "customer index page" do
     customer = create(:customer)
 
     visit admin_customers_path
-    click_row_for(customer)
+    click_show_link_for(customer)
 
     expect(page).to have_header(displayed(customer))
     expect(page).to have_content(customer.name)

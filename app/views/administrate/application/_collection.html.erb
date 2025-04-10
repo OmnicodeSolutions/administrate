@@ -64,10 +64,10 @@ to display a collection of resources in an HTML table.
           >
         <% collection_presenter.attributes_for(resource).each do |attribute| %>
           <td class="cell-data cell-data--<%= attribute.html_class %>">
-            <% if accessible_action?(resource, :show) -%>
+            <% if accessible_action?(resource, :show) && !render_field(attribute).include?("<a") -%>
               <a href="<%= polymorphic_path([namespace, resource]) -%>"
                  tabindex="-1"
-                 class="action-show"
+                 class="action-show <%= attribute.html_class %>"
                  >
                 <%= render_field attribute %>
               </a>

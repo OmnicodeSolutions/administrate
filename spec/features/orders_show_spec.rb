@@ -15,7 +15,7 @@ feature "order show page" do
     line_item = create(:line_item)
 
     visit admin_order_path(line_item.order)
-    click_row_for(line_item)
+    click_show_link_for(line_item)
 
     expect(page).to have_header(displayed(line_item))
   end
