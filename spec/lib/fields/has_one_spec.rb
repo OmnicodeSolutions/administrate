@@ -98,7 +98,8 @@ describe Administrate::Field::HasOne do
   describe "#linkable?" do
     context "when data is persisted" do
       it "shows it" do
-        product_meta_tag = create(:product_meta_tag)
+        product = create(:product)
+        product_meta_tag = create(:product_meta_tag, product: product)
         field = described_class.new(
           :product_meta_tag,
           product_meta_tag,

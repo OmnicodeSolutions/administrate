@@ -5,6 +5,7 @@ class Customer < ApplicationRecord
     class_name: "Country",
     foreign_key: :country_code,
     primary_key: :code,
+    optional: true,
   )
   has_many :log_entries, as: :logeable
 
