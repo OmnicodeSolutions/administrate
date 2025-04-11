@@ -45,10 +45,5 @@ jobs:
         run: bundle exec rake db:setup
       - name: Run tests
         run: bundle exec rspec
-      - name: Appraise Rails 6.0
-        run: bundle exec appraisal rails60 rspec
-        if: ${{ matrix.ruby <= '3.0' }}
-      - name: Appraise Rails 6.1
-        run: bundle exec appraisal rails61 rspec
-      - name: Appraisal Rails 7.0
+      - name: Appraise Rails 7.0
         run: bundle exec appraisal rails70 rspec
