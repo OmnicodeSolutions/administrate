@@ -44,6 +44,4 @@ jobs:
       - name: Setup the database
         run: bundle exec rake db:setup
       - name: Run tests
-        run: bundle exec rspec
-      - name: Appraise Rails 7.0
         run: bundle exec appraisal rails70 rspec
