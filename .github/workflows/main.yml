@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: "3.2.2"
+        ruby: ["3.2.2"]
     env:
       PGHOST: localhost
       PGUSER: administrate
