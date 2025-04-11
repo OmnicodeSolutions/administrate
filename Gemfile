@@ -14,10 +14,18 @@ gem "redcarpet"
 gem "sentry-rails"
 gem "sentry-ruby"
 gem "unicorn"
+gem "actionmailer", "~> 7.0.8.5"
+gem "actionpack", "~> 7.0.8.5"
+gem "actiontext", "~> 7.0.8.5"
+gem "activestorage", "~> 7.0.8.5"
+gem "nokogiri", ">= 1.18.4"
+gem "rack", "~> 2.2.13"
+gem "rails-html-sanitizer", ">= 1.6.1"
 
 group :development, :test do
   gem "appraisal"
   gem "awesome_print"
+  gem "bundler-audit", require: false
   gem "byebug"
   gem "dotenv-rails"
   gem "factory_bot_rails"
