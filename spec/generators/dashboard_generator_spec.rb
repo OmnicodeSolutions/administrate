@@ -110,12 +110,12 @@ describe Administrate::Generators::DashboardGenerator, :generator do
 
       if Rails.gem_version >= Gem::Version.new("5.0")
         it "includes virtual attributes" do
-          class Customer < ActiveRecord::Base
+          class Customer < ApplicationRecord
             attribute :plan, :string
           end
           dashboard = file("app/dashboards/customer_dashboard.rb")
 
-          run_generator ["customer"]
+          run_generator ["customer", "--include-virtuals"]
 
           expect(dashboard).to contain(
             "plan: Field::String",
