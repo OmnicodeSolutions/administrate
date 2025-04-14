@@ -102,9 +102,6 @@ GEM
       smart_properties
     bigdecimal (3.1.9)
     builder (3.2.4)
-    bundler-audit (0.9.2)
-      bundler (>= 1.2.0, < 3)
-      thor (~> 1.0)
     byebug (12.0.0)
     capybara (3.40.0)
       addressable
@@ -359,15 +356,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack (~> 7.0.8.5)
-  actiontext (~> 7.0.8.5)
-  activestorage (~> 7.0.8.5)
   administrate!
   administrate-field-image
   ammeter
   appraisal
   awesome_print
-  bundler-audit
   byebug
   capybara
   database_cleaner
@@ -380,15 +373,11 @@ DEPENDENCIES
   i18n-tasks (= 1.0.13)
   kaminari-i18n
   launchy
-  nokogiri (>= 1.18.4)
   pg
   pry
   pundit
-  rack (~> 2.2.13)
   rack-timeout
-  rails-html-sanitizer (>= 1.6.1)
   redcarpet
-  rspec-rails (~> 5.0)
   selenium-webdriver
   sentry-rails
   sentry-ruby
