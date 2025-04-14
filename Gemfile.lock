@@ -359,7 +359,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionmailer (~> 7.0.8.5)
   actionpack (~> 7.0.8.5)
   actiontext (~> 7.0.8.5)
   activestorage (~> 7.0.8.5)
