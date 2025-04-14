@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_02_181655) do
+ActiveRecord::Schema[7.0].define(version: 2025_04_11_194730) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "blog_posts", id: :serial, force: :cascade do |t|
     t.string "title"
-    t.datetime "published_at"
+    t.datetime "published_at", precision: nil
     t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "blog_posts_tags", force: :cascade do |t|
@@ -40,16 +40,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_181655) do
   create_table "countries", id: :serial, force: :cascade do |t|
     t.string "code", null: false
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["code"], name: "index_countries_on_code", unique: true
   end
 
   create_table "customers", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "email_subscriber"
     t.string "kind", default: "standard", null: false
     t.string "country_code"
@@ -63,8 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_181655) do
     t.integer "product_id"
     t.decimal "unit_price", precision: 15, scale: 2
     t.integer "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["order_id"], name: "index_line_items_on_order_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
   end
@@ -73,8 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_181655) do
     t.string "action"
     t.string "logeable_type"
     t.bigint "logeable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["logeable_type", "logeable_id"], name: "index_log_entries_on_logeable_type_and_logeable_id"
   end
 
@@ -85,9 +85,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_181655) do
     t.string "address_city"
     t.string "address_state"
     t.string "address_zip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "shipped_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "shipped_at", precision: nil
     t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 
@@ -102,8 +102,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_181655) do
 
   create_table "payments", id: :serial, force: :cascade do |t|
     t.integer "order_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["order_id"], name: "index_payments_on_order_id"
   end
 
@@ -111,8 +111,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_181655) do
     t.integer "product_id"
     t.string "meta_title", null: false
     t.string "meta_description", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "products", id: :serial, force: :cascade do |t|
@@ -120,8 +120,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_181655) do
     t.decimal "price", precision: 15, scale: 2
     t.text "description"
     t.string "image_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug", null: false
     t.integer "release_year", limit: 2
     t.index ["slug"], name: "index_products_on_slug", unique: true

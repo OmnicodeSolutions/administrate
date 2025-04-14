@@ -34,6 +34,13 @@ module Administrate
         default: "admin",
       )
 
+      class_option(
+        :include_virtuals,
+        type: :boolean,
+        default: false,
+        desc: "Include non-database attributes (defined via `attribute`) in dashboard generation"
+      )
+
       source_root File.expand_path("../templates", __FILE__)
 
       def create_dashboard_definition
@@ -73,7 +80,34 @@ module Administrate
         options[:namespace]
       end
 
+      def include_virtuals_attribute
+        options[:include_virtuals]
+      end
+
       def attributes
+        if include_virtuals_attribute
+          attributes_with_virtuals
+        else
+          normal_attributes
+        end
+      end
+
+      def attributes_with_virtuals
+        all_attributes = klass.attribute_names - redundant_attributes
+
+        primary_key = all_attributes.delete(klass.primary_key)
+        created_at = all_attributes.delete("created_at")
+        updated_at = all_attributes.delete("updated_at")
+
+        [
+          primary_key,
+          *all_attributes.sort,
+          created_at,
+          updated_at,
+        ].compact
+      end
+
+      def normal_attributes
         attrs = (
           klass.reflections.keys +
           klass.columns.map(&:name) -
@@ -106,8 +140,8 @@ module Administrate
         case association_type(relationship)
         when "Field::Polymorphic"
           [relationship + "_id", relationship + "_type"]
-        when "Field::BelongsTo"
-          relationship + "_id"
+        else
+          [relationship + "_id"]
         end
       end
 

@@ -185,7 +185,7 @@ RSpec.describe "customer show page" do
 
     visit admin_customer_path(customer)
 
-    click_row_for(order)
+    click_show_link_for(order)
 
     expect(page).to have_header(displayed(order))
   end

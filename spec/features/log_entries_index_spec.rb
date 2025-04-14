@@ -26,7 +26,7 @@ feature "log entries index page" do
     log_entry = create(:log_entry, logeable: customer)
 
     visit admin_log_entries_path
-    click_row_for(log_entry)
+    click_show_link_for(log_entry)
 
     expect(page).to have_header(displayed(log_entry))
     expect(page).to have_link(customer.name)

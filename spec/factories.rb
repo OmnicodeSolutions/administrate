@@ -3,6 +3,7 @@ FactoryBot.define do
     association :territory, factory: :country
     sequence(:name) { |n| "Customer #{n}" }
     email { name.downcase.gsub(" ", "_") + "@example.com" }
+    kind { "standard" }
 
     transient do
       order_count { 3 }
@@ -43,7 +44,6 @@ FactoryBot.define do
     image_url do
       "https://cdn.recombu.com/mobile/images/news/M11370/1264769196_w670.jpg"
     end
-    product_meta_tag
     release_year { [2018, 2019, 2020].sample }
   end
 

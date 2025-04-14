@@ -55,6 +55,7 @@ describe "product form has_one relationship" do
 
   it "edits product and meta tag data correctly" do
     product = create(:product)
+    product_meta_tag = create(:product_meta_tag, product: product)
 
     visit edit_admin_product_path(product)
 

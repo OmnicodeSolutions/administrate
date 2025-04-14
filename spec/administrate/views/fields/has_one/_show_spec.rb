@@ -27,7 +27,8 @@ describe "fields/has_one/_show", type: :view do
 
   context "with a persisted record" do
     before do
-      field_resource = create(:product_meta_tag)
+      product = create(:product)
+      field_resource = create(:product_meta_tag, product: product)
       @path_to_field_resource = polymorphic_path([:admin, field_resource])
 
       nested_simple_field = instance_double(
@@ -114,7 +115,8 @@ describe "fields/has_one/_show", type: :view do
       # Here we render a HasOne field (a Customer)
       # that in turn has a HasOne and a HasMany
       field_resource = create(:customer)
-      nested_resource = create(:page)
+      product = create(:product)
+      nested_resource = create(:page, product: product)
       nested_collection = create_list(:payment, 2)
 
       nested_has_many = instance_double(

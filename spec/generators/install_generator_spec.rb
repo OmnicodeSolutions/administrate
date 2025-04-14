@@ -66,7 +66,7 @@ describe Administrate::Generators::InstallGenerator, :generator do
         stub_generator_dependencies
         Rails.application.routes.draw {}
 
-        run_generator ["--namespace", "manager"]
+        run_generator ["--namespace=manager", "manager"]
 
         expect(Rails::Generators).to invoke_generator(
           "administrate:routes", ["--namespace", "manager"]
@@ -97,7 +97,7 @@ describe Administrate::Generators::InstallGenerator, :generator do
       %w[customer order product line_item].each do |resource|
         expect(Rails::Generators).
           to invoke_generator(
-            "administrate:dashboard", [resource, "--namespace", "admin"]
+            "administrate:dashboard", [resource, "--namespace", "admin", "--no-routes"]
           )
       end
     end

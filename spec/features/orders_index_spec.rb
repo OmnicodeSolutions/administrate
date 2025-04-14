@@ -23,7 +23,7 @@ feature "order index page" do
     order = create(:order)
 
     visit admin_orders_path
-    click_row_for(order)
+    click_show_link_for(order)
 
     expect(page).to have_header(displayed(order))
     expect(page).to have_link(order.customer.name)
