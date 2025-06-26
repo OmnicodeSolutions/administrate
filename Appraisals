@@ -7,6 +7,15 @@ appraise "rails70" do
   gem "activesupport", "~> 7.0.8.5"
 end
 
+appraise "rails80" do
+  gem "rails", "~> 8.0.0"
+  gem "activestorage", "~> 8.0.0"
+  gem "actionmailer", "~> 8.0.0"
+  gem "actionpack", "~> 8.0.0"
+  gem "actiontext", "~> 8.0.0"
+  gem "activesupport", "~> 8.0.0"
+end
+
 appraise "pundit21" do
   gem "pundit", "~> 2.1.0"
 end
