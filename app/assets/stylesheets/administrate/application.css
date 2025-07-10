@@ -1,0 +1,236 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Administrate Custom Components */
+@layer components {
+  /* Navigation */
+  .admin-nav {
+    @apply bg-gray-800 text-white shadow-lg;
+  }
+  
+  .admin-nav-item {
+    @apply block px-4 py-2 text-sm hover:bg-gray-700 transition-colors duration-150;
+  }
+  
+  .admin-nav-item.active {
+    @apply bg-gray-900 border-r-2 border-blue-500;
+  }
+
+  /* Main content area */
+  .admin-main {
+    @apply flex-1 overflow-x-hidden overflow-y-auto bg-gray-50;
+  }
+
+  .admin-content {
+    @apply container mx-auto px-6 py-8;
+  }
+
+  /* Headers */
+  .admin-header {
+    @apply border-b border-gray-200 pb-4 mb-6;
+  }
+
+  .admin-title {
+    @apply text-2xl font-bold text-gray-900;
+  }
+
+  .admin-subtitle {
+    @apply text-lg font-medium text-gray-700 mt-1;
+  }
+
+  /* Cards */
+  .admin-card {
+    @apply bg-white overflow-hidden shadow rounded-lg border border-gray-200;
+  }
+
+  .admin-card-header {
+    @apply px-6 py-4 border-b border-gray-200 bg-gray-50;
+  }
+
+  .admin-card-body {
+    @apply px-6 py-4;
+  }
+
+  /* Tables */
+  .admin-table {
+    @apply min-w-full divide-y divide-gray-200 bg-white;
+  }
+
+  .admin-table th {
+    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50;
+  }
+
+  .admin-table td {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b border-gray-200;
+  }
+
+  .admin-table tr:hover {
+    @apply bg-gray-50;
+  }
+
+  /* Forms */
+  .admin-form {
+    @apply space-y-6;
+  }
+
+  .admin-form-group {
+    @apply space-y-1;
+  }
+
+  .admin-label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+
+  .admin-label.required::after {
+    @apply text-red-500;
+    content: " *";
+  }
+
+  .admin-input {
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm;
+  }
+
+  .admin-input.error {
+    @apply border-red-500 focus:border-red-500 focus:ring-red-500;
+  }
+
+  .admin-select {
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm;
+  }
+
+  .admin-textarea {
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm resize-vertical;
+  }
+
+  .admin-checkbox {
+    @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded;
+  }
+
+  /* Buttons */
+  .admin-btn {
+    @apply inline-flex justify-center py-2 px-4 border shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-150;
+  }
+
+  .admin-btn-primary {
+    @apply admin-btn border-transparent text-white bg-blue-600 hover:bg-blue-700 focus:ring-blue-500;
+  }
+
+  .admin-btn-secondary {
+    @apply admin-btn border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-blue-500;
+  }
+
+  .admin-btn-danger {
+    @apply admin-btn border-transparent text-white bg-red-600 hover:bg-red-700 focus:ring-red-500;
+  }
+
+  .admin-btn-small {
+    @apply py-1 px-2 text-xs;
+  }
+
+  .admin-btn:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  /* Alerts/Flashes */
+  .admin-flash {
+    @apply rounded-md p-4 mb-4;
+  }
+
+  .admin-flash-success {
+    @apply admin-flash bg-green-50 border border-green-200 text-green-800;
+  }
+
+  .admin-flash-error {
+    @apply admin-flash bg-red-50 border border-red-200 text-red-800;
+  }
+
+  .admin-flash-warning {
+    @apply admin-flash bg-yellow-50 border border-yellow-200 text-yellow-800;
+  }
+
+  .admin-flash-info {
+    @apply admin-flash bg-blue-50 border border-blue-200 text-blue-800;
+  }
+
+  /* Pagination */
+  .admin-pagination {
+    @apply flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6;
+  }
+
+  .admin-pagination-nav {
+    @apply flex space-x-2;
+  }
+
+  .admin-pagination-link {
+    @apply relative inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+  }
+
+  .admin-pagination-link.active {
+    @apply text-blue-600 bg-blue-50 border-blue-500;
+  }
+
+  /* Search */
+  .admin-search {
+    @apply relative;
+  }
+
+  .admin-search-input {
+    @apply block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm;
+  }
+
+  .admin-search-icon {
+    @apply absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none;
+  }
+
+  /* Field types */
+  .admin-field-unit {
+    @apply space-y-1;
+  }
+
+  .admin-field-label {
+    @apply admin-label;
+  }
+
+  .admin-field-value {
+    @apply text-sm text-gray-900;
+  }
+
+  .admin-field-empty {
+    @apply text-sm text-gray-500 italic;
+  }
+
+  /* Responsive utilities */
+  .admin-responsive-table {
+    @apply overflow-x-auto shadow ring-1 ring-black ring-opacity-5 md:rounded-lg;
+  }
+
+  .admin-mobile-card {
+    @apply block sm:hidden bg-white border border-gray-200 rounded-lg p-4 mb-4;
+  }
+
+  .admin-desktop-table {
+    @apply hidden sm:block;
+  }
+}
+
+/* Custom animations */
+@layer utilities {
+  .admin-fade-in {
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  .admin-slide-down {
+    animation: slideDown 0.2s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+} 

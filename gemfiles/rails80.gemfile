@@ -25,6 +25,11 @@ gem "rails-html-sanitizer", ">= 1.6.1"
 gem "rails", "~> 8.0.0"
 gem "activesupport", "~> 8.0.0"
 
+gem "tailwindcss-rails", "~> 2.0"
+gem "@tailwindcss/forms"
+gem "@tailwindcss/typography"
+gem "@tailwindcss/aspect-ratio"
+
 group :development, :test do
   gem "appraisal"
   gem "awesome_print"

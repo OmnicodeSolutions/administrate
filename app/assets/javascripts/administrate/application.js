@@ -1,4 +1,12 @@
-//= require jquery
-//= require jquery_ujs
-//= require selectize
-//= require_tree .
+import "@hotwired/turbo-rails"
+import { Application } from "@hotwired/stimulus"
+import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
+
+const application = Application.start()
+const context = require.context("./controllers", true, /\.js$/)
+application.load(definitionsFromContext(context))
+
+document.addEventListener("turbo:load", () => {
+})
+
+window.Stimulus = application
