@@ -214,7 +214,11 @@
   }
 
   .attribute-label {
-    @apply text-gray-500 text-sm font-normal tracking-wide uppercase;
+    @apply text-gray-500 text-sm font-normal tracking-wide !uppercase;
+  }
+  
+  dt.attribute-label {
+    text-transform: uppercase !important;
   }
 }
 

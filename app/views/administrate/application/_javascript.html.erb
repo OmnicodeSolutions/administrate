@@ -7,6 +7,11 @@ but each page can define additional JS sources
 by providing a `content_for(:javascript)` block.
 %>
 
+<%# Load jQuery first to ensure it's available for tests and components %>
+<%= javascript_include_tag "https://code.jquery.com/jquery-3.6.0.min.js", 
+    integrity: "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=", 
+    crossorigin: "anonymous" %>
+
 <% Administrate::Engine.javascripts.each do |js_path| %>
   <%= javascript_include_tag js_path %>
 <% end %>
@@ -15,7 +20,10 @@ by providing a `content_for(:javascript)` block.
 
 <% if Rails.env.test? %>
   <%= javascript_tag do %>
-    $.fx.off = true;
-    $.ajaxSetup({ async: false });
+    // Ensure jQuery is available before configuring
+    if (typeof $ !== 'undefined') {
+      $.fx.off = true;
+      $.ajaxSetup({ async: false });
+    }
   <% end %>
 <% end %>
