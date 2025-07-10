@@ -3,6 +3,12 @@ ruby "3.2.2" unless ENV["CI"]
 
 gemspec
 
+gem "net-imap", ">= 0.5.7"
+gem "nokogiri", ">= 1.18.8"
+gem "rack", ">= 2.2.14"
+
+gem "sprockets-rails"
+
 gem "administrate-field-image"
 gem "faker"
 gem "front_matter_parser"
