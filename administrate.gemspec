@@ -16,12 +16,11 @@ Gem::Specification.new do |s|
   s.add_dependency "actionpack", ">= 6.0", "< 9.0"
   s.add_dependency "actionview", ">= 6.0", "< 9.0"
   s.add_dependency "activerecord", ">= 6.0", "< 9.0"
+  s.add_dependency "kaminari", "~> 1.2.2"
 
   # Modern Rails 8 dependencies
   s.add_dependency "turbo-rails", "~> 2.0"
   s.add_dependency "stimulus-rails", "~> 1.3"
-  s.add_dependency "tailwindcss-rails", "~> 2.0"
-  s.add_dependency "kaminari", "~> 1.2.2"
 
   s.description = <<-DESCRIPTION
 Administrate is heavily inspired by projects like Rails Admin and ActiveAdmin,

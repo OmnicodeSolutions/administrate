@@ -2,7 +2,16 @@ require "kaminari"
 
 require "turbo-rails" if defined?(Rails)
 require "stimulus-rails" if defined?(Rails)
-require "tailwindcss-rails" if defined?(Rails)
+
+begin
+  require "tailwindcss-rails" if defined?(Rails)
+rescue LoadError
+end
+
+begin
+  require "sprockets/railtie" if defined?(Rails)
+rescue LoadError
+end
 
 require "administrate/namespace/resource"
 require "administrate/not_authorized_error"
@@ -21,6 +30,15 @@ module Administrate
 
     @@javascripts = []
     @@stylesheets = []
+
+    initializer "administrate.assets.precompile" do |app|
+      if app.config.respond_to?(:assets) && app.config.assets.respond_to?(:precompile)
+        app.config.assets.precompile += [
+          "administrate/application.js",
+          "administrate/application.css",
+        ]
+      end
+    end
 
     initializer "administrate.importmap", before: "importmap" do |app|
       if app.config.respond_to?(:importmap)
