@@ -212,6 +212,10 @@
   .admin-desktop-table {
     @apply hidden sm:block;
   }
+
+  .attribute-label {
+    @apply text-gray-500 text-sm font-normal tracking-wide uppercase;
+  }
 }
 
 /* Custom animations */
