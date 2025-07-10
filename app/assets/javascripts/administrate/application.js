@@ -1,9 +1,13 @@
 import "@hotwired/turbo-rails"
 import { Application } from "@hotwired/stimulus"
 import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
-import $ from "jquery"
 
-window.$ = window.jQuery = $
+try {
+  const $ = require('jquery')
+  window.$ = window.jQuery = $
+} catch (e) {
+  console.log('jQuery not available via webpack, using CDN fallback')
+}
 
 import "./components/associative"
 import "./components/date_time_picker" 
@@ -15,65 +19,51 @@ const context = require.context("./controllers", true, /\.js$/)
 application.load(definitionsFromContext(context))
 
 function setupPageInteractions() {
-  const deleteLinks = document.querySelectorAll('[data-turbo-method="delete"][data-turbo-confirm], [data-method="delete"][data-confirm]')
-  deleteLinks.forEach(link => {
-    if (link.hasAttribute('data-method') && !link.hasAttribute('data-turbo-method')) {
-      link.setAttribute('data-turbo-method', link.getAttribute('data-method'))
-      link.removeAttribute('data-method')
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a[data-confirm]')
+    if (link) {
+      const confirmText = link.getAttribute('data-confirm')
+      if (confirmText) {
+        e.preventDefault()
+        e.stopPropagation()
+        
+        if (!window.confirm(confirmText)) {
+          return false
+        }
+        
+        const method = link.getAttribute('data-method')
+        if (method === 'delete') {
+          const form = document.createElement('form')
+          form.method = 'POST'
+          form.action = link.href
+          form.style.display = 'none'
+          
+          const csrfToken = document.querySelector('meta[name="csrf-token"]')
+          if (csrfToken) {
+            const csrfInput = document.createElement('input')
+            csrfInput.type = 'hidden'
+            csrfInput.name = 'authenticity_token'
+            csrfInput.value = csrfToken.content
+            form.appendChild(csrfInput)
+          }
+          
+          const methodInput = document.createElement('input')
+          methodInput.type = 'hidden'
+          methodInput.name = '_method'
+          methodInput.value = 'DELETE'
+          form.appendChild(methodInput)
+          
+          document.body.appendChild(form)
+          form.submit()
+        } else {
+          window.location.href = link.href
+        }
+      }
     }
-    
-    if (link.hasAttribute('data-confirm') && !link.hasAttribute('data-turbo-confirm')) {
-      link.setAttribute('data-turbo-confirm', link.getAttribute('data-confirm'))
-      link.removeAttribute('data-confirm')
-    }
-    
-    link.removeEventListener('click', handleDeleteClick)
-    link.addEventListener('click', handleDeleteClick)
   })
 }
 
-function handleDeleteClick(e) {
-  const link = e.target.closest('a')
-  if (!link) return
-  
-  const confirmText = link.getAttribute('data-turbo-confirm')
-  
-  if (confirmText) {
-    link.removeAttribute('data-turbo-confirm')
-    link.removeAttribute('data-turbo-method')
-    
-    e.preventDefault()
-    e.stopPropagation()
-    
-    if (confirm(confirmText)) {
-      const form = document.createElement('form')
-      form.method = 'POST'
-      form.action = link.href
-      form.style.display = 'none'
-      
-      const csrfToken = document.querySelector('meta[name="csrf-token"]')
-      if (csrfToken) {
-        const csrfInput = document.createElement('input')
-        csrfInput.type = 'hidden'
-        csrfInput.name = 'authenticity_token'
-        csrfInput.value = csrfToken.content
-        form.appendChild(csrfInput)
-      }
-      
-      const methodInput = document.createElement('input')
-      methodInput.type = 'hidden'
-      methodInput.name = '_method'
-      methodInput.value = 'DELETE'
-      form.appendChild(methodInput)
-      
-      document.body.appendChild(form)
-      form.submit()
-    }
-    
-    link.setAttribute('data-turbo-confirm', confirmText)
-    link.setAttribute('data-turbo-method', 'delete')
-  }
-}
+
 
 function setupSearchForms() {
   const searchForms = document.querySelectorAll('.search')
