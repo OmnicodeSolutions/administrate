@@ -8,10 +8,7 @@ begin
 rescue LoadError
 end
 
-begin
-  require "sprockets/railtie" if defined?(Rails)
-rescue LoadError
-end
+require "sprockets-rails" if defined?(Rails)
 
 require "administrate/namespace/resource"
 require "administrate/not_authorized_error"

@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
   # Modern Rails 8 dependencies
   s.add_dependency "turbo-rails", "~> 2.0"
   s.add_dependency "stimulus-rails", "~> 1.3"
+  
+  s.add_dependency "sprockets-rails"
 
   s.description = <<-DESCRIPTION
 Administrate is heavily inspired by projects like Rails Admin and ActiveAdmin,
