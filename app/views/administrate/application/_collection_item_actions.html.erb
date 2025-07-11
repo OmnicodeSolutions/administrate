@@ -11,9 +11,10 @@
     t("administrate.actions.destroy"),
     [namespace, resource],
     class: "text-color-red",
+    method: :delete,
     data: { 
-      method: :delete,
-      confirm: t("administrate.actions.confirm")
+      confirm: t("administrate.actions.confirm"),
+      turbo: false
     }
   ) if accessible_action?(resource, :destroy) %></td>
 <% end %>

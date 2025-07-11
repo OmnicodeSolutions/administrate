@@ -1,6 +1,9 @@
 import "@hotwired/turbo-rails"
+import Rails from "@rails/ujs"
 import { Application } from "@hotwired/stimulus"
 import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
+
+Rails.start()
 
 try {
   const $ = require('jquery')
@@ -17,53 +20,6 @@ import "./components/table"
 const application = Application.start()
 const context = require.context("./controllers", true, /\.js$/)
 application.load(definitionsFromContext(context))
-
-function setupPageInteractions() {
-  document.addEventListener('click', function(e) {
-    const link = e.target.closest('a[data-confirm]')
-    if (link) {
-      const confirmText = link.getAttribute('data-confirm')
-      if (confirmText) {
-        e.preventDefault()
-        e.stopPropagation()
-        
-        if (!window.confirm(confirmText)) {
-          return false
-        }
-        
-        const method = link.getAttribute('data-method')
-        if (method === 'delete') {
-          const form = document.createElement('form')
-          form.method = 'POST'
-          form.action = link.href
-          form.style.display = 'none'
-          
-          const csrfToken = document.querySelector('meta[name="csrf-token"]')
-          if (csrfToken) {
-            const csrfInput = document.createElement('input')
-            csrfInput.type = 'hidden'
-            csrfInput.name = 'authenticity_token'
-            csrfInput.value = csrfToken.content
-            form.appendChild(csrfInput)
-          }
-          
-          const methodInput = document.createElement('input')
-          methodInput.type = 'hidden'
-          methodInput.name = '_method'
-          methodInput.value = 'DELETE'
-          form.appendChild(methodInput)
-          
-          document.body.appendChild(form)
-          form.submit()
-        } else {
-          window.location.href = link.href
-        }
-      }
-    }
-  })
-}
-
-
 
 function setupSearchForms() {
   const searchForms = document.querySelectorAll('.search')
@@ -90,11 +46,10 @@ function setupSearchForms() {
 }
 
 function setupAllInteractions() {
-  setupPageInteractions()
   setupSearchForms()
 }
 
-document.addEventListener("turbo:load", setupAllInteractions)
 document.addEventListener("DOMContentLoaded", setupAllInteractions)
+document.addEventListener("turbo:load", setupAllInteractions)
 
 window.Stimulus = application
