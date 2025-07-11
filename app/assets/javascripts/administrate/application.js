@@ -5,6 +5,17 @@ import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
 
 Rails.start()
 
+document.addEventListener('turbo:before-fetch-request', function(event) {
+  const element = event.target
+  if (element.hasAttribute('data-confirm')) {
+    const message = element.getAttribute('data-confirm')
+    if (!confirm(message)) {
+      event.preventDefault()
+      return false
+    }
+  }
+})
+
 try {
   const $ = require('jquery')
   window.$ = window.jQuery = $
@@ -15,7 +26,6 @@ try {
 import "./components/associative"
 import "./components/date_time_picker" 
 import "./components/select"
-import "./components/table"
 
 const application = Application.start()
 const context = require.context("./controllers", true, /\.js$/)
@@ -45,8 +55,51 @@ function setupSearchForms() {
   }
 }
 
+function setupTableInteractions() {
+  document.addEventListener('click', function(event) {
+    const elementWithUrl = event.target.closest('[data-url]')
+    
+    if (!elementWithUrl) return
+    
+    if (event.target.tagName === 'A' || event.target.tagName === 'BUTTON' || 
+        event.target.closest('a, button, input, select, textarea')) {
+      return
+    }
+    
+    const dataUrl = elementWithUrl.getAttribute('data-url')
+    const selection = window.getSelection().toString()
+    
+    if (selection.length === 0 && dataUrl) {
+      event.preventDefault()
+      window.location.href = dataUrl
+    }
+  })
+  
+  document.addEventListener('keydown', function(event) {
+    if (event.keyCode === 32 || event.keyCode === 13) {
+      const elementWithUrl = event.target.closest('[data-url]')
+      
+      if (!elementWithUrl) return
+      
+      if (event.target.tagName === 'A' || event.target.tagName === 'BUTTON' || 
+          event.target.closest('a, button, input, select, textarea')) {
+        return
+      }
+      
+      const dataUrl = elementWithUrl.getAttribute('data-url')
+      const selection = window.getSelection().toString()
+      
+      if (selection.length === 0 && dataUrl) {
+        event.preventDefault()
+        window.location.href = dataUrl
+      }
+    }
+  })
+}
+
 function setupAllInteractions() {
   setupSearchForms()
+  setupTableInteractions()
 }
 
 document.addEventListener("DOMContentLoaded", setupAllInteractions)
