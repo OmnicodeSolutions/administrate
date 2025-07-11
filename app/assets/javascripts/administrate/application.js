@@ -5,17 +5,6 @@ import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
 
 Rails.start()
 
-document.addEventListener('turbo:before-fetch-request', function(event) {
-  const element = event.target
-  if (element.hasAttribute('data-confirm')) {
-    const message = element.getAttribute('data-confirm')
-    if (!confirm(message)) {
-      event.preventDefault()
-      return false
-    }
-  }
-})
-
 try {
   const $ = require('jquery')
   window.$ = window.jQuery = $
@@ -55,54 +44,44 @@ function setupSearchForms() {
   }
 }
 
-function setupTableInteractions() {
-  document.addEventListener('click', function(event) {
-    const elementWithUrl = event.target.closest('[data-url]')
+function handleTableRowClick(event) {
+  const elementWithUrl = event.target.closest('[data-url]')
+  if (!elementWithUrl) return
+  
+  if (event.target.tagName === 'A' || 
+      event.target.tagName === 'BUTTON' || 
+      event.target.closest('a, button, input, select, textarea, [data-confirm]')) {
+    return
+  }
+  
+  const dataUrl = elementWithUrl.getAttribute('data-url')
+  const selection = window.getSelection().toString()
+  
+  if (selection.length === 0 && dataUrl) {
+    event.preventDefault()
     
-    if (!elementWithUrl) return
-    
-    if (event.target.tagName === 'A' || event.target.tagName === 'BUTTON' || 
-        event.target.closest('a, button, input, select, textarea')) {
-      return
-    }
-    
-    const dataUrl = elementWithUrl.getAttribute('data-url')
-    const selection = window.getSelection().toString()
-    
-    if (selection.length === 0 && dataUrl) {
-      event.preventDefault()
+    if (window.Turbo && window.Turbo.visit) {
+      window.Turbo.visit(dataUrl)
+    } else {
       window.location.href = dataUrl
     }
-  })
-  
-  document.addEventListener('keydown', function(event) {
-    if (event.keyCode === 32 || event.keyCode === 13) {
-      const elementWithUrl = event.target.closest('[data-url]')
-      
-      if (!elementWithUrl) return
-      
-      if (event.target.tagName === 'A' || event.target.tagName === 'BUTTON' || 
-          event.target.closest('a, button, input, select, textarea')) {
-        return
-      }
-      
-      const dataUrl = elementWithUrl.getAttribute('data-url')
-      const selection = window.getSelection().toString()
-      
-      if (selection.length === 0 && dataUrl) {
-        event.preventDefault()
-        window.location.href = dataUrl
-      }
-    }
-  })
+  }
 }
 
-function setupAllInteractions() {
+function setupInteractions() {
   setupSearchForms()
-  setupTableInteractions()
+  
+  if (window.adminTableHandler) {
+    document.removeEventListener('click', window.adminTableHandler, true)
+  }
+  
+  window.adminTableHandler = handleTableRowClick
+  
+  document.addEventListener('click', window.adminTableHandler, true)
 }
 
-document.addEventListener("DOMContentLoaded", setupAllInteractions)
-document.addEventListener("turbo:load", setupAllInteractions)
+document.addEventListener("DOMContentLoaded", setupInteractions)
+document.addEventListener("turbo:load", setupInteractions)
+document.addEventListener("turbo:render", setupInteractions)
 
 window.Stimulus = application

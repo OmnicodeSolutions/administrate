@@ -36,8 +36,7 @@ as well as a link to its edit page.
       class: "button button--danger",
       method: :delete,
       data: { 
-        confirm: t("administrate.actions.confirm"),
-        turbo: false
+        confirm: t("administrate.actions.confirm")
       }
     ) if accessible_action?(page.resource, :destroy) %>
   </div>
