@@ -1,6 +1,6 @@
-//= require @hotwired/turbo-rails
-//= require @rails/ujs
-//= require @hotwired/stimulus
+//= require turbo
+//= require rails-ujs
+//= require stimulus
 //= require ./components/associative
 //= require ./components/date_time_picker
 //= require ./components/select
