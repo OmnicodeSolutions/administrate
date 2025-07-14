@@ -1,17 +1,26 @@
-import "@hotwired/turbo-rails"
-import Rails from "@rails/ujs"
-import { Application } from "@hotwired/stimulus"
-import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
+//= require @hotwired/turbo-rails
+//= require @rails/ujs
+//= require @hotwired/stimulus
+//= require ./components/associative
+//= require ./components/date_time_picker
+//= require ./components/select
+//= require ./controllers/form_controller
+//= require ./controllers/table_controller
+//= require ./controllers/select_controller
+//= require ./controllers/datetime_picker_controller
 
-Rails.start()
+// Initialize Rails UJS
+if (typeof Rails !== 'undefined') {
+  Rails.start()
+}
 
-import "./components/associative"
-import "./components/date_time_picker" 
-import "./components/select"
-
-const application = Application.start()
-const context = require.context("./controllers", true, /\.js$/)
-application.load(definitionsFromContext(context))
+// Initialize Stimulus
+(function() {
+  if (typeof Stimulus !== 'undefined') {
+    const application = Stimulus.Application.start()
+    window.Stimulus = application
+  }
+})()
 
 function setupSearchForms() {
   const searchForm = document.querySelector(".js-search")
@@ -116,11 +125,8 @@ function setupInteractions() {
   window.adminTableHandler = handleTableRowClick
   
   document.addEventListener('click', window.adminConfirmHandler, true)
-  
   document.addEventListener('click', window.adminTableHandler, false)
 }
 
 document.addEventListener("DOMContentLoaded", setupInteractions)
 document.addEventListener("turbo:load", setupInteractions)
-
-window.Stimulus = application

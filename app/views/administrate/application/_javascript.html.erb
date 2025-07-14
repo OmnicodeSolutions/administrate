@@ -8,7 +8,12 @@ by providing a `content_for(:javascript)` block.
 %>
 
 <%# Load jQuery from rails gem for better compatibility %>
-<%= javascript_include_tag 'jquery3' if defined?(jquery_rails) %>
+<% begin %>
+  <%= javascript_include_tag 'jquery3' %>
+<% rescue Sprockets::Rails::Helper::AssetNotFound %>
+  <%# Fallback to CDN if jquery-rails is not available %>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<% end %>
 
 <% Administrate::Engine.javascripts.each do |js_path| %>
   <%= javascript_include_tag js_path %>
