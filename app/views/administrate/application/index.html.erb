@@ -32,15 +32,17 @@ It renders the `_table` partial to display details about the resources.
   )
 %>
 
-<section class="main-content__body main-content__body--flush">
-  <%= render(
-    "collection",
-    collection_presenter: page,
-    collection_field_name: resource_name,
-    page: page,
-    resources: resources,
-    table_title: "page-title"
-  ) %>
+<section class="admin-card">
+  <div class="admin-card-body">
+    <%= render(
+      "collection",
+      collection_presenter: page,
+      collection_field_name: resource_name,
+      page: page,
+      resources: resources,
+      table_title: "page-title"
+    ) %>
+  </div>
 
   <%= render("pagination", resources: resources) %>
 </section>

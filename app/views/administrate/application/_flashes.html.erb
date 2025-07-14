@@ -12,10 +12,16 @@ This partial renders flash messages on every page.
 %>
 
 <% if flash.any? %>
-  <div class="flashes">
+  <div class="space-y-4 mb-6">
     <% flash.each do |key, value| -%>
       <% next unless value.respond_to?(:html_safe) %>
-      <div class="flash flash-<%= key %>"><%= value.html_safe %></div>
+      <% flash_class = case key.to_s
+           when 'notice', 'success' then 'admin-flash-success'
+           when 'error', 'alert' then 'admin-flash-error'
+           when 'warning' then 'admin-flash-warning'
+           else 'admin-flash-info'
+           end %>
+      <div class="<%= flash_class %>"><%= value.html_safe %></div>
     <% end -%>
   </div>
 <% end %>

@@ -17,8 +17,8 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
 
 <% content_for(:title) { t("administrate.actions.edit_resource", name: page.page_title) } %>
 
-<header class="main-content__header">
-  <h1 class="main-content__page-title">
+<header class="admin-header">
+  <h1 class="admin-title">
     <%= content_for(:title) %>
   </h1>
 
@@ -26,11 +26,13 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
     <%= link_to(
       t("administrate.actions.show_resource", name: page.page_title),
       [namespace, page.resource],
-      class: "button",
+      class: "admin-btn admin-btn-secondary",
     ) if accessible_action?(page.resource, :show) %>
   </div>
 </header>
 
-<section class="main-content__body">
-  <%= render "form", page: page %>
+<section class="admin-card">
+  <div class="admin-card-body">
+    <%= render "form", page: page %>
+  </div>
 </section>

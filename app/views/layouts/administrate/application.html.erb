@@ -28,12 +28,14 @@ By default, it renders:
 <body>
   <%= render "icons" %>
 
-  <div class="app-container">
+  <div class="flex items-stretch mx-auto max-w-screen-2xl min-h-screen bg-gray-50">
     <%= render "navigation" -%>
 
-    <main class="main-content">
-      <%= render "flashes" -%>
-      <%= yield %>
+    <main class="admin-main">
+      <div class="admin-content">
+        <%= render "flashes" -%>
+        <%= yield %>
+      </div>
     </main>
   </div>
 

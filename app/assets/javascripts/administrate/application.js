@@ -5,13 +5,6 @@ import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
 
 Rails.start()
 
-try {
-  const $ = require('jquery')
-  window.$ = window.jQuery = $
-} catch (e) {
-  console.log('jQuery not available via webpack, using CDN fallback')
-}
-
 import "./components/associative"
 import "./components/date_time_picker" 
 import "./components/select"
@@ -21,43 +14,79 @@ const context = require.context("./controllers", true, /\.js$/)
 application.load(definitionsFromContext(context))
 
 function setupSearchForms() {
-  const searchForms = document.querySelectorAll('.search')
-  searchForms.forEach(form => {
-    if (!form.submit) {
-      form.submit = function() { 
-        this.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }))
+  const searchForm = document.querySelector(".js-search")
+  if (searchForm) {
+    searchForm.addEventListener("input", function(event) {
+      event.target.form.submit()
+    })
+  }
+}
+
+function handleConfirmations(event) {
+  const confirmLink = event.target.closest('a[data-confirm]')
+  if (confirmLink) {
+    event.preventDefault()
+    event.stopImmediatePropagation()
+    
+    const message = confirmLink.getAttribute('data-confirm')
+    const confirmed = confirm(message)
+    
+    if (confirmed) {
+      const method = confirmLink.getAttribute('data-method') || confirmLink.getAttribute('method')
+      
+      if (method && method.toLowerCase() === 'delete') {
+        const form = document.createElement('form')
+        form.method = 'POST'
+        form.action = confirmLink.href
+        form.style.display = 'none'
+        
+        const methodInput = document.createElement('input')
+        methodInput.type = 'hidden'
+        methodInput.name = '_method'
+        methodInput.value = 'DELETE'
+        form.appendChild(methodInput)
+        
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')
+        if (csrfToken) {
+          const csrfInput = document.createElement('input')
+          csrfInput.type = 'hidden'
+          csrfInput.name = 'authenticity_token'
+          csrfInput.value = csrfToken.getAttribute('content')
+          form.appendChild(csrfInput)
+        }
+        
+        document.body.appendChild(form)
+        form.submit()
+      } else {
+        window.location.href = confirmLink.href
       }
     }
     
-    if (window.$ && window.$.fn) {
-      $(form).data('legacy-submit', function() {
-        form.submit()
-      })
-    }
-  })
-  
-  window.submitSearchForm = function() {
-    const searchForm = document.querySelector('.search')
-    if (searchForm) {
-      searchForm.submit()
-    }
+    return false
   }
 }
 
 function handleTableRowClick(event) {
-  const elementWithUrl = event.target.closest('[data-url]')
-  if (!elementWithUrl) return
+  if (event.target.closest('a[data-confirm]')) return
   
   if (event.target.tagName === 'A' || 
       event.target.tagName === 'BUTTON' || 
-      event.target.closest('a, button, input, select, textarea, [data-confirm]')) {
+      event.target.closest('a, button, input, select, textarea')) {
     return
   }
   
-  const dataUrl = elementWithUrl.getAttribute('data-url')
-  const selection = window.getSelection().toString()
+  const elementWithUrl = event.target.closest('[data-url]')
+  if (!elementWithUrl) return
   
-  if (selection.length === 0 && dataUrl) {
+  if (window.location.hostname === '127.0.0.1') {
+    document.title = 'DEBUG: Table click detected'
+  }
+  
+  const selection = window.getSelection().toString()
+  if (selection.length > 0) return
+  
+  const dataUrl = elementWithUrl.getAttribute('data-url')
+  if (dataUrl) {
     event.preventDefault()
     
     if (window.Turbo && window.Turbo.visit) {
@@ -71,17 +100,27 @@ function handleTableRowClick(event) {
 function setupInteractions() {
   setupSearchForms()
   
-  if (window.adminTableHandler) {
-    document.removeEventListener('click', window.adminTableHandler, true)
+  if (window.location.hostname === '127.0.0.1') {
+    const dataUrlElements = document.querySelectorAll('[data-url]')
+    document.title = `DEBUG: Setup complete, ${dataUrlElements.length} data-url elements`
   }
   
+  if (window.adminConfirmHandler) {
+    document.removeEventListener('click', window.adminConfirmHandler, true)
+  }
+  if (window.adminTableHandler) {
+    document.removeEventListener('click', window.adminTableHandler, false)
+  }
+  
+  window.adminConfirmHandler = handleConfirmations
   window.adminTableHandler = handleTableRowClick
   
-  document.addEventListener('click', window.adminTableHandler, true)
+  document.addEventListener('click', window.adminConfirmHandler, true)
+  
+  document.addEventListener('click', window.adminTableHandler, false)
 }
 
 document.addEventListener("DOMContentLoaded", setupInteractions)
 document.addEventListener("turbo:load", setupInteractions)
-document.addEventListener("turbo:render", setupInteractions)
 
 window.Stimulus = application
