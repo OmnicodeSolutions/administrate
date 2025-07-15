@@ -9,6 +9,9 @@ gem "rack", ">= 2.2.14"
 
 gem "sprockets-rails"
 
+# Tailwind CSS para estilização
+gem "tailwindcss-rails", "~> 2.0"
+
 gem "administrate-field-image"
 gem "faker"
 gem "front_matter_parser"
