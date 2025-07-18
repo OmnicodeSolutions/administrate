@@ -1,7 +1,8 @@
-require "jquery-rails"
 require "kaminari"
-require "sassc-rails"
-require "selectize-rails"
+require "tailwindcss-rails"
+require "hotwire-rails"
+require "turbo-rails"
+require "stimulus-rails"
 require "sprockets/railtie"
 
 require "administrate/namespace/resource"

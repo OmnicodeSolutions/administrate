@@ -45,37 +45,98 @@ module Administrate
 
       if resource.save
         yield(resource) if block_given?
-        redirect_to(
-          after_resource_created_path(resource),
-          notice: translate_with_resource("create.success"),
-        )
+        
+        respond_to do |format|
+          format.html { 
+            redirect_to(
+              after_resource_created_path(resource),
+              notice: translate_with_resource("create.success"),
+            )
+          }
+          format.turbo_stream {
+            flash.now[:notice] = translate_with_resource("create.success")
+            render turbo_stream: [
+              turbo_stream.redirect_to(after_resource_created_path(resource))
+            ]
+          }
+        end
       else
-        render :new, locals: {
-          page: Administrate::Page::Form.new(dashboard, resource),
-        }, status: :unprocessable_entity
+        respond_to do |format|
+          format.html {
+            render :new, locals: {
+              page: Administrate::Page::Form.new(dashboard, resource),
+            }, status: :unprocessable_entity
+          }
+          format.turbo_stream {
+            render :new, locals: {
+              page: Administrate::Page::Form.new(dashboard, resource),
+            }, status: :unprocessable_entity
+          }
+        end
       end
     end
 
     def update
       if requested_resource.update(resource_params)
-        redirect_to(
-          after_resource_updated_path(requested_resource),
-          notice: translate_with_resource("update.success"),
-        )
+        respond_to do |format|
+          format.html {
+            redirect_to(
+              after_resource_updated_path(requested_resource),
+              notice: translate_with_resource("update.success"),
+            )
+          }
+          format.turbo_stream {
+            flash.now[:notice] = translate_with_resource("update.success")
+            render turbo_stream: [
+              turbo_stream.redirect_to(after_resource_updated_path(requested_resource))
+            ]
+          }
+        end
       else
-        render :edit, locals: {
-          page: Administrate::Page::Form.new(dashboard, requested_resource),
-        }, status: :unprocessable_entity
+        respond_to do |format|
+          format.html {
+            render :edit, locals: {
+              page: Administrate::Page::Form.new(dashboard, requested_resource),
+            }, status: :unprocessable_entity
+          }
+          format.turbo_stream {
+            render :edit, locals: {
+              page: Administrate::Page::Form.new(dashboard, requested_resource),
+            }, status: :unprocessable_entity
+          }
+        end
       end
     end
 
     def destroy
-      if requested_resource.destroy
-        flash[:notice] = translate_with_resource("destroy.success")
-      else
-        flash[:error] = requested_resource.errors.full_messages.join("<br/>")
+      respond_to do |format|
+        if requested_resource.destroy
+          format.html {
+            flash[:notice] = translate_with_resource("destroy.success")
+            redirect_to after_resource_destroyed_path(requested_resource)
+          }
+          format.turbo_stream {
+            flash.now[:notice] = translate_with_resource("destroy.success")
+            render turbo_stream: [
+              turbo_stream.remove(dom_id(requested_resource)),
+              turbo_stream.replace("flash-messages", 
+                partial: "administrate/application/flashes")
+            ]
+          }
+        else
+          format.html {
+            flash[:error] = requested_resource.errors.full_messages.join("<br/>")
+            redirect_to after_resource_destroyed_path(requested_resource)
+          }
+          format.turbo_stream {
+            flash.now[:error] = requested_resource.errors.full_messages.join("<br/>")
+            render turbo_stream: [
+              turbo_stream.replace("flash-messages", 
+                partial: "administrate/application/flashes")
+            ]
+          }
+        end
       end
-      redirect_to after_resource_destroyed_path(requested_resource)
     end
 
     private

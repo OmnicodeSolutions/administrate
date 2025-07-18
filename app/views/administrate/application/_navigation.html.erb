@@ -7,14 +7,28 @@ for all resources in the admin dashboard,
 as defined by the routes in the `admin/` namespace
 %>
 
-<nav class="navigation">
-  <%= link_to(t("administrate.navigation.back_to_app"), root_url, class: "button button--alt button--nav") if defined?(root_url) %>
+<nav class="mt-5 flex-1 px-2 space-y-1">
+  <% if defined?(root_url) %>
+    <%= link_to(
+      t("administrate.navigation.back_to_app"),
+      root_url,
+      class: "administrate-button administrate-button--secondary w-full justify-center mb-4",
+      data: { turbo: false }
+    ) %>
+  <% end %>
 
   <% Administrate::Namespace.new(namespace).resources_with_index_route.each do |resource| %>
-    <%= link_to(
-      display_resource_name(resource),
-      resource_index_route(resource),
-      class: "navigation__link navigation__link--#{nav_link_state(resource)}"
-    ) if accessible_action?(model_from_resource(resource), :index) %>
+    <% if accessible_action?(model_from_resource(resource), :index) %>
+      <%= link_to(
+        resource_index_route(resource),
+        class: "administrate-navigation-link #{'administrate-navigation-link--active' if nav_link_state(resource) == 'active'}",
+        data: { turbo_frame: "_top" }
+      ) do %>
+        <svg class="text-gray-400 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+        <%= display_resource_name(resource) %>
+      <% end %>
+    <% end %>
   <% end %>
 </nav>

@@ -17,20 +17,27 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
 
 <% content_for(:title) { t("administrate.actions.edit_resource", name: page.page_title) } %>
 
-<header class="main-content__header">
-  <h1 class="main-content__page-title">
-    <%= content_for(:title) %>
-  </h1>
+<!-- Header actions -->
+<% content_for(:header_actions) do %>
+  <%= link_to(
+    t("administrate.actions.show_resource", name: page.page_title),
+    [namespace, page.resource],
+    class: "administrate-button administrate-button--secondary",
+    data: { turbo_frame: "_top" }
+  ) if accessible_action?(page.resource, :show) %>
+<% end %>
 
-  <div>
-    <%= link_to(
-      t("administrate.actions.show_resource", name: page.page_title),
-      [namespace, page.resource],
-      class: "button",
-    ) if accessible_action?(page.resource, :show) %>
+<div class="space-y-6">
+  <!-- Page header -->
+  <div class="border-b border-gray-200 pb-4">
+    <h1 class="text-2xl font-bold text-gray-900"><%= content_for(:title) %></h1>
+    <p class="mt-2 text-sm text-gray-600">
+      <%= t("administrate.controller.edit.subtitle", resource: display_resource_name(page.resource_name, singular: true)) %>
+    </p>
   </div>
-</header>
 
-<section class="main-content__body">
-  <%= render "form", page: page %>
-</section>
+  <!-- Form -->
+  <div class="administrate-card p-6">
+    <%= render "form", page: page %>
+  </div>
+</div>
