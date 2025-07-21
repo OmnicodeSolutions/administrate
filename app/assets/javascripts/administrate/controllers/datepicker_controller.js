@@ -1,85 +1,90 @@
-import { Controller } from "@hotwired/stimulus"
-
-export default class extends Controller {
-  static values = { 
-    type: String,
-    format: String 
+(function() {
+  'use strict';
+  
+  function DatepickerController() {
+    this.typeValue = '';
+    this.formatValue = '';
   }
 
-  connect() {
-    this.setupDatePicker()
-  }
+  DatepickerController.prototype.connect = function() {
+    this.typeValue = this.element.dataset.type || '';
+    this.formatValue = this.element.dataset.format || '';
+    
+    this.setupDatePicker();
+  };
 
-  setupDatePicker() {
-    const input = this.element
+  DatepickerController.prototype.setupDatePicker = function() {
+    var input = this.element;
     
-    // Add Tailwind classes for consistent styling
-    input.classList.add("administrate-input")
+    input.classList.add("administrate-input");
     
-    // Set appropriate input type based on data-type
     switch (this.typeValue) {
       case "date":
-        input.type = "date"
-        break
+        input.type = "date";
+        break;
       case "time":
-        input.type = "time"
-        input.step = "1" // for seconds
-        break
+        input.type = "time";
+        input.step = "1";
+        break;
       case "datetime":
-        input.type = "datetime-local"
-        input.step = "1" // for seconds
-        break
+        input.type = "datetime-local";
+        input.step = "1";
+        break;
       default:
-        input.type = "text"
+        input.type = "text";
     }
     
-    // For datetime fields, we might need to format the value
     if (this.typeValue === "datetime" && input.value) {
-      this.formatDateTimeValue(input)
+      this.formatDateTimeValue(input);
     }
-  }
+  };
 
-  formatDateTimeValue(input) {
-    // Convert from DD/MM/YYYY HH:mm:ss to YYYY-MM-DDTHH:mm:ss format
-    const value = input.value
+  DatepickerController.prototype.formatDateTimeValue = function(input) {
+    var value = input.value;
     if (value && value.includes("/")) {
       try {
-        const [datePart, timePart] = value.split(" ")
-        const [day, month, year] = datePart.split("/")
-        const formattedValue = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${timePart}`
-        input.value = formattedValue
+        var parts = value.split(" ");
+        var datePart = parts[0];
+        var timePart = parts[1];
+        var dateComponents = datePart.split("/");
+        var day = dateComponents[0];
+        var month = dateComponents[1];
+        var year = dateComponents[2];
+        var formattedValue = year + "-" + month.padStart(2, '0') + "-" + day.padStart(2, '0') + "T" + timePart;
+        input.value = formattedValue;
       } catch (error) {
-        console.warn("Could not format datetime value:", value)
+        console.warn("Could not format datetime value:", value);
       }
     }
-  }
+  };
 
-  // Handle value changes to maintain format consistency
-  changed(event) {
-    const input = event.target
+  DatepickerController.prototype.changed = function(event) {
+    var input = event.target;
     
     if (this.typeValue === "datetime" && input.value) {
-      // Ensure the hidden field gets the properly formatted value
-      const hiddenField = input.form?.querySelector(`input[name="${input.name}"][type="hidden"]`)
+      var hiddenField = input.form && input.form.querySelector('input[name="' + input.name + '"][type="hidden"]');
       if (hiddenField) {
-        // Convert from YYYY-MM-DDTHH:mm:ss to DD/MM/YYYY HH:mm:ss format if needed
-        const isoValue = input.value
+        var isoValue = input.value;
         try {
-          const date = new Date(isoValue)
-          const formatted = date.toLocaleString("en-GB", {
-            day: "2-digit",
-            month: "2-digit", 
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: false
-          }).replace(/\//g, "/").replace(", ", " ")
-          hiddenField.value = formatted
+          var date = new Date(isoValue);
+          var day = date.getDate().toString().padStart(2, '0');
+          var month = (date.getMonth() + 1).toString().padStart(2, '0');
+          var year = date.getFullYear();
+          var hours = date.getHours().toString().padStart(2, '0');
+          var minutes = date.getMinutes().toString().padStart(2, '0');
+          var seconds = date.getSeconds().toString().padStart(2, '0');
+          var formatted = day + "/" + month + "/" + year + " " + hours + ":" + minutes + ":" + seconds;
+          hiddenField.value = formatted;
         } catch (error) {
-          hiddenField.value = isoValue
+          hiddenField.value = isoValue;
         }
       }
     }
-  }
-} 
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.Stimulus) {
+      window.Stimulus.register("datepicker", DatepickerController);
+    }
+  });
+})(); 

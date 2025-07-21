@@ -1,74 +1,92 @@
-import { Controller } from "@hotwired/stimulus"
-
-export default class extends Controller {
-  static targets = ["select", "search", "dropdown", "option"]
-  static values = { 
-    multiple: Boolean, 
-    searchable: Boolean,
-    placeholder: String
+(function() {
+  'use strict';
+  
+  function SelectController() {
+    this.selectTargets = [];
+    this.searchTargets = [];
+    this.dropdownTargets = [];
+    this.optionTargets = [];
+    this.multipleValue = false;
+    this.searchableValue = false;
+    this.placeholderValue = '';
+    this.isOpen = false;
   }
 
-  connect() {
-    this.setupSelect()
-    this.isOpen = false
-  }
+  SelectController.prototype.connect = function() {
+    this.multipleValue = this.element.dataset.multiple === 'true';
+    this.searchableValue = this.element.dataset.searchable === 'true';
+    this.placeholderValue = this.element.dataset.placeholder || '';
+    
+    this.setupSelect();
+  };
 
-  setupSelect() {
-    // For now, we'll enhance the native select with better styling
-    // In the future, this can be expanded to a custom dropdown implementation
-    const select = this.selectTarget
+  SelectController.prototype.setupSelect = function() {
+    var select = this.element.querySelector('select') || this.element;
     
     if (this.searchableValue) {
-      select.classList.add("searchable-select")
+      select.classList.add("searchable-select");
     }
     
     if (this.multipleValue) {
-      select.classList.add("multiple-select")
+      select.classList.add("multiple-select");
     }
 
-    // Add Tailwind classes for consistent styling
     select.classList.add(
       "administrate-input",
       "focus:ring-2", 
       "focus:ring-blue-500", 
       "focus:border-blue-500"
-    )
-  }
+    );
+  };
 
-  toggle() {
-    this.isOpen = !this.isOpen
-    this.dropdownTarget.classList.toggle("hidden", !this.isOpen)
-  }
+  SelectController.prototype.toggle = function() {
+    this.isOpen = !this.isOpen;
+    var dropdown = this.element.querySelector('[data-select-target="dropdown"]');
+    if (dropdown) {
+      dropdown.classList.toggle("hidden", !this.isOpen);
+    }
+  };
 
-  close() {
-    this.isOpen = false
-    this.dropdownTarget.classList.add("hidden")
-  }
+  SelectController.prototype.close = function() {
+    this.isOpen = false;
+    var dropdown = this.element.querySelector('[data-select-target="dropdown"]');
+    if (dropdown) {
+      dropdown.classList.add("hidden");
+    }
+  };
 
-  selectOption(event) {
-    const option = event.currentTarget
-    const value = option.dataset.value
+  SelectController.prototype.selectOption = function(event) {
+    var option = event.currentTarget;
+    var value = option.dataset.value;
+    var select = this.element.querySelector('select');
     
-    // Update the hidden select
-    const selectOption = this.selectTarget.querySelector(`option[value="${value}"]`)
+    var selectOption = select && select.querySelector('option[value="' + value + '"]');
     if (selectOption) {
-      selectOption.selected = true
-      
-      // Trigger change event
-      this.selectTarget.dispatchEvent(new Event('change', { bubbles: true }))
+      selectOption.selected = true;
+      var changeEvent = document.createEvent('Event');
+      changeEvent.initEvent('change', true, true);
+      select.dispatchEvent(changeEvent);
     }
     
     if (!this.multipleValue) {
-      this.close()
+      this.close();
     }
-  }
+  };
 
-  search(event) {
-    const query = event.target.value.toLowerCase()
+  SelectController.prototype.search = function(event) {
+    var query = event.target.value.toLowerCase();
+    var options = this.element.querySelectorAll('[data-select-target="option"]');
     
-    this.optionTargets.forEach(option => {
-      const text = option.textContent.toLowerCase()
-      option.classList.toggle("hidden", !text.includes(query))
-    })
-  }
-} 
+    for (var i = 0; i < options.length; i++) {
+      var option = options[i];
+      var text = option.textContent.toLowerCase();
+      option.classList.toggle("hidden", !text.includes(query));
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.Stimulus) {
+      window.Stimulus.register("select", SelectController);
+    }
+  });
+})(); 
