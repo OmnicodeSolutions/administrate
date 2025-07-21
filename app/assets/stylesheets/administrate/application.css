@@ -13,7 +13,7 @@
   }
   
   .administrate-table td {
-    @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-b border-gray-200;
+    @apply px-6 py-4 whitespace-nowrap text-sm text-red-600 border-b border-gray-200;
   }
   
   .administrate-table tbody tr:hover {
