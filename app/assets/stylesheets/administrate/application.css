@@ -1,3 +1,273 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+/* Custom styles for the application */
+/* Navigation notification badges */
+.unread-announcements,
+.unread-notifications {
+  position: relative;
+}
+
+.unread-announcements::after,
+.unread-notifications::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  transform: translate(50%, -50%);
+}
+  
+/* Admin interface styles */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.navigation {
+  width: 14rem;
+  background-color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+}
+
+.navigation__link {
+  display: block;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: all 0.2s;
+}
+
+.navigation__link:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+  text-decoration: none;
+}
+
+.navigation__link--active {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border-left-color: #3b82f6;
+}
+
+.main-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.main-content__header {
+  background-color: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-content__page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.main-content__body {
+  padding: 1.5rem;
+}
+
+.main-content__body--flush {
+  padding: 0;
+}
+
+/* Tables */
+table {
+  width: calc(100% - 4rem);
+  background-color: white;
+  margin: 2rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border-collapse: collapse;
+}
+
+table th {
+  background-color: #f9fafb;
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+table td {
+  padding: 1rem 1rem;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  color: #111827;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  color: white;
+  background-color: #3b82f6;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  background-color: #2563eb;
+  color: white;
+  text-decoration: none;
+}
+
+.button:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.button--alt {
+  background-color: #6b7280;
+}
+
+.button--alt:hover {
+  background-color: #4b5563;
+}
+
+.button--danger {
+  background-color: #dc2626;
+}
+
+.button--danger:hover {
+  background-color: #b91c1c;
+}
+
+.button--nav {
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+/* Forms */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.field-unit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-actions {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Cell styling */
+.cell-label {
+  position: relative;
+}
+
+.cell-label a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cell-label a:hover {
+  color: #3b82f6;
+}
+
+.cell-data a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.cell-data a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.action-edit,
+.action-show {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.action-edit:hover,
+.action-show:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.text-color-red {
+  color: #dc2626;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.text-color-red:hover {
+  color: #b91c1c;
+  text-decoration: underline;
+}
+
+/* Flash messages for consistent styling */
+.flash {
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.flash-notice {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #93c5fd;
+}
+
+.flash-alert {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+
+.flash-error {
+  background-color: #fecaca;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+.flash-success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
