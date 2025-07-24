@@ -23,7 +23,7 @@ as well as a link to its edit page.
   <div class="flex items-center space-x-3">
     <%= link_to(
       t("administrate.actions.edit_resource", name: page.page_title),
-      [:edit, namespace, page.resource],
+      resource_edit_path(page, page.resource),
       class: "administrate-button",
       data: { turbo_frame: "_top" }
     ) if accessible_action?(page.resource, :edit) %>
@@ -32,7 +32,6 @@ as well as a link to its edit page.
       t("administrate.actions.destroy"),
       [namespace, page.resource],
       class: "administrate-button administrate-button--danger",
-      method: :delete,
       data: { 
         confirm: t("administrate.actions.confirm"),
         turbo_method: :delete
@@ -83,7 +82,7 @@ as well as a link to its edit page.
   <div class="pt-6 border-t border-gray-200">
     <%= link_to(
       t("administrate.actions.back"),
-      resource_index_path,
+      resource_index_path(page),
       class: "administrate-button administrate-button--secondary",
       data: { turbo_frame: "_top" }
     ) %>

@@ -26,7 +26,7 @@ to do the heavy lifting.
 <% content_for(:header_actions) do %>
   <%= link_to(
     t("administrate.actions.back"),
-    resource_index_path,
+    resource_index_path(page),
     class: "administrate-button administrate-button--secondary",
     data: { turbo_frame: "_top" }
   ) %>

@@ -69,6 +69,82 @@ module Administrate
       )
     end
 
+    def resource_index_path(page = nil)
+      resource_name_str = page&.resource_name&.to_s || resource_name.to_s
+      if resource_name_str.include?("/")
+        resource_parts = resource_name_str.split("/")
+      else
+        resource_parts = resource_name_str.split("__")
+      end
+      
+      route_helper_name = "#{namespace}_#{resource_parts.join('_')}_path"
+      
+      send(route_helper_name)
+    rescue NoMethodError => e
+      Rails.logger.debug "Route helper #{route_helper_name} not found, using polymorphic_path"
+      polymorphic_path([namespace, resource_parts.map(&:to_sym)])
+    rescue => e
+      Rails.logger.debug "All route generation failed, using manual URL construction"
+      "/#{namespace}/#{resource_parts.join('/')}"
+    end
+
+    def resource_show_path(page = nil, resource = nil)
+      resource_name_str = page&.resource_name&.to_s || resource_name.to_s
+      if resource_name_str.include?("/")
+        resource_parts = resource_name_str.split("/")
+      else
+        resource_parts = resource_name_str.split("__")
+      end
+      
+      route_helper_name = "#{namespace}_#{resource_parts.join('_')}_path"
+      
+      send(route_helper_name, resource)
+    rescue NoMethodError => e
+      Rails.logger.debug "Route helper #{route_helper_name} not found, using polymorphic_path"
+      polymorphic_path([namespace, resource_parts.map(&:to_sym), resource])
+    rescue => e
+      Rails.logger.debug "All route generation failed, using manual URL construction"
+      "/#{namespace}/#{resource_parts.join('/')}/#{resource.id}"
+    end
+
+    def resource_destroy_path(page = nil, resource = nil)
+      resource_name_str = page&.resource_name&.to_s || resource_name.to_s
+      if resource_name_str.include?("/")
+        resource_parts = resource_name_str.split("/")
+      else
+        resource_parts = resource_name_str.split("__")
+      end
+      
+      route_helper_name = "#{namespace}_#{resource_parts.join('_')}_path"
+      
+      send(route_helper_name, resource)
+    rescue NoMethodError => e
+      Rails.logger.debug "Route helper #{route_helper_name} not found, using polymorphic_path"
+      polymorphic_path([namespace, resource_parts.map(&:to_sym), resource])
+    rescue => e
+      Rails.logger.debug "All route generation failed, using manual URL construction"
+      "/#{namespace}/#{resource_parts.join('/')}/#{resource.id}"
+    end
+
+    def resource_edit_path(page = nil, resource = nil)
+      resource_name_str = page&.resource_name&.to_s || resource_name.to_s
+      if resource_name_str.include?("/")
+        resource_parts = resource_name_str.split("/")
+      else
+        resource_parts = resource_name_str.split("__")
+      end
+      
+      route_helper_name = "edit_#{namespace}_#{resource_parts.join('_')}_path"
+      
+      send(route_helper_name, resource)
+    rescue NoMethodError => e
+      Rails.logger.debug "Route helper #{route_helper_name} not found, using polymorphic_path"
+      polymorphic_path([:edit, namespace, resource_parts.map(&:to_sym), resource])
+    rescue => e
+      Rails.logger.debug "All route generation failed, using manual URL construction"
+      "/#{namespace}/#{resource_parts.join('/')}/#{resource.id}/edit"
+    end
+
     def sanitized_order_params(page, current_field_name)
       collection_names = page.item_associations + [current_field_name]
       association_params = collection_names.map do |assoc_name|

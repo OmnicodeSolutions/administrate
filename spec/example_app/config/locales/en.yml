@@ -25,9 +25,17 @@ en:
     application: Administrate-prototype
 
   administrate:
+    actions:
+      cancel: Cancel
     controller:
       index:
         title: "%{resource}"
         subtitle: "%{count} %{resource}"
+      new:
+        subtitle: "Create a new %{resource}"
+      show:
+        subtitle: "Details for %{resource}"
+      edit:
+        subtitle: "Edit %{resource}"
     search:
       placeholder: Search %{resource}...

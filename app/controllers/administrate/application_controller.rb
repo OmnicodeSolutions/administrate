@@ -109,6 +109,7 @@ module Administrate
     end
 
     def destroy
+      authorize_resource(requested_resource)
       respond_to do |format|
         if requested_resource.destroy
           format.html {

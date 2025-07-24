@@ -393,6 +393,7 @@ DEPENDENCIES
   sentry-ruby
   shoulda-matchers
   sprockets-rails
+  tailwindcss-rails
   timecop
   uglifier
   unicorn

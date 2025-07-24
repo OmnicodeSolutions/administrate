@@ -16,6 +16,7 @@ gem "sentry-ruby"
 gem "unicorn"
 gem "sprockets-rails"
 gem "sassc-rails"
+gem "tailwindcss-rails"
 
 group :development, :test do
   gem "appraisal"

@@ -1,6 +1,4 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+/* Tailwind CSS is included via the application.tailwind.css file */
 
 /* Custom styles for the application */
 /* Navigation notification badges */

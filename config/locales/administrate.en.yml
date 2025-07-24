@@ -9,10 +9,17 @@ en:
       show_resource: Show %{name}
       new_resource: New %{name}
       back: Back
+      cancel: Cancel
     controller:
       index:
         title: "%{resource}"
         subtitle: "%{count} %{resource}"
+      new:
+        subtitle: "Create a new %{resource}"
+      show:
+        subtitle: "Details for %{resource}"
+      edit:
+        subtitle: "Edit %{resource}"
       create:
         success: "%{resource} was successfully created."
       destroy:
