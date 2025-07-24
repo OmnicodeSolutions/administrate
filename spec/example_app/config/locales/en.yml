@@ -23,3 +23,11 @@ en:
 
   titles:
     application: Administrate-prototype
+
+  administrate:
+    controller:
+      index:
+        title: "%{resource}"
+        subtitle: "%{count} %{resource}"
+    search:
+      placeholder: Search %{resource}...

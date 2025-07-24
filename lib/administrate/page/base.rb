@@ -15,6 +15,10 @@ module Administrate
         @resource_path ||= resource_name.gsub("/", "_")
       end
 
+      def resource_class
+        dashboard.class.model
+      end
+
       def collection_includes
         dashboard.try(:collection_includes) || []
       end

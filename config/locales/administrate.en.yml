@@ -10,6 +10,9 @@ en:
       new_resource: New %{name}
       back: Back
     controller:
+      index:
+        title: "%{resource}"
+        subtitle: "%{count} %{resource}"
       create:
         success: "%{resource} was successfully created."
       destroy:
@@ -28,3 +31,4 @@ en:
     search:
       clear: Clear search
       label: Search %{resource}
+      placeholder: Search %{resource}...

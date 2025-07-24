@@ -14,6 +14,8 @@ gem "redcarpet"
 gem "sentry-rails"
 gem "sentry-ruby"
 gem "unicorn"
+gem "sprockets-rails"
+gem "sassc-rails"
 
 group :development, :test do
   gem "appraisal"
