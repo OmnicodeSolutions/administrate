@@ -32,7 +32,7 @@ It renders the `_table` partial to display details about the resources.
       <label for="search" class="sr-only">Search</label>
       <div class="relative">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
-          <button type="submit" class="search-submit-btn" aria-label="Search">
+          <button type="submit" class="bg-none border-none p-0 cursor-pointer flex items-center justify-center text-inherit transition-all duration-200 ease-in-out hover:scale-105 focus:outline-2 focus:outline-blue-500 focus:outline-offset-2 focus:rounded" aria-label="Search">
             <svg class="h-4 w-4 text-gray-400 hover:text-blue-500 transition-colors duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -44,11 +44,14 @@ It renders the `_table` partial to display details about the resources.
           class: "block w-full pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm",
           autocomplete: "off" %>
         <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-          <button type="button" class="search-clear-btn" aria-label="Clear search" onclick="clearSearch()">
+          <%= link_to request.path, 
+              class: "bg-none border-none p-0 cursor-pointer flex items-center justify-center text-inherit transition-all duration-200 ease-in-out hover:scale-105 focus:outline-2 focus:outline-red-500 focus:outline-offset-2 focus:rounded", 
+              aria_label: "Clear search",
+              data: { turbo_method: :get, turbo_frame: "_top" } do %>
             <svg class="h-4 w-4 text-gray-400 hover:text-red-500 transition-colors duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
-          </button>
+          <% end %>
         </div>
       </div>
     <% end %>
@@ -103,13 +106,3 @@ It renders the `_table` partial to display details about the resources.
   <!-- Pagination -->
   <%= render("pagination", resources: resources) %>
 </div>
-
-<script>
-function clearSearch() {
-  const searchInput = document.querySelector('input[name="search"]');
-  if (searchInput) {
-    searchInput.value = '';
-    searchInput.form.submit();
-  }
-}
-</script>
