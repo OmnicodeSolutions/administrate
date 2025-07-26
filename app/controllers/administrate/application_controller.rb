@@ -195,7 +195,7 @@ module Administrate
     end
 
     def records_per_page
-      params[:per_page] || 20
+      params[:per_page] || 10
     end
 
     def order

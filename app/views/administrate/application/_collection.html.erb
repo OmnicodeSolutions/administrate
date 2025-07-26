@@ -14,9 +14,17 @@ to display a collection of resources in an HTML table.
   An ActiveModel::Relation collection of resources to be displayed in the table.
   By default, the number of resources is limited by pagination
   or by a hard limit to prevent excessive page load times
+- `show_pagination`:
+  A boolean that determines if pagination should be shown at the bottom of the table.
+  Defaults to true.
+- `param_name`:
+  The parameter name to use for pagination links. Defaults to "_page".
+  For has_many associations, this is typically "#{field.name}[page]".
 
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
 %>
+
+<% show_pagination = local_assigns.fetch(:show_pagination, true) %>
 
 <div class="administrate-card">
   <table class="administrate-table" 
@@ -96,5 +104,28 @@ to display a collection of resources in an HTML table.
         </tr>
       <% end %>
     </tbody>
+
+    <% if show_pagination && resources.respond_to?(:current_page) %>
+      <tfoot>
+        <tr>
+          <td colspan="<%= collection_presenter.attribute_types.count + 2 %>" class="border-t border-gray-200">
+            <div class="flex items-center justify-between px-4 py-3 bg-white rounded-b-lg">
+              <div class="text-sm text-gray-700">
+                Page <%= resources.current_page %> of <%= resources.total_pages %>
+              </div>
+              <div class="flex gap-6">
+                <% param_name = local_assigns.fetch(:param_name, "_page") %>
+                <%= link_to_prev_page resources, "Previous", 
+                    param_name: param_name,
+                    class: "pagination-btn #{resources.prev_page ? '' : 'pagination-btn--disabled'}" %>
+                <%= link_to_next_page resources, "Next", 
+                    param_name: param_name,
+                    class: "pagination-btn #{resources.next_page ? '' : 'pagination-btn--disabled'}" %>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    <% end %>
   </table>
 </div>

@@ -29,10 +29,9 @@ from the associated resource class's dashboard.
     resources: field.resources(page_number, order),
     table_title: field.name,
     resource_class: field.associated_class,
+    show_pagination: field.more_than_limit?,
+    param_name: "#{field.name}[page]"
   ) %>
-  <% if field.more_than_limit? %>
-    <%= render("pagination", resources: field.resources(page_number), param_name: "#{field.name}[page]") %>
-  <% end %>
 
 <% else %>
   <%= t("administrate.fields.has_many.none", default: "–") %>

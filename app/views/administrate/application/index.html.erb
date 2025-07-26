@@ -88,9 +88,6 @@ It renders the `_table` partial to display details about the resources.
   <!-- Page header -->
   <div class="border-b border-gray-200 pb-4">
     <h1 class="text-2xl font-bold text-gray-900"><%= content_for(:title) %></h1>
-    <p class="mt-2 text-sm text-gray-600">
-      <%= t("administrate.controller.index.subtitle", count: resources.total_count, resource: page.resource_name.pluralize.downcase) %>
-    </p>
   </div>
 
   <!-- Collection table -->
@@ -100,9 +97,7 @@ It renders the `_table` partial to display details about the resources.
     collection_field_name: resource_name,
     page: page,
     resources: resources,
-    table_title: "page-title"
+    table_title: "page-title",
+    show_pagination: true
   ) %>
-
-  <!-- Pagination -->
-  <%= render("pagination", resources: resources) %>
 </div>
