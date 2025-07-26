@@ -72,12 +72,12 @@ and renders all form fields for a resource's editable attributes.
     </div>
   <% end -%>
 
-  <div class="flex items-center justify-end space-x-3 pt-6 border-t border-gray-200">
+  <div class="flex items-center justify-end pt-6 border-t border-gray-200 gap-6">
     <%= link_to(
       t("administrate.actions.cancel"),
       resource_show_path(page, page.resource),
-      class: "administrate-button administrate-button--secondary"
+      class: "btn-black"
     ) if accessible_action?(page.resource, :show) && page.resource.persisted? %>
-    <%= f.submit class: "administrate-button" %>
+    <%= f.submit class: "btn-white" %>
   </div>
 <% end %>

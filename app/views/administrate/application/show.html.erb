@@ -20,18 +20,18 @@ as well as a link to its edit page.
 
 <!-- Header actions -->
 <% content_for(:header_actions) do %>
-  <div class="flex items-center space-x-3">
+  <div class="flex items-center gap-6">
     <%= link_to(
       t("administrate.actions.edit_resource", name: page.page_title),
       resource_edit_path(page, page.resource),
-      class: "administrate-button",
+      class: "btn-white",
       data: { turbo_frame: "_top" }
     ) if accessible_action?(page.resource, :edit) %>
 
     <%= link_to(
       t("administrate.actions.destroy"),
       [namespace, page.resource],
-      class: "administrate-button administrate-button--danger",
+      class: "btn-black",
       data: { 
         confirm: t("administrate.actions.confirm"),
         turbo_method: :delete
@@ -58,7 +58,7 @@ as well as a link to its edit page.
         </h3>
       <% end %>
 
-      <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-6">
         <% attributes.each do |attribute| %>
           <div class="attribute-group">
             <dt class="administrate-label" id="<%= attribute.name %>">
@@ -77,14 +77,4 @@ as well as a link to its edit page.
       </dl>
     </div>
   <% end %>
-
-  <!-- Back to index link -->
-  <div class="pt-6 border-t border-gray-200">
-    <%= link_to(
-      t("administrate.actions.back"),
-      resource_index_path(page),
-      class: "administrate-button administrate-button--secondary",
-      data: { turbo_frame: "_top" }
-    ) %>
-  </div>
 </div>

@@ -108,8 +108,8 @@ to display a collection of resources in an HTML table.
     <% if show_pagination && resources.respond_to?(:current_page) %>
       <tfoot>
         <tr>
-          <td colspan="<%= collection_presenter.attribute_types.count + 2 %>" class="border-t border-gray-200">
-            <div class="flex items-center justify-between px-4 py-3 bg-white rounded-b-lg">
+          <td colspan="100%" class="border-t border-gray-200">
+            <div class="flex items-center justify-between py-3 bg-white rounded-b-lg">
               <div class="text-sm text-gray-700">
                 Page <%= resources.current_page %> of <%= resources.total_pages %>
               </div>
@@ -117,10 +117,10 @@ to display a collection of resources in an HTML table.
                 <% param_name = local_assigns.fetch(:param_name, "_page") %>
                 <%= link_to_prev_page resources, "Previous", 
                     param_name: param_name,
-                    class: "pagination-btn #{resources.prev_page ? '' : 'pagination-btn--disabled'}" %>
+                    class: "btn-white #{resources.prev_page ? '' : 'btn-white--disabled'}" %>
                 <%= link_to_next_page resources, "Next", 
                     param_name: param_name,
-                    class: "pagination-btn #{resources.next_page ? '' : 'pagination-btn--disabled'}" %>
+                    class: "btn-white #{resources.next_page ? '' : 'btn-white--disabled'}" %>
               </div>
             </div>
           </td>
