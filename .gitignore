@@ -28,3 +28,5 @@ pkg
 gemfiles/.bundle/
 .yardoc
 /doc
+/node_modules
+.cursor/*
