@@ -26,7 +26,7 @@ to do the heavy lifting.
 <% content_for(:header_actions) do %>
   <%= link_to(
     t("administrate.actions.back"),
-    resource_index_path(page),
+    request.referer || polymorphic_path([namespace, page.resource_name]),
     class: "btn-white",
     data: { turbo_frame: "_top" }
   ) %>
