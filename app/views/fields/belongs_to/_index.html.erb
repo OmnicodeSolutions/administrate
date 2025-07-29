@@ -4,8 +4,6 @@
 This partial renders a belongs_to relationship,
 to be displayed on a resource's index page.
 
-By default, the relationship is rendered as a link to the associated object.
-
 ## Local variables:
 
 - `field`:
@@ -19,9 +17,10 @@ By default, the relationship is rendered as a link to the associated object.
   <% if accessible_action?(field.data, :show) %>
     <%= link_to(
       field.display_associated_resource,
-      [namespace, field.data],
+      polymorphic_path([:admin, field.data]),
+      class: "text-indigo-600 hover:text-indigo-900 underline"
     ) %>
   <% else %>
-    <%= field.display_associated_resource %>
+    <span class="text-gray-900"><%= field.display_associated_resource %></span>
   <% end %>
 <% end %>

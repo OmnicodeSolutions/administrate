@@ -1,22 +1,22 @@
 <%#
-# Text Form Partial
+# Rich Text Form Partial
 
-This partial renders a textarea element for a text attribute.
+This partial renders a rich text area element for rich text attributes.
 
 ## Local variables:
 
 - `f`:
   A Rails form generator, used to help create the appropriate input fields.
 - `field`:
-  An instance of [Administrate::Field::Text][1].
-  A wrapper around the Text pulled from the database.
+  An instance of [Administrate::Field::RichText][1].
+  A wrapper around the Rich Text pulled from the database.
 
-[1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Text
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/RichText
 %>
 
 <div class="field-unit__label">
-  <%= f.label field.attribute %>
+  <%= f.label field.attribute, class: "block text-sm font-medium text-gray-700 mb-1" %>
 </div>
 <div class="field-unit__field">
-  <%= f.rich_text_area field.attribute, data: { controller: "mentions", target: "mentions.field" } %>
+  <%= f.rich_text_area field.attribute, data: { controller: "mentions", target: "mentions.field" }, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
 </div>

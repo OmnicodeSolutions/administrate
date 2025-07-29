@@ -17,10 +17,11 @@ that displays all possible records to associate with.
 %>
 
 <div class="field-unit__label">
-  <%= f.label field.permitted_attribute %>
+  <%= f.label field.permitted_attribute, class: "block text-sm font-medium text-gray-700 mb-1" %>
 </div>
 <div class="field-unit__field">
   <%= f.select(field.permitted_attribute,
                options_for_select(field.associated_resource_options, field.selected_option),
-               include_blank: field.include_blank_option) %>
+               include_blank: field.include_blank_option,
+               class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm") %>
 </div>

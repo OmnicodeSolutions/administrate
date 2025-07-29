@@ -51,7 +51,7 @@ as well as a link to its edit page.
 
   <!-- Resource details -->
   <% page.attributes.each do |title, attributes| %>
-    <div class="<%= 'administrate-card p-6' if title.present? %>">
+    <div class="<%= 'administrate-card' if title.present? %>">
       <% if title.present? %>
         <h3 class="text-lg font-medium text-gray-900 mb-4 border-b border-gray-200 pb-2">
           <%= t "helpers.label.#{page.resource_name}.#{title}", default: title %>

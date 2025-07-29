@@ -4,17 +4,17 @@
 This partial renders a URL address,
 to be displayed on a resource's index page.
 
-By default, the value is rendered as an `a` element.
-
 ## Local variables:
 
 - `field`:
   An instance of [Administrate::Field::Url][1].
-  A wrapper around the email pulled from the database.
+  A wrapper around the URL pulled from the database.
 
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Url
 %>
 
-<%= content_tag :a, href: field.data, **field.html_options do %>
-  <%= field.data %>
+<% if field.data %>
+  <%= content_tag :a, href: field.data, class: "text-indigo-600 hover:text-indigo-900 underline" do %>
+    <%= field.data %>
+  <% end %>
 <% end %>

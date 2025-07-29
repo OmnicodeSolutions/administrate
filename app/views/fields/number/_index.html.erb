@@ -4,9 +4,6 @@
 This partial renders a number attribute,
 to be displayed on a resource's index page.
 
-By default, the attribute is rendered
-using the formatting options given in the resource's dashboard.
-
 ## Local variables:
 
 - `field`:
@@ -16,4 +13,4 @@ using the formatting options given in the resource's dashboard.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Number
 %>
 
-<%= field.to_s %>
+<span class="text-gray-900"><%= field.data %></span>

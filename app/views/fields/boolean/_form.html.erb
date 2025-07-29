@@ -16,8 +16,13 @@ By default, the input is a checkbox.
 %>
 
 <div class="field-unit__label">
-  <%= f.label field.attribute %>
+  <%= f.label field.attribute, class: "block text-sm font-medium text-gray-700 mb-1" %>
 </div>
 <div class="field-unit__field">
-  <%= f.check_box field.attribute %>
+  <div class="flex items-center">
+    <%= f.check_box field.attribute, class: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" %>
+    <label class="ml-2 block text-sm text-gray-900">
+      <%= field.attribute.to_s.humanize %>
+    </label>
+  </div>
 </div>

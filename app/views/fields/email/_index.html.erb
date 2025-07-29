@@ -4,8 +4,6 @@
 This partial renders an email address,
 to be displayed on a resource's index page.
 
-By default, the relationship is rendered as a `mailto` link.
-
 ## Local variables:
 
 - `field`:
@@ -15,4 +13,4 @@ By default, the relationship is rendered as a `mailto` link.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Email
 %>
 
-<%= mail_to field.data %>
+<%= mail_to field.data, class: "text-indigo-600 hover:text-indigo-900 underline" %>

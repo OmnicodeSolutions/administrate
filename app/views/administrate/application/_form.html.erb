@@ -40,7 +40,7 @@ and renders all form fields for a resource's editable attributes.
   <% end %>
 
   <% page.attributes(controller.action_name).each do |title, attributes| -%>
-    <div class="<%= 'administrate-card p-6' if title.present? %>">
+    <div class="<%= 'administrate-card' if title.present? %>">
       <% if title.present? %>
         <h3 class="text-lg font-medium text-gray-900 mb-4">
           <%= t "helpers.label.#{f.object_name}.#{title}", default: title %>

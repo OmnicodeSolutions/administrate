@@ -1,10 +1,8 @@
 <%#
 # Text Index Partial
 
-This partial renders a text attribute
+This partial renders a text attribute,
 to be displayed on a resource's index page.
-
-By default, the attribute is rendered as a truncated string.
 
 ## Local variables:
 
@@ -15,4 +13,4 @@ By default, the attribute is rendered as a truncated string.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Text
 %>
 
-<%= field.truncate %>
+<span class="text-gray-900"><%= field.truncate %></span>

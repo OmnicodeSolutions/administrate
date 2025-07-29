@@ -15,8 +15,8 @@ This partial renders a textarea element for a text attribute.
 %>
 
 <div class="field-unit__label">
-  <%= f.label field.attribute %>
+  <%= f.label field.attribute, class: "block text-sm font-medium text-gray-700 mb-1" %>
 </div>
 <div class="field-unit__field">
-  <%= f.text_area field.attribute %>
+  <%= f.text_area field.attribute, rows: 4, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
 </div>

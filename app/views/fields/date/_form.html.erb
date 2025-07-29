@@ -15,8 +15,8 @@ This partial renders an input element for a date attribute.
 %>
 
 <div class="field-unit__label">
-  <%= f.label field.attribute %>
+  <%= f.label field.attribute, class: "block text-sm font-medium text-gray-700 mb-1" %>
 </div>
 <div class="field-unit__field">
-  <%= f.date_field field.attribute %>
+  <%= f.date_field field.attribute, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
 </div>

@@ -4,9 +4,6 @@
 This partial renders a date attribute,
 to be displayed on a resource's show page.
 
-By default, the attribute is rendered
-as a localized date string.
-
 ## Local variables:
 
 - `field`:
@@ -16,6 +13,4 @@ as a localized date string.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Date
 %>
 
-<% if field.data %>
-  <%= field.date %>
-<% end %>
+<div class="text-gray-900"><%= field.data %></div>
