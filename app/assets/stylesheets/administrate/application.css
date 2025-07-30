@@ -710,12 +710,6 @@ svg use {
   @apply text-lg font-medium text-gray-900 mb-4;
 }
 
-/* Required fields */
-.field-unit.required .field-unit__label::after {
-  content: " *";
-  @apply text-red-500;
-}
-
 /* Field hints */
 .field-unit__hint {
   @apply mt-2 text-sm text-gray-500;

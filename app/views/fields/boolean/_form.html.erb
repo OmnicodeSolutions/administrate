@@ -16,7 +16,7 @@ By default, the input is a checkbox.
 %>
 
 <div class="field-unit__label">
-  <%= f.label field.attribute, class: "block text-sm font-medium text-gray-700 mb-1" %>
+  <%= f.label field.attribute, "#{field.attribute.to_s.humanize}#{field.required? ? ' *' : ''}", class: "block text-sm font-medium text-gray-700 mb-1" %>
 </div>
 <div class="field-unit__field">
   <div class="flex items-center">
