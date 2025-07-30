@@ -17,13 +17,13 @@ The form will be rendered as nested_from to parent relationship.
 %>
 
 <%= f.fields_for field.attribute, field.data || field.nested_form.resource.class.new do |has_one_f| %>
-  <fieldset class="border border-gray-300 rounded-lg p-4 mb-4">
+  <fieldset class="border border-gray-300 rounded-lg mb-4" style="padding: 1rem;">
     <legend class="text-lg font-medium text-gray-900 mb-4"><%= t "helpers.label.#{f.object_name}.#{field.name}", default: field.name.titleize %></legend>
     <% field.nested_form.attributes.each do |title, attributes| -%>
 
-      <fieldset class="<%= "border border-gray-300 rounded-lg p-4 mb-4" if title.present? %>">
+      <fieldset class="flex gap-4 flex-col <%= "border border-gray-300 rounded-lg p-4 mb-4" if title.present? %>">
         <% if title.present? %>
-          <legend class="text-lg font-medium text-gray-900 mb-4"><%= t "helpers.label.#{f.object_name}.#{title}", default: title %></legend>
+          <legend class="text-lg font-medium text-gray-900 mb-4"><%= t  "helpers.label.#{f.object_name}.#{title}", default: title %></legend>
         <% end %>
 
         <% attributes.each do |attribute| %>
