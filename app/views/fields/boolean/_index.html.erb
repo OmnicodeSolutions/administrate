@@ -13,6 +13,6 @@ to be displayed on a resource's index page.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Boolean
 %>
 
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= field.data ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= field.data.nil? ? 'bg-transparent text-black' : (field.data ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800') %>">
   <%= field.to_s %>
 </span>
