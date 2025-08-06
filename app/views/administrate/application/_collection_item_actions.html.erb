@@ -1,17 +1,25 @@
 <% if existing_action?(collection_presenter.resource_name, :edit) %>
-  <td><%= link_to(
-    t("administrate.actions.edit"),
-    [:edit, namespace, resource],
-    class: "action-edit",
-  ) if accessible_action?(resource, :edit) %></td>
+  <td>
+    <% if accessible_action?(resource, :edit) %>
+      <%= render "administrate/application/button",
+          text: t("administrate.actions.edit"),
+          href: [:edit, namespace, resource],
+          variant: "white" %>
+    <% end %>
+  </td>
 <% end %>
 
 <% if existing_action?(collection_presenter.resource_name, :destroy) %>
-  <td><%= link_to(
-    t("administrate.actions.destroy"),
-    [namespace, resource],
-    class: "text-color-red",
-    method: :delete,
-    data: { confirm: t("administrate.actions.confirm") }
-  ) if accessible_action?(resource, :destroy) %></td>
+  <td>
+    <% if accessible_action?(resource, :destroy) %>
+      <%= render "administrate/application/button",
+          text: t("administrate.actions.destroy"),
+          href: [namespace, resource],
+          variant: "danger",
+          data: { 
+            confirm: t("administrate.actions.confirm"),
+            turbo_method: :delete
+          } %>
+    <% end %>
+  </td>
 <% end %>

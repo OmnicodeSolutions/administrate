@@ -19,12 +19,11 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
 
 <!-- Header actions -->
 <% content_for(:header_actions) do %>
-  <%= link_to(
-    t("administrate.actions.show_resource", name: page.page_title),
-    [namespace, page.resource],
-    class: "btn-white",
-    data: { turbo_frame: "_top" }
-  ) if accessible_action?(page.resource, :show) %>
+  <%= render "administrate/application/button",
+    text: t("administrate.actions.show_resource", name: page.page_title),
+    href: [namespace, page.resource],
+    variant: "white",
+    data: { turbo_frame: "_top" } %>
 <% end %>
 
 <div class="space-y-6">

@@ -10,6 +10,8 @@ en:
       new_resource: New %{name}
       back: Back
       cancel: Cancel
+      save: Save
+      update: Update
     controller:
       index:
         title: "%{resource}"

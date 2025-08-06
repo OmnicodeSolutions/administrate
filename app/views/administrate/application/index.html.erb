@@ -76,11 +76,10 @@ It renders the `_table` partial to display details about the resources.
       # Generate the route helper name
       route_helper_name = "new_#{namespace}_#{resource_parts.join('_')}_path"
     %>
-    <%= link_to(
-      t("administrate.actions.new_resource", name: page.resource_name.titleize),
-      send(route_helper_name),
-      class: "btn-white"
-    ) %>
+    <%= render "administrate/application/button",
+        text: t("administrate.actions.new_resource", name: page.resource_name.titleize),
+        href: send(route_helper_name),
+        variant: "white" %>
   <% end %>
 <% end %>
 

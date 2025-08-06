@@ -10,6 +10,8 @@ pt-BR:
       show_resource: Visualizar %{name}
       new_resource: Criar %{name}
       back: Voltar
+      cancel: Cancelar
+      save: Salvar
     controller:
       create:
         success: "%{resource} foi criado com sucesso."

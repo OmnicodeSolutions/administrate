@@ -21,22 +21,20 @@ as well as a link to its edit page.
 <!-- Header actions -->
 <% content_for(:header_actions) do %>
   <div class="flex items-center gap-6">
-    <%= link_to(
-      t("administrate.actions.edit_resource", name: page.page_title),
-      resource_edit_path(page, page.resource),
-      class: "btn-white",
-      data: { turbo_frame: "_top" }
-    ) if accessible_action?(page.resource, :edit) %>
+    <%= render "administrate/application/button",
+        text: t("administrate.actions.edit_resource", name: page.page_title),
+        href: resource_edit_path(page, page.resource),
+        variant: "white",
+        data: { turbo_frame: "_top" } if accessible_action?(page.resource, :edit) %>
 
-    <%= link_to(
-      t("administrate.actions.destroy"),
-      [namespace, page.resource],
-      class: "btn-black",
-      data: { 
-        confirm: t("administrate.actions.confirm"),
-        turbo_method: :delete
-      }
-    ) if accessible_action?(page.resource, :destroy) %>
+    <%= render "administrate/application/button", 
+        text: t("administrate.actions.destroy"),
+        href: [namespace, page.resource],
+        variant: "black",
+        data: { 
+          confirm: t("administrate.actions.confirm"),
+          turbo_method: :delete
+        } if accessible_action?(page.resource, :destroy) %>
   </div>
 <% end %>
 

@@ -1,0 +1,61 @@
+<%#
+# Button Component
+
+This component renders a button with different variants and states using Tailwind inline styles.
+
+## Local variables:
+
+- `variant`: The button variant (black, white, danger, etc.)
+- `disabled`: Whether the button is disabled
+- `type`: The button type (submit, button, etc.)
+- `text`: The button text content
+- `href`: If provided, renders as a link instead of button
+- `data`: Additional data attributes
+- `class`: Additional CSS classes
+%>
+
+<%
+  # Default values
+  variant ||= 'white'
+  disabled ||= false
+  type ||= 'button'
+  
+  # Predefined button classes that Tailwind can detect
+  button_classes = case variant
+  when 'black'
+    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-white bg-gray-800 border border-transparent hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+  when 'white'
+    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+  when 'danger'
+    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-white bg-red-600 border border-transparent hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+  else
+    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+  end
+  
+  # Disabled classes
+  disabled_classes = disabled ? "opacity-50 cursor-not-allowed" : ""
+  
+  # Additional classes
+  additional_classes = local_assigns[:class] || ""
+  
+  # Combine all classes
+  final_classes = "#{button_classes} #{disabled_classes} #{additional_classes}".strip
+%>
+
+<% if local_assigns[:href].present? %>
+  <%= link_to href, 
+      class: final_classes,
+      disabled: disabled,
+      **(local_assigns[:data] || {}) do %>
+    <%= text %>
+  <% end %>
+<% else %>
+  <button type="<%= type %>" 
+          class="<%= final_classes %>"
+          <%= "disabled" if disabled %>
+          <% (local_assigns[:data] || {}).each do |key, value| %>
+            <%= key %>="<%= value %>"
+          <% end %>>
+    <%= text %>
+  </button>
+<% end %> 

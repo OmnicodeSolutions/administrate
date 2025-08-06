@@ -73,11 +73,13 @@ and renders all form fields for a resource's editable attributes.
   <% end -%>
 
   <div class="flex items-center justify-end pt-6 border-t border-gray-200 gap-6">
-    <%= link_to(
-      t("administrate.actions.cancel"),
-      resource_show_path(page, page.resource),
-      class: "btn-black"
-    ) if accessible_action?(page.resource, :show) && page.resource.persisted? %>
-    <%= f.submit class: "btn-white" %>
+    <% if accessible_action?(page.resource, :show) && page.resource.persisted? %>
+      <%= render "administrate/application/button", 
+          href: resource_show_path(page, page.resource),
+          text: t("administrate.actions.cancel"),
+          variant: "black" %>
+    <% end %>
+    <%= f.submit t("administrate.actions.save"), 
+        class: "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
   </div>
 <% end %>

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Administrate Rails Engine",
   "scripts": {
-    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css --minify",
-    "build:css:watch": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css --watch"
+    "build:css": "tailwindcss -c ./config/tailwind.config.js -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css --minify",
+    "build:css:watch": "tailwindcss -c ./config/tailwind.config.js -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css --watch"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.0",

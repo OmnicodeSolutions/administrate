@@ -1,0 +1,40 @@
+<%#
+# Table Component
+
+This component renders a table with consistent styling.
+
+## Local variables:
+
+- `headers`: Array of header text
+- `class`: Additional CSS classes
+- `responsive`: Whether to make the table responsive
+%>
+
+<%
+  # Default values
+  responsive ||= true
+  
+  # Base styles
+  base_styles = "min-w-full divide-y divide-gray-200"
+  
+  # Additional classes
+  additional_classes = local_assigns[:class] || ""
+  final_classes = "#{base_styles} #{additional_classes}".strip
+%>
+
+<div class="<%= 'overflow-x-auto' if responsive %>">
+  <table class="<%= final_classes %> administrate-table">
+    <thead class="bg-gray-50">
+      <tr>
+        <% headers.each do |header| %>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <%= header %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <%= yield %>
+    </tbody>
+  </table>
+</div> 

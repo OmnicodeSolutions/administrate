@@ -115,12 +115,28 @@ to display a collection of resources in an HTML table.
               </div>
               <div class="flex gap-6">
                 <% param_name = local_assigns.fetch(:param_name, "_page") %>
-                <%= link_to_prev_page resources, "Previous", 
-                    param_name: param_name,
-                    class: "btn-white #{resources.prev_page ? '' : 'btn-white--disabled'}" %>
-                <%= link_to_next_page resources, "Next", 
-                    param_name: param_name,
-                    class: "btn-white #{resources.next_page ? '' : 'btn-white--disabled'}" %>
+                <% if resources.prev_page %>
+                  <%= render "administrate/application/button",
+                      text: "Previous",
+                      href: url_for(request.params.merge(param_name => resources.prev_page)),
+                      variant: "white" %>
+                <% else %>
+                  <%= render "administrate/application/button",
+                      text: "Previous",
+                      variant: "white",
+                      disabled: true %>
+                <% end %>
+                <% if resources.next_page %>
+                  <%= render "administrate/application/button",
+                      text: "Next",
+                      href: url_for(request.params.merge(param_name => resources.next_page)),
+                      variant: "white" %>
+                <% else %>
+                  <%= render "administrate/application/button",
+                      text: "Next",
+                      variant: "white",
+                      disabled: true %>
+                <% end %>
               </div>
             </div>
           </td>
