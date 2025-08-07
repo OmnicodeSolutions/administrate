@@ -401,20 +401,6 @@ svg use {
   height: 100%;
 }
 
-/* Custom arrow rotation animation */
-.sort-arrow {
-  transition: transform 0.2s ease-in-out;
-  display: inline-block;
-}
-
-.sort-arrow.rotated {
-  transform: rotate(180deg);
-}
-
-.sort-arrow.hidden {
-  opacity: 0;
-}
-
 /* Black Button Style */
 .btn-black {
   display: inline-flex;
