@@ -1,21 +1,19 @@
 <% if existing_action?(collection_presenter.resource_name, :edit) %>
-  <td>
+  <td class="p-4 text-sm text-gray-900 border-b border-gray-200 whitespace-nowrap break-normal align-top min-w-20 max-w-30">
     <% if accessible_action?(resource, :edit) %>
-      <%= render "administrate/application/button",
-          text: t("administrate.actions.edit"),
-          href: [:edit, namespace, resource],
-          variant: "white" %>
+      <%= link_to t("administrate.actions.edit"),
+          [:edit, namespace, resource],
+          class: "text-indigo-600 hover:text-indigo-900 underline font-medium" %>
     <% end %>
   </td>
 <% end %>
 
 <% if existing_action?(collection_presenter.resource_name, :destroy) %>
-  <td>
+  <td class="p-4 text-sm text-gray-900 border-b border-gray-200 whitespace-nowrap break-normal align-top min-w-20 max-w-30">
     <% if accessible_action?(resource, :destroy) %>
-      <%= render "administrate/application/button",
-          text: t("administrate.actions.destroy"),
-          href: [namespace, resource],
-          variant: "danger",
+      <%= link_to t("administrate.actions.destroy"),
+          [namespace, resource],
+          class: "text-red-600 hover:text-red-900 underline font-medium",
           data: { 
             confirm: t("administrate.actions.confirm"),
             turbo_method: :delete

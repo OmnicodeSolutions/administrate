@@ -26,7 +26,7 @@ to display a collection of resources in an HTML table.
 
 <% show_pagination = local_assigns.fetch(:show_pagination, true) %>
 
-<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+<div class="bg-white border border-gray-200 rounded-lg shadow p-6">
   <table class="min-w-full divide-y divide-gray-200" aria-labelledby="<%= table_title %>" data-controller="table">
     <thead class="bg-gray-50">
       <tr>
@@ -74,7 +74,7 @@ to display a collection of resources in an HTML table.
             <% end %>
             >
           <% collection_presenter.attributes_for(resource).each do |attribute| %>
-            <td class="<%= attribute.html_class %>">
+            <td class="<%= attribute.html_class %> p-4 text-sm text-gray-900 border-b border-gray-200 break-words whitespace-normal align-top">
               <% if accessible_action?(resource, :show) && !render_field(attribute).include?("<a") -%>
                 <a href="<%= polymorphic_path([namespace, resource]) -%>"
                    tabindex="-1"
@@ -106,7 +106,7 @@ to display a collection of resources in an HTML table.
     <% if show_pagination && resources.respond_to?(:current_page) %>
       <tfoot>
         <tr>
-          <td colspan="100%" class="border-t border-gray-200">
+          <td colspan="100%" class="border-t border-gray-200 p-4">
             <div class="flex items-center justify-between py-3 bg-white rounded-b-lg">
               <div class="text-sm text-gray-700">
                 Page <%= resources.current_page %> of <%= resources.total_pages %>
