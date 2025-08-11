@@ -7,13 +7,13 @@
 <% end %>
 
 <% if existing_action?(collection_presenter.resource_name, :destroy) %>
-  <td><%= link_to(
-    t("administrate.actions.destroy"),
-    [namespace, resource],
-    class: "text-color-red",
-    method: :delete,
-    data: { confirm: t("administrate.actions.confirm") }
-  ) if authorized_action?(resource, :destroy) %></td>
+  <td><%= button_to t("administrate.actions.destroy"),
+  [namespace, resource],
+  method: :delete,
+  data: { 
+    confirm: t("administrate.actions.confirm")
+  },
+  onclick: "return confirm('#{t("administrate.actions.confirm")}')" if authorized_action?(resource, :destroy) %></td>
 <% end %>
 
 <td>

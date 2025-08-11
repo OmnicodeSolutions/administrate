@@ -11,13 +11,14 @@
 <% if existing_action?(collection_presenter.resource_name, :destroy) %>
   <td class="p-4 text-sm text-gray-900 border-b border-gray-200 whitespace-nowrap break-normal align-top min-w-20 max-w-30">
     <% if accessible_action?(resource, :destroy) %>
-      <%= link_to t("administrate.actions.destroy"),
+      <%= button_to t("administrate.actions.destroy"),
           [namespace, resource],
-          class: "text-red-600 hover:text-red-900 underline font-medium",
+          method: :delete,
+          class: "text-red-600 hover:text-red-900 underline font-medium bg-transparent border-0 p-0 cursor-pointer",
           data: { 
-            confirm: t("administrate.actions.confirm"),
-            turbo_method: :delete
-          } %>
+            confirm: t("administrate.actions.confirm")
+          },
+          onclick: "return confirm('#{t("administrate.actions.confirm")}')" %>
     <% end %>
   </td>
 <% end %>
