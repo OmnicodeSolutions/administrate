@@ -25,18 +25,17 @@
   };
 
   FlashController.prototype.dismiss = function() {
+    console.log('Flash dismiss called!');
     var self = this;
-    this.element.style.transition = "opacity 0.3s ease-out";
+    this.element.style.transition = "all 0.3s ease-out";
     this.element.style.opacity = "0";
+    this.element.style.transform = "translateY(-10px)";
+    this.element.style.marginBottom = "0";
     
     setTimeout(function() {
       self.element.remove();
     }, 300);
   };
 
-  document.addEventListener('DOMContentLoaded', function() {
-    if (window.Stimulus) {
-      window.Stimulus.register("flash", FlashController);
-    }
-  });
+  window.FlashController = FlashController;
 })(); 
