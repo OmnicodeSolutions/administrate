@@ -1,5 +1,9 @@
 if defined?(Zeitwerk)
-  Zeitwerk::Loader.eager_load_all
+  begin
+    Zeitwerk::Loader.eager_load_all
+  rescue NameError => e
+    Rails.logger.warn("Skipping eager load error: #{e.message}") if defined?(Rails.logger)
+  end
 else
   Rails.application.eager_load!
 end
