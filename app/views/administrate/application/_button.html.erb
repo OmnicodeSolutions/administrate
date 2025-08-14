@@ -23,13 +23,13 @@ This component renders a button with different variants and states using Tailwin
   # Predefined button classes that Tailwind can detect
   button_classes = case variant
   when 'black'
-    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-white bg-gray-800 border border-transparent hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-white bg-primary-800 border border-transparent hover:bg-primary-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
   when 'white'
-    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-secondary-700 bg-white border border-secondary-300 hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
   when 'danger'
     "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-white bg-red-600 border border-transparent hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
   else
-    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out cursor-pointer text-secondary-700 bg-white border border-secondary-300 hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
   end
   
   # Disabled classes

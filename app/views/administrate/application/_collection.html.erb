@@ -26,9 +26,9 @@ to display a collection of resources in an HTML table.
 
 <% show_pagination = local_assigns.fetch(:show_pagination, true) %>
 
-<div class="bg-white border border-gray-200 rounded-lg shadow p-6">
+<div class="bg-white border border-secondary-200 rounded-lg shadow p-6">
   <table class="min-w-full divide-y divide-gray-200" aria-labelledby="<%= table_title %>" data-controller="table">
-    <thead class="bg-gray-50">
+          <thead class="bg-secondary-50">
       <tr>
         <% collection_presenter.attribute_types.each do |attr_name, attr_type| %>
           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider <%= attr_type.html_class %> <%= collection_presenter.ordered_html_class(attr_name) %>"
@@ -62,7 +62,7 @@ to display a collection of resources in an HTML table.
       </tr>
     </thead>
 
-    <tbody class="bg-white divide-y divide-gray-200">
+    <tbody class="bg-white divide-y divide-secondary-200">
       <% resources.each do |resource| %>
         <tr class="cursor-pointer transition-colors duration-200"
             data-table-target="row"

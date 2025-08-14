@@ -41,7 +41,7 @@ It renders the `_table` partial to display details about the resources.
         <%= f.text_field :search, 
           value: search_term,
           placeholder: t("administrate.search.placeholder", resource: page.resource_name.pluralize.titleize),
-          class: "block w-full pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm",
+          class: "block w-full pl-10 pr-8 py-2 border border-secondary-300 rounded-md leading-5 bg-white placeholder-secondary-500 focus:outline-none focus:placeholder-secondary-400 focus:ring-1 focus:ring-primary-500 focus:border-primary-500 sm:text-sm",
           autocomplete: "off" %>
         <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
           <%= link_to request.path, 
