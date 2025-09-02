@@ -4,10 +4,6 @@ require "administrate/field/string"
 
 feature "Search" do
   describe "search bar" do
-    def have_a_search_bar
-      have_css("form[role=search]")
-    end
-
     it "is visible when the current dashboard has searchable attributes" do
       visit admin_customers_path
       expect(page).to have_a_search_bar
@@ -146,15 +142,16 @@ feature "Search" do
   end
 
   def clear_search
-    find(".search__clear-link").click
+    find('a[aria_label="Clear search"]').click
   end
 
   def page_params
-    CGI.unescape(URI.parse(page.current_url).query)
+    query = URI.parse(page.current_url).query
+    query ? CGI.unescape(query) : ""
   end
 
   def submit_search
-    page.execute_script("$('.search').submit()")
+    find('button[type="submit"][aria-label="Search"]').click
   end
 
   def order_row_match(order)
