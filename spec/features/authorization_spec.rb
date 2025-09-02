@@ -25,7 +25,7 @@ describe "authorization" do
   describe "navigation" do
     def navigation
       visit admin_customers_path
-      find(".navigation")
+      find("#navigation")
     end
 
     def become_user(customer)
@@ -51,6 +51,6 @@ describe "authorization" do
 
     expect(page).to have_content(p0.name)
     expect(page).not_to have_content(p1.name)
-    expect(page).to have_css(".js-table-row", count: 1)
+    expect(page).to have_css('tbody tr', count: 1)
   end
 end
