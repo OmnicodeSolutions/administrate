@@ -13,10 +13,22 @@ to be displayed on a resource's show page.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/HasMany
 %>
 
-<% if field.data.any? %>
-  <span class="text-gray-900">
-    <%= pluralize(field.data.count, field.attribute.to_s.singularize.humanize.downcase) %>
-  </span>
+<% if field.resources.any? %>
+  <% order = field.order_from_params(params.fetch(field.name, {})) %>
+  <% page_number = params.fetch(field.name, {}).fetch(:page, nil) %>
+  <%= render(
+    "collection",
+    collection_presenter: field.associated_collection(order),
+    collection_field_name: field.name,
+    page: page,
+    resources: field.resources(page_number, order),
+    table_title: field.name,
+    resource_class: field.associated_class,
+  ) %>
+  <% if field.more_than_limit? %>
+    <%= render("pagination", resources: field.resources(page_number), param_name: "#{field.name}[page]") %>
+  <% end %>
+
 <% else %>
-  <span class="text-gray-500 italic">No associated records</span>
+  <%= t("administrate.fields.has_many.none", default: "–") %>
 <% end %>

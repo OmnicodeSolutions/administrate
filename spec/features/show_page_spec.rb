@@ -105,7 +105,7 @@ RSpec.describe "customer show page" do
 
     visit admin_customer_path(customer)
 
-    expect(page).to have_css("th.cell-label--order_total_price")
+    expect(page).to have_css("th", text: "Total Price")
   end
 
   it "sorts each of the customer's orders" do
@@ -232,7 +232,7 @@ RSpec.describe "customer show page" do
     with_translations(:en, translations) do
       visit admin_customer_path(customer)
 
-      expect(page).to have_css(".attribute-label", text: custom_label)
+      expect(page).to have_css(".administrate-label", text: custom_label)
     end
   end
 
@@ -261,7 +261,7 @@ RSpec.describe "customer show page" do
     with_translations(:en, translations) do
       visit admin_customer_path(customer)
 
-      expect(page).to have_css(".cell-label", text: custom_label)
+      expect(page).to have_css("th", text: custom_label)
     end
   end
 
@@ -271,17 +271,13 @@ RSpec.describe "customer show page" do
     visit admin_order_path(line_item.order)
 
     within(table_for_attribute(:line_items)) do
-      columns = all("tr th").map do |e|
-        e[:class]&.split&.last&.split("--line_item_")&.last
-      end
-      expect(%w[product quantity unit_price total_price]).to(
-        eq(columns.first(4)),
-      )
+      columns = all("thead th a span:first-child").map(&:text).map(&:underscore)
+      expect(columns.first(4)).to eq(["product", "quantity", "unit price", "total price"])
     end
   end
 
   def ids_in_table
-    all("tr td:first-child").map(&:text).map(&:to_i)
+    all("tbody tr td:first-child").map(&:text).map(&:to_i)
   end
 
   def table_for_attribute(attr_name)
