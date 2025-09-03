@@ -1,25 +1,36 @@
-# encoding: UTF-8
 ---
 pt:
   administrate:
     actions:
+      back: Voltar atrás
+      cancel: Cancel
       confirm: Tem certeza?
       destroy: Remover
       edit: Editar
       edit_resource: Editar %{name}
-      show_resource: Visualizar %{name}
       new_resource: Novo %{name}
-      back: Voltar atrás
+      save: Save
+      show_resource: Visualizar %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} foi criado com sucesso."
       destroy:
         success: "%{resource} foi removido com sucesso."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} foi actualizado com sucesso."
     fields:
       has_many:
-        more: "Mostrando %{count} de %{total_count}"
+        more: Mostrando %{count} de %{total_count}
         none: Nenhum
     form:
       error: erro
@@ -29,3 +40,4 @@ pt:
     search:
       clear: Limpar pesquisa
       label: Pesquisa %{resource}
+      placeholder: Search %{resource}...

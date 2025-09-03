@@ -2,18 +2,30 @@
 sv:
   administrate:
     actions:
+      back: Tillbaka
+      cancel: Cancel
       confirm: Är du säker?
       destroy: Ta bort
       edit: Ändra
       edit_resource: Ändra %{name}
-      show_resource: Visa %{name}
       new_resource: Ny %{name}
-      back: Tillbaka
+      save: Save
+      show_resource: Visa %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} har skapats."
       destroy:
         success: "%{resource} har tagits bort."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} har uppdaterats."
     fields:
@@ -28,3 +40,4 @@ sv:
     search:
       clear: Rensa sökningen
       label: Sök %{resource}
+      placeholder: Search %{resource}...

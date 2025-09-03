@@ -48,11 +48,21 @@ module Administrate
     end
 
     def display_resource_name(resource_name, opts = {})
-      dashboard_from_resource(resource_name).resource_name(
-        count: opts[:singular] ? SINGULAR_COUNT : PLURAL_MANY_COUNT,
-        default: default_resource_name(resource_name, opts),
-      )
+      model = model_from_resource(resource_name) rescue nil
+
+      if model.respond_to?(:model_name)
+        model.model_name.human(
+          count: opts[:singular] ? 1 : 2,
+          default: default_resource_name(resource_name, opts)
+        )
+      else  
+        I18n.t(
+          "administrate.navigation.#{resource_name}",
+          default: default_resource_name(resource_name, opts)
+        )
+      end
     end
+
 
     def sort_order(order)
       case order

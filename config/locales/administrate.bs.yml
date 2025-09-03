@@ -1,18 +1,31 @@
+---
 bs:
   administrate:
     actions:
+      back: Nazad
+      cancel: Cancel
       confirm: Jeste li sigurni?
       destroy: Izbrisati
       edit: Izmjena
       edit_resource: Izmjena %{name}
-      show_resource: Pregled %{name}
       new_resource: Novi %{name}
-      back: Nazad
+      save: Save
+      show_resource: Pregled %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} je uspješno kreiran."
       destroy:
         success: "%{resource} je uspješno izbrisan."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} je uspješno izmijenjen."
     fields:
@@ -27,3 +40,4 @@ bs:
     search:
       clear: Izbriši pretraživanje
       label: Pretraga %{resource}
+      placeholder: Search %{resource}...

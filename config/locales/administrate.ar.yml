@@ -2,24 +2,36 @@
 ar:
   administrate:
     actions:
-      confirm: "هل أنت متأكد ؟"
-      destroy: "حذف"
-      edit: "تعديل"
-      edit_resource: "تعديل %{name}"
-      show_resource: "إظهار %{name}"
-      new_resource: "جديد  %{name}"
-      back: "الى الخلف"
+      back: الى الخلف
+      cancel: Cancel
+      confirm: هل أنت متأكد ؟
+      destroy: حذف
+      edit: تعديل
+      edit_resource: تعديل %{name}
+      new_resource: جديد  %{name}
+      save: Save
+      show_resource: إظهار %{name}
+      update: Update
     controller:
       create:
         success: ".بنجاح %{resource} لقد تم إنشاء"
       destroy:
         success: ".بنجاح %{resource} لقد تم حذف"
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: ".بنجاح %{resource} لقد تم تحديث"
     fields:
       has_many:
         more: إظهار %{count} من %{total_count}
-        none: "لا يوجد"
+        none: لا يوجد
     form:
       error: error
       errors: "%{pluralized_errors} prohibited this %{resource_name} from being saved:"
@@ -28,3 +40,4 @@ ar:
     search:
       clear: مسح البحث
       label: بحث %{resource}
+      placeholder: Search %{resource}...

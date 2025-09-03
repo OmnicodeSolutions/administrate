@@ -2,18 +2,30 @@
 es:
   administrate:
     actions:
-      confirm: ¿Estás seguro?
+      back: Volver
+      cancel: Cancel
+      confirm: "¿Estás seguro?"
       destroy: Destruir
       edit: Editar
       edit_resource: Editar %{name}
-      show_resource: Mostrar %{name}
       new_resource: Nuevo %{name}
-      back: Volver
+      save: Save
+      show_resource: Mostrar %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} fue creado exitosamente."
       destroy:
         success: "%{resource} fue destruido exitosamente."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} fue actualizado exitosamente."
     fields:
@@ -28,3 +40,4 @@ es:
     search:
       clear: Borrar búsqueda
       label: Buscar %{resource}
+      placeholder: Search %{resource}...

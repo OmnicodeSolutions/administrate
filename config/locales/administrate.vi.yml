@@ -2,18 +2,30 @@
 vi:
   administrate:
     actions:
+      back: Trở lại
+      cancel: Cancel
       confirm: Bạn có chắc không?
       destroy: Xóa
       edit: Sửa
       edit_resource: Sửa %{name}
-      show_resource: Xem %{name}
       new_resource: Mới %{name}
-      back: Trở lại
+      save: Save
+      show_resource: Xem %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} đã được tạo thành công."
       destroy:
         success: "%{resource} đã được xóa thành công."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} đã được cập nhật thành công."
     fields:
@@ -28,3 +40,4 @@ vi:
     search:
       clear: Tìm kiếm rõ ràng
       label: Tìm kiếm %{resource}
+      placeholder: Search %{resource}...

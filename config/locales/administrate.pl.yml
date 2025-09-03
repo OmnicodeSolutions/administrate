@@ -2,20 +2,32 @@
 pl:
   administrate:
     actions:
+      back: Wstecz
+      cancel: Cancel
       confirm: Czy jesteś pewien?
       destroy: Usuń
       edit: Edytuj
       edit_resource: Edytuj %{name}
-      show_resource: Wyświetl %{name}
       new_resource: Nowy %{name}
-      back: Wstecz
+      save: Save
+      show_resource: Wyświetl %{name}
+      update: Update
     controller:
       create:
-        success: "Zasób %{resource} został pomyślnie utworzony."
+        success: Zasób %{resource} został pomyślnie utworzony.
       destroy:
-        success: "Zasób %{resource} został pomyślnie usunięty."
+        success: Zasób %{resource} został pomyślnie usunięty.
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
-        success: "Zasób %{resource} został pomyślnie zaktualizowany."
+        success: Zasób %{resource} został pomyślnie zaktualizowany.
     fields:
       has_many:
         more: Wyświetlanie %{count} z %{total_count}
@@ -28,3 +40,4 @@ pl:
     search:
       clear: Wyczyść wyszukiwanie
       label: Szukanie %{resource}
+      placeholder: Search %{resource}...

@@ -2,18 +2,30 @@
 tr:
   administrate:
     actions:
+      back: Geri
+      cancel: Cancel
       confirm: Emin misiniz?
       destroy: Sil
       edit: Düzenle
       edit_resource: "%{name} Kaydını Düzenle"
-      show_resource: "%{name} Kaydını Göster"
       new_resource: Yeni %{name}
-      back: Geri
+      save: Save
+      show_resource: "%{name} Kaydını Göster"
+      update: Update
     controller:
       create:
         success: "%{resource} kaydı başarıyla yaratıldı."
       destroy:
         success: "%{resource} kaydı başarıyla silindi."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} kaydı başarıyla düzenlendi."
     fields:
@@ -28,3 +40,4 @@ tr:
     search:
       clear: Temizle
       label: "%{resource} içerisinde ara"
+      placeholder: Search %{resource}...

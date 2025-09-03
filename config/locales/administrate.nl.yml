@@ -2,18 +2,30 @@
 nl:
   administrate:
     actions:
+      back: Terug
+      cancel: Cancel
       confirm: Weet u het zeker?
       destroy: Verwijder
       edit: Bewerk
       edit_resource: Bewerk %{name}
-      show_resource: Toon %{name}
       new_resource: Nieuw %{name}
-      back: Terug
+      save: Save
+      show_resource: Toon %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} is succesvol aangemaakt."
       destroy:
         success: "%{resource} is succesvol verwijderd."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} is succesvol geupdated."
     fields:
@@ -28,3 +40,4 @@ nl:
     search:
       clear: Wissen
       label: Zoeken %{resource}
+      placeholder: Search %{resource}...

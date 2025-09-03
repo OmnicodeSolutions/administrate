@@ -2,23 +2,35 @@
 da:
   administrate:
     actions:
+      back: Tilbage
+      cancel: Cancel
       confirm: Er du sikker?
       destroy: Slet
       edit: Rediger
       edit_resource: Rediger %{name}
-      show_resource: Vis %{name}
       new_resource: Ny %{name}
-      back: Tilbage
+      save: Save
+      show_resource: Vis %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} blev oprettet."
       destroy:
         success: "%{resource} er nu slettet."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} blev opdateret."
     fields:
       has_many:
-        more: "Viser %{count} af %{total_count}"
+        more: Viser %{count} af %{total_count}
         none: Ingen
     form:
       error: error
@@ -28,3 +40,4 @@ da:
     search:
       clear: Ryd søgning
       label: Søg %{resource}
+      placeholder: Search %{resource}...

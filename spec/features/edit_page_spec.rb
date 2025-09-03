@@ -30,8 +30,8 @@ describe "customer edit page" do
     customer = create(:customer, email_subscriber: false)
 
     visit edit_admin_customer_path(customer)
-    check "Email subscriber"
-    click_on "Update Customer"
+    find("#customer_email_subscriber").check
+    click_on "Save"
 
     expect(page).to have_text("true")
   end
@@ -44,9 +44,9 @@ describe "customer edit page" do
     find("#customer_kind").click
     find("option", text: "vip").click
 
-    click_on "Update Customer"
+    click_on "Save"
 
-    expect(page).to have_text("KIND")
+    expect(page).to have_text("Kind")
     expect(page).to have_text("vip")
 
     visit edit_admin_customer_path(customer)
@@ -59,10 +59,10 @@ describe "customer edit page" do
 
     visit edit_admin_customer_path(customer)
     fill_in "Name", with: ""
-    click_on "Update Customer"
+    click_on "Save"
 
     expect(page).to have_css(
-      "#error_explanation ul li.flash-error",
+      ".administrate-flash--error",
       text: "Name can't be blank",
     )
   end
@@ -84,7 +84,7 @@ describe "customer edit page" do
       visit edit_admin_customer_path(customer)
       fill_in "Name", with: new_name
       fill_in "Email", with: new_email
-      click_on "Update Custom name"
+      click_on "Save"
     end
 
     expect(page).to have_text(new_name)
@@ -97,7 +97,7 @@ describe "customer edit page" do
     customer = create(:customer, territory: country)
 
     visit edit_admin_customer_path(customer)
-    click_on "Update Customer"
+    click_on "Save"
 
     customer.reload
     expect(customer.territory).to eq(country)

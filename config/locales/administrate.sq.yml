@@ -2,18 +2,30 @@
 sq:
   administrate:
     actions:
+      back: Prapa
+      cancel: Cancel
       confirm: A jeni te sigurtë?
       destroy: Fshij
       edit: Ndrysho
       edit_resource: Ndrysho %{name}
-      show_resource: Trego %{name}
       new_resource: Të re %{name}
-      back: Prapa
+      save: Save
+      show_resource: Trego %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} është krijuar me sukses."
       destroy:
         success: "%{resource} është fshirë me sukses."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} është azhurnuar me sukses."
     fields:
@@ -28,3 +40,4 @@ sq:
     search:
       clear: Pastro kërkimin
       label: Kërko %{resource}
+      placeholder: Search %{resource}...

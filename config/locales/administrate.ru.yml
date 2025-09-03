@@ -2,18 +2,30 @@
 ru:
   administrate:
     actions:
+      back: Вернуться назад
+      cancel: Cancel
       confirm: Вы уверены?
       destroy: Удалить
       edit: Редактировать
       edit_resource: Редактировать %{name}
-      show_resource: Показать %{name}
       new_resource: Новый %{name}
-      back: Вернуться назад
+      save: Save
+      show_resource: Показать %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} был успешно создан."
       destroy:
         success: "%{resource} был успешно удален."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} был успешно обновлен."
     fields:
@@ -22,9 +34,10 @@ ru:
         none: Нет
     form:
       error: Ошибка
-      errors: "При сохранении %{resource_name} произошли ошибки:"
+      errors: 'При сохранении %{resource_name} произошли ошибки:'
     navigation:
       back_to_app: Вернуться в приложение
     search:
       clear: Очистить поиск
       label: Поиск %{resource}
+      placeholder: Search %{resource}...

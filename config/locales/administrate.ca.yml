@@ -2,18 +2,30 @@
 ca:
   administrate:
     actions:
+      back: Tornar
+      cancel: Cancel
       confirm: Estàs segur?
       destroy: Destruir
       edit: Editar
       edit_resource: Edita %{name}
-      show_resource: Mostra %{name}
       new_resource: Nou %{name}
-      back: Tornar
+      save: Save
+      show_resource: Mostra %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} s'ha creat amb èxit."
       destroy:
         success: "%{resource} s'ha destruït amb èxit."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} s'ha actualitzat amb èxit."
     fields:
@@ -22,9 +34,11 @@ ca:
         none: Cap
     form:
       error: error
-      errors: "%{pluralized_errors} han impedit que %{resource_name} es guardés amb èxit:"
+      errors: "%{pluralized_errors} han impedit que %{resource_name} es guardés amb
+        èxit:"
     navigation:
       back_to_app: Torna a l'aplicació
     search:
       clear: Esborrar la cerca
       label: Cerca %{resource}
+      placeholder: Search %{resource}...

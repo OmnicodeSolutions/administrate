@@ -2,20 +2,32 @@
 uk:
   administrate:
     actions:
+      back: Назад
+      cancel: Cancel
       confirm: Ви впевнені?
       destroy: Видалити
       edit: Редагувати
       edit_resource: Редагувати %{name}
-      show_resource: Показати %{name}
       new_resource: Новий %{name}
-      back: Назад
+      save: Save
+      show_resource: Показати %{name}
+      update: Update
     controller:
       create:
-        success: "Успішно створено %{resource}."
+        success: Успішно створено %{resource}.
       destroy:
-        success: "Успішно видалено %{resource}."
+        success: Успішно видалено %{resource}.
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
-        success: "Успішно оновлено %{resource}."
+        success: Успішно оновлено %{resource}.
     fields:
       has_many:
         more: "%{count} із %{total_count}"
@@ -28,3 +40,4 @@ uk:
     search:
       clear: Очистити пошук
       label: пошук %{resource}
+      placeholder: Search %{resource}...

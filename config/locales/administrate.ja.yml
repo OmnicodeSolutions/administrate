@@ -2,18 +2,30 @@
 ja:
   administrate:
     actions:
+      back: 戻る
+      cancel: Cancel
       confirm: 本当によろしいですか？
       destroy: 削除
       edit: 編集
       edit_resource: "%{name}を編集"
-      show_resource: "%{name}を参照"
       new_resource: "%{name}を作成"
-      back: 戻る
+      save: Save
+      show_resource: "%{name}を参照"
+      update: Update
     controller:
       create:
         success: "%{resource}を作成しました。"
       destroy:
         success: "%{resource}を削除しました。"
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource}を更新しました。"
     fields:
@@ -28,3 +40,4 @@ ja:
     search:
       clear: 検索をクリアする
       label: "%{resource}を検索"
+      placeholder: Search %{resource}...

@@ -2,18 +2,30 @@
 id:
   administrate:
     actions:
+      back: Kembali
+      cancel: Cancel
       confirm: Anda yakin?
       destroy: Hapus
       edit: Perbarui
       edit_resource: Perbarui %{name}
-      show_resource: Tampilkan %{name}
       new_resource: "%{name} baru"
-      back: Kembali
+      save: Save
+      show_resource: Tampilkan %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} telah berhasil dibuat."
       destroy:
         success: "%{resource} telah berhasil dihapus."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} telah berhasil diperbarui."
     fields:
@@ -28,3 +40,4 @@ id:
     search:
       clear: Kosongkan pencarian
       label: Cari %{resource}
+      placeholder: Search %{resource}...

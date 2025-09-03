@@ -2,18 +2,30 @@
 fi:
   administrate:
     actions:
+      back: Takaisin
+      cancel: Cancel
       confirm: Oletko varma?
       destroy: Poista
       edit: Muokkaa
       edit_resource: Muokkaa %{name}
-      show_resource: Näytä %{name}
       new_resource: Uusi %{name}
-      back: Takaisin
+      save: Save
+      show_resource: Näytä %{name}
+      update: Update
     controller:
       create:
         success: "%{resource} luotiin onnistuneesti."
       destroy:
         success: "%{resource} poistettiin onnistuneesti."
+      edit:
+        subtitle: Edit %{resource}
+      index:
+        subtitle: "%{count} %{resource}"
+        title: "%{resource}"
+      new:
+        subtitle: Create a new %{resource}
+      show:
+        subtitle: Details for %{resource}
       update:
         success: "%{resource} päivitettiin onnistuneesti."
     fields:
@@ -28,3 +40,4 @@ fi:
     search:
       clear: Tyhjennä haku
       label: Etsi %{resource}
+      placeholder: Search %{resource}...
