@@ -22,7 +22,7 @@ module Features
   end
 
   def show_link_elements
-    ".action-show"
+    "a[data-turbo-frame='_top']"
   end
 
   def url_for(model)

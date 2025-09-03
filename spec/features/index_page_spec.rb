@@ -16,7 +16,7 @@ describe "customer index page" do
   it "adds resource/attribute name to table headers" do
     visit admin_customers_path
 
-    expect(page).to have_css("th.cell-label--customer_email")
+    expect(page).to have_css("th.email")
   end
 
   it "links to the customer show page", :js do
@@ -50,7 +50,7 @@ describe "customer index page" do
 
   it "links to the new page" do
     visit admin_customers_path
-    click_on("New customer")
+    click_on("New Customer")
 
     expect(current_path).to eq(new_admin_customer_path)
   end
@@ -82,10 +82,11 @@ describe "customer index page" do
 
     visit admin_customers_path
 
-    within(".main-content") { click_on "Orders" }
-    expect(page).to have_content(/Cam.*1 order.*Ade.*2 orders.*Ben.*3 orders/)
+    within("#main-content") { click_on "Orders" }
+    expect(page).to have_text(/Cam.*1 order.*Ade.*2 orders.*Ben.*3 orders/m)
 
-    within(".main-content") { click_on "Orders" }
-    expect(page).to have_content(/Ben.*3 orders.*Ade.*2 orders.*Cam.*1 order/)
+    within("#main-content") { click_on "Orders" }
+    expect(page).to have_text(/Ben.*3 orders.*Ade.*2 orders.*Cam.*1 order/m)
+
   end
 end
