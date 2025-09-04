@@ -1,28 +1,54 @@
 <%#
 # HasOne Show Partial
-
-This partial renders a has_one relationship,
-to be displayed on a resource's show page.
-
-## Local variables:
-
-- `field`:
-  An instance of [Administrate::Field::HasOne][1].
-  A wrapper around the has_one relationship pulled from the database.
-
-[1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/HasOne
+#
+# This partial renders a has_one relationship,
+# to be displayed on a resource's show page.
+#
+# ## Local variables:
+#
+# - `field`:
+#   An instance of [Administrate::Field::HasOne][1].
+#   A wrapper around the has_one relationship pulled from the database.
+#
+# - `resource_name`:
+#   A string representing the current resource name, used for I18n lookups.
+#
+# - `page`:
+#   An Administrate::Page::Show object for the current resource.
+#
+# [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/HasOne
 %>
 
-<% if field.data %>
-  <% if accessible_action?(field.data, :show) %>
-    <%= link_to(
-      field.display_associated_resource,
-      polymorphic_path([:admin, field.data]),
-      class: "text-indigo-600 hover:text-indigo-900 underline"
-    ) %>
-  <% else %>
-    <span class="text-gray-900"><%= field.display_associated_resource %></span>
-  <% end %>
-<% else %>
-  <span class="text-gray-500 italic">No associated record</span>
+<% if field.linkable? %>
+  <fieldset class="bg-white border border-secondary-200 rounded-lg shadow">
+    <legend class="ml-4">
+      <%= link_to_if(
+        accessible_action?(field.data, :show),
+        field.display_associated_resource,
+        [namespace, field.data],
+        class: "text-indigo-600 hover:text-indigo-900 underline font-medium"
+      ) %>
+    </legend>
+    <% field.nested_show.attributes.each do |title, attributes| -%>
+      <fieldset class="">
+        <% if title.present? %>
+          <legend><%= t "helpers.label.#{namespace}.#{title}", default: title %></legend>
+        <% end %>
+
+        <% attributes.each do |attribute| %>
+          <div class="flex gap-4 p-4">
+            <dt class="text-gray-500">
+              <%= t(
+                "helpers.label.#{field.associated_class_name.underscore}.#{attribute.name}",
+                default: attribute.name.titleize,
+              ) %>
+            </dt>
+            <dd>
+              <%= render_field attribute, { page: page } %>
+            </dd>
+          </div>
+        <% end %>
+      </fieldset>
+    <% end -%>
+  </fieldset>
 <% end %>

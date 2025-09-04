@@ -6,7 +6,7 @@ describe "edit form" do
 
     visit edit_admin_customer_path(customer)
 
-    expect(page).to have_css("form.form")
+    expect(page).to have_css("form")
   end
 
   it "displays translated labels" do

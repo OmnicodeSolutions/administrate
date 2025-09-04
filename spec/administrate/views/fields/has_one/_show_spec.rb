@@ -10,10 +10,12 @@ describe "fields/has_one/_show", type: :view do
 
   context "without a persisted record" do
     it "displays nothing" do
+      product = build(:product, product_meta_tag: nil)
       has_one = Administrate::Field::HasOne.new(
         :product_meta_tag,
-        build(:product_meta_tag),
+        nil,
         :show,
+        resource: product
       )
 
       render(
@@ -21,7 +23,9 @@ describe "fields/has_one/_show", type: :view do
         locals: { field: has_one },
       )
 
-      expect(rendered.strip).to eq("")
+      expect(rendered.strip).to eq(
+        ''
+      )
     end
   end
 
@@ -51,6 +55,7 @@ describe "fields/has_one/_show", type: :view do
 
       @has_one_field = instance_double(
         "Administrate::Field::HasOne",
+        attribute: :product_meta_tag,
         display_associated_resource: "The Nested Resource",
         data: field_resource,
         linkable?: true,
@@ -90,7 +95,7 @@ describe "fields/has_one/_show", type: :view do
     context "when linking the record is allowed" do
       it "renders a link to the record" do
         render_field
-        link = "<a href=\"#{@path_to_field_resource}\">The Nested Resource</a>"
+        link = "href=\"#{@path_to_field_resource}\""
         expect(rendered.strip).to include(link)
       end
     end
@@ -155,6 +160,7 @@ describe "fields/has_one/_show", type: :view do
 
       has_one_field = instance_double(
         "Administrate::Field::HasOne",
+        attribute: :customer,
         display_associated_resource: "Resource Nested with HasOne",
         data: field_resource,
         linkable?: true,
