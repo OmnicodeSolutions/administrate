@@ -7,9 +7,6 @@ but each page can define additional JS sources
 by providing a `content_for(:javascript)` block.
 %>
 
-<%= javascript_include_tag "application", "data-turbo-track": "reload" %>
-<% Administrate::Engine.javascripts.each do |js_path| %>
-  <%= javascript_include_tag js_path, "data-turbo-track": "reload" %>
-<% end %>
+<%= javascript_importmap_tags %>
 
 <%= yield :javascript %>

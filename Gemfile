@@ -16,6 +16,8 @@ gem "sentry-ruby"
 gem "unicorn"
 gem "sprockets-rails"
 gem "tailwindcss-rails"
+gem "importmap-rails"
+gem "stimulus-rails"
 
 group :development, :test do
   gem "appraisal"
