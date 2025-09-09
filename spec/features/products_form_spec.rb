@@ -15,7 +15,7 @@ describe "product form has_one relationship" do
 
     expect(page).to have_css("legend", text: "Product Meta Tag")
 
-    click_on "Create Product"
+    click_on "Save"
 
     expect(page).to have_link("Example meta title")
     expect(page).to have_flash(
@@ -59,7 +59,7 @@ describe "product form has_one relationship" do
 
     visit edit_admin_product_path(product)
 
-    click_on "Update Product"
+    click_on "Save"
 
     expect(page).to have_link(product.product_meta_tag.meta_title.to_s)
     expect(page).to have_flash(

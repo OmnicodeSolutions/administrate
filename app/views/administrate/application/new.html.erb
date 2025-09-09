@@ -26,7 +26,7 @@ to do the heavy lifting.
 <% content_for(:header_actions) do %>
   <%= render "administrate/application/button",
       text: t("administrate.actions.back"),
-      href: request.referer || polymorphic_path([namespace, page.resource_name]),
+      href: request.referer || polymorphic_path([namespace&.to_sym, page.resource_name.pluralize.to_sym].compact),
       variant: "white",
       data: { turbo_frame: "_top" } %>
 <% end %>
