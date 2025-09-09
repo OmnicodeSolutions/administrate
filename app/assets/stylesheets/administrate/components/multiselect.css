@@ -17,6 +17,7 @@
     font-weight: 400;
     font-size: 0.875rem;
     cursor: pointer;
+    background-color: white;
   }
   
   .multiselect__no-result {
@@ -70,19 +71,19 @@
   
   .multiselect__pill {
     max-width: fill-available;
-    color: rgb(55 61 63);
+    color: white;
     font-size: 0.75rem;
     padding-left: 0.5rem;
-    background-color: rgb(250 249 244);
     border: 1px solid #f0f0f0;
     border-radius: 0.25rem;
     display: flex;
+    background-color: rgb(30 41 59 / var(--tw-bg-opacity, 1));
   }
   
   .multiselect__pill-delete {
     padding: 0.25rem 0.5rem 0.25rem 0.5rem;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.18rem;
+    border-bottom-right-radius: 0.18rem;
     align-items: center;
     display: flex;
     margin-left: 0.25rem;
