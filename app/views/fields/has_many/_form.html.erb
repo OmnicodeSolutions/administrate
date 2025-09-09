@@ -19,11 +19,30 @@ and is augmented with [Selectize].
 [Selectize]: http://brianreavis.github.io/selectize.js
 %>
 
+
 <div class="block text-sm font-medium text-secondary-700 mb-1">
   <%= f.label field.attribute, for: "#{f.object_name}_#{field.attribute_key}", class: "block text-sm font-medium text-secondary-700 mb-1" %>
 </div>
-<div class="field-unit__field">
-        <%= f.select(field.attribute_key, nil, { multiple: true }, { class: "block w-full px-3 py-2 rounded-md bg-white border border-secondary-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm" }) do %>
-    <%= options_for_select(field.associated_resource_options, field.selected_options) %>
-  <% end %>
+
+<div data-controller="multiselect"
+     data-multiselect-items-value="<%= field.associated_resource_options.map { |title, value|
+       { value: value, text: title }
+     }.to_json %>"
+     data-multiselect-selected-value="<%=
+       begin
+         selected_ids = Array(field.selected_options)
+         field.associated_resource_options
+           .select { |title, value| selected_ids.include?(value) }
+           .map { |title, value| { value: value, text: title } }
+           .to_json
+       end
+     %>"
+     data-placeholder="Search for birds...">
+  <select multiple="multiple"
+          class="multiselect__hidden"
+          data-multiselect-target="hidden"
+          name="<%= "#{f.object_name}[#{field.attribute_key}][]" %>"
+          id="<%= "#{f.object_name}_#{field.attribute_key}" %>" 
+  </select>
 </div>
+
