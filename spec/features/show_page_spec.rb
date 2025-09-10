@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "customer show page" do
+RSpec.describe "customer show page", js: true do
   describe "paginates customers' orders" do
     context "when the total number of records exceeds the pagination limit" do
       it "displays the first page by default, other pages on request" do
@@ -105,7 +105,7 @@ RSpec.describe "customer show page" do
 
     visit admin_customer_path(customer)
 
-    expect(page).to have_css("th", text: "Total Price")
+    expect(page).to have_css("th", text: "TOTAL PRICE")
   end
 
   it "sorts each of the customer's orders" do
@@ -261,7 +261,7 @@ RSpec.describe "customer show page" do
     with_translations(:en, translations) do
       visit admin_customer_path(customer)
 
-      expect(page).to have_css("th", text: custom_label)
+      expect(page).to have_css("th", text: custom_label.upcase)
     end
   end
 
