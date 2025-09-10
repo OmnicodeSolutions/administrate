@@ -7,7 +7,7 @@ describe "log entry form" do
     visit new_admin_log_entry_path
     fill_in "Action", with: "create"
     select(displayed(customer), from: "Logeable")
-    click_on "Create Log entry"
+    click_on "Save"
 
     expect(page).to have_link(customer.name)
     expect(page).to have_flash(
