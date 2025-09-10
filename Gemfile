@@ -37,6 +37,7 @@ group :test do
   gem "formulaic"
   gem "launchy"
   gem "selenium-webdriver"
+  gem "webdrivers"
   gem "shoulda-matchers"
   gem "timecop"
   gem "webmock"

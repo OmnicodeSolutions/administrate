@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "order form" do
+describe "order form", js: true do
   it "displays a select box for the customer" do
     customer = create(:customer)
 
@@ -11,7 +11,7 @@ describe "order form" do
     fill_in "Address city", with: "Example"
     fill_in "Address state", with: "Example"
     fill_in "Address zip", with: "Example"
-    click_on "Create Order"
+    click_on "Save"
 
     expect(page).to have_link(customer.name)
     expect(page).to have_flash(
@@ -36,9 +36,9 @@ describe "order form" do
       line_items = create_list(:line_item, 3)
 
       visit edit_admin_order_path(order)
-      find_option(line_items.first, "Line items").select_option
-      find_option(line_items.last, "Line items").select_option
-      click_on "Update Order"
+      find("input[type='checkbox'][data-value='#{line_items.first.id}']").click
+      find("input[type='checkbox'][data-value='#{line_items.last.id}']").click
+      click_on "Save"
 
       order.reload
       expect(order.line_items).to include(line_items.first)
@@ -51,8 +51,9 @@ describe "order form" do
       line_item = create(:line_item, order: order)
 
       visit edit_admin_order_path(order)
-      find_option(line_item, "Line items").unselect_option
-      click_on "Update Order"
+      multiselect = find("select#order_line_item_ids.multiselect__hidden", visible: false)
+      multiselect.all("option[selected]").each { |opt| opt.unselect_option }
+      click_on "Save"
 
       order.reload
       expect(order.line_items).to be_empty
@@ -93,8 +94,8 @@ describe "order form" do
     end
 
     def find_option(associated_model, field_locator)
-      field = find_field(field_locator)
-      field.find("option", text: displayed(associated_model))
+      select_box = find("select", id: "order_line_item_ids", visible: false)
+      select_box.find("option[value='#{associated_model.id}']")
     end
   end
 end

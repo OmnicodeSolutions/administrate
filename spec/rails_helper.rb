@@ -5,11 +5,20 @@ Dotenv.load
 require File.expand_path("../../spec/example_app/config/environment", __FILE__)
 
 require "rspec/rails"
+require "capybara/rails"
+require "capybara/rspec"
 require "shoulda/matchers"
 
 Dir[Rails.root.join("../../spec/support/**/*.rb")].each { |file| require file }
 
 require "factories"
+
+require "webmock/rspec"
+
+WebMock.disable_net_connect!(allow_localhost: true, allow: %r{chromedriver\.storage\.googleapis\.com})
+
+Capybara.default_driver = :selenium_chrome_headless
+Capybara.javascript_driver = :selenium_chrome_headless
 
 module Features
   # Extend this module in spec/support/features/*.rb

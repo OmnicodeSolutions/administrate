@@ -38,11 +38,15 @@ and is augmented with [Selectize].
        end
      %>"
      data-placeholder="Search">
-  <select multiple="multiple"
-        class="multiselect__hidden"
-        data-multiselect-target="hidden"
-        name="<%= "#{f.object_name}[#{field.attribute_key}][]" %>"
-        id="<%= "#{f.object_name}_#{field.attribute_key}" %>">
+
+  <%= hidden_field_tag "#{f.object_name}[#{field.attribute_key}][]", "" %>
+
+  <select multiple
+          class="multiselect__hidden"
+          data-multiselect-target="hidden"
+          name="<%= "#{f.object_name}[#{field.attribute_key}][]" %>"
+          id="<%= "#{f.object_name}_#{field.attribute_key}" %>">
   </select>
 </div>
+
 
