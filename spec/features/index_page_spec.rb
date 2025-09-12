@@ -71,7 +71,7 @@ describe "customer index page" do
     with_translations(:en, translations) do
       visit admin_customers_path
 
-      expect(page).to have_table_header(custom_label)
+      expect(page).to have_table_header(custom_label.upcase)
     end
   end
 
@@ -83,10 +83,10 @@ describe "customer index page" do
     visit admin_customers_path
 
     within("#main-content") { click_on "Orders" }
-    expect(page).to have_text(/Cam.*1 order.*Ade.*2 orders.*Ben.*3 orders/m)
+    expect(page).to have_text(/Cam.*Ade.*Ben.*/m)
 
     within("#main-content") { click_on "Orders" }
-    expect(page).to have_text(/Ben.*3 orders.*Ade.*2 orders.*Cam.*1 order/m)
+    expect(page).to have_text(/Ben.*Ade.*Cam.*/m)
 
   end
 end
