@@ -17,7 +17,6 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
 
 <% content_for(:title) { t("administrate.actions.edit_resource", name: page.page_title) } %>
 
-<!-- Header actions -->
 <% content_for(:header_actions) do %>
   <%= render "administrate/application/button",
     text: t("administrate.actions.show_resource", name: page.page_title),
@@ -27,15 +26,13 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
 <% end %>
 
 <div class="space-y-6">
-  <!-- Page header -->
   <div class="border-b border-gray-200 pb-4">
-    <h1 class="text-2xl font-bold text-gray-900"><%= content_for(:title) %></h1>
+    <h1 id="page-title" class="text-2xl font-bold text-gray-900"><%= content_for(:title) %></h1>
     <p class="mt-2 text-sm text-gray-600">
       <%= t("administrate.controller.edit.subtitle", resource: display_resource_name(page.resource_name, singular: true)) %>
     </p>
   </div>
 
-  <!-- Form -->
   <div class="administrate-card">
     <%= render "form", page: page %>
   </div>
