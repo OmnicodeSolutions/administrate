@@ -13,4 +13,10 @@ to be displayed on a resource's index page.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Time
 %>
 
-<span class="text-gray-900"><%= field.data %></span>
+<% if field.data.present? %>
+  <% if field.respond_to?(:time) %>
+    <%= field.time %>
+  <% else %>
+    <%= field.data %>
+  <% end %>
+<% end %>
