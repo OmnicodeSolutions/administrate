@@ -13,10 +13,19 @@ to be displayed on a resource's index page.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/HasMany
 %>
 
-<% if field.data.any? %>
-  <span class="text-gray-900">
-    <%= pluralize(field.data.count, field.attribute.to_s.singularize.humanize.downcase) %>
-  </span>
-<% else %>
-  <span class="text-gray-500 italic">No associated records</span>
-<% end %>
+<% 
+  begin
+    if field.data.respond_to?(:size)
+      data_count = field.data.size
+    elsif field.data.respond_to?(:count)
+      data_count = field.data.count
+    elsif field.data.respond_to?(:any?)
+      data_count = field.data.any? ? field.data.count : 0
+    else
+      data_count = 0
+    end
+  rescue
+    data_count = 0
+  end
+%>
+<%= pluralize(data_count, field.attribute.to_s.singularize.humanize.downcase) %>
