@@ -95,7 +95,7 @@ describe Admin::Blog::PostsController, type: :controller do
 
         post :create, params: { blog_post: invalid_attributes }
 
-        expect(page.find("h1")).to have_content "New Blog Post"
+        expect(page.find("#page-title")).to have_content "New Blog Post"
       end
     end
   end
@@ -144,7 +144,7 @@ describe Admin::Blog::PostsController, type: :controller do
           },
         )
 
-        expect(page.find("h1")).to have_content "Edit"
+        expect(page.find("#page-title")).to have_content "Edit"
       end
 
       it "passes a form page object to the view" do
