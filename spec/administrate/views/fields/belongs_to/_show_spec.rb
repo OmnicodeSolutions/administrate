@@ -19,7 +19,7 @@ describe "fields/belongs_to/_show", type: :view do
       it "displays link" do
         allow(view).to receive(:accessible_action?).and_return(true)
         render_belongs_to_show
-        expect(rendered.strip).to include(link)
+        expect(rendered).to have_link(product.name, href: product_path)
       end
     end
 

@@ -38,8 +38,7 @@ describe "fields/polymorphic/_show", type: :view do
         locals: { field: polymorphic, namespace: :admin },
       )
 
-      expected = "<a href=\"#{product_path}\">#{product.name}</a>"
-      expect(rendered.strip).to eq(expected)
+      expect(rendered).to have_link(product.name, href: product_path)
     end
   end
 end
