@@ -6,8 +6,8 @@ describe "Associations" do
     tag = create(:blog_tag, name: "foobarisms")
     post.tags << tag
 
-    visit admin_blog_post_url(post)
+    visit admin_blog_post_path(post)
 
-    expect(page).to have_css(".cell-data", text: "foobarisms")
+    expect(page).to have_css("td", text: "foobarisms")
   end
 end
