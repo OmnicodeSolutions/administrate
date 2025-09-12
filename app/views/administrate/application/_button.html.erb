@@ -43,15 +43,17 @@ This component renders a button with different variants and states using Tailwin
 %>
 
 <% if local_assigns[:href].present? %>
-  <%= link_to href, 
-      class: final_classes,
-      disabled: disabled,
-      **(local_assigns[:data] || {}) do %>
+  <% link_options = { class: final_classes }
+     link_options[:id] = local_assigns[:id] if local_assigns[:id]
+     link_options[:data] = local_assigns[:data] if local_assigns[:data]
+     link_options[:disabled] = true if disabled %>
+  <%= link_to href, **link_options do %>
     <%= text %>
   <% end %>
 <% else %>
   <button type="<%= type %>" 
           class="<%= final_classes %>"
+          <%= "id=\"#{local_assigns[:id]}\"" if local_assigns[:id] %>
           <%= "disabled" if disabled %>
           <% (local_assigns[:data] || {}).each do |key, value| %>
             <%= key %>="<%= value %>"

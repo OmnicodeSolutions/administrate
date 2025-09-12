@@ -127,6 +127,7 @@ to display a collection of resources in an HTML table.
                 <% if resources.next_page %>
                   <%= render "administrate/application/button",
                       text: "Next",
+                      id: "next-page",
                       href: url_for(request.params.merge(param_name => resources.next_page)),
                       variant: "white" %>
                 <% else %>

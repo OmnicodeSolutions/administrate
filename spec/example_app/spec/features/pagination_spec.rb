@@ -1,6 +1,6 @@
 require "rails_helper"
 
-search_input_selector = ".search__input"
+search_input_selector = "#search"
 
 RSpec.feature "Pagination", type: :feature do
   def expect_to_appear_in_order(*elements)
@@ -14,7 +14,8 @@ RSpec.feature "Pagination", type: :feature do
     visit admin_customers_path(per_page: 1)
 
     expect(page).not_to have_content(customers.last.name)
-    click_on "Next"
+    expect(page).to have_css("#next-page", visible: :visible)
+    find("#next-page").click
     expect(page).to have_content(customers.last.name)
   end
 
@@ -44,7 +45,9 @@ RSpec.feature "Pagination", type: :feature do
       create(:customer, name: "unique name two")
 
       visit admin_customers_path
-      2.times { click_on "Name" }
+      click_on "Name"
+
+      find('a', text: "Name", match: :first, wait: 5).click
 
       expect_to_appear_in_order("unique name two", "unique name one")
     end

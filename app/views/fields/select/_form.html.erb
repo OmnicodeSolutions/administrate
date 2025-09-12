@@ -16,7 +16,7 @@ to be displayed on a resource's edit form page.
 %>
 
 <div class="block text-sm font-medium text-gray-700 mb-1">
-  <%= f.label field.attribute, "#{field.attribute.to_s.humanize}#{field.required? ? ' *' : ''}", class: "block text-sm font-medium text-gray-700 mb-1" %>
+  <%= f.label field.attribute, field.attribute.to_s.humanize, class: "block text-sm font-medium text-gray-700 mb-1" %>
 </div>
 <div class="field-unit__field">
   <%= f.select(

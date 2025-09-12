@@ -22,7 +22,7 @@ as well as a link to its edit page.
 <% content_for(:header_actions) do %>
   <div class="flex items-center gap-6">
     <%= render "administrate/application/button",
-        text: t("administrate.actions.edit_resource", name: page.page_title),
+        text: t("administrate.actions.edit"),
         href: resource_edit_path(page, page.resource),
         variant: "white",
         data: { turbo_frame: "_top" } if accessible_action?(page.resource, :edit) %>
