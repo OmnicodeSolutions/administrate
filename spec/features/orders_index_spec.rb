@@ -33,7 +33,7 @@ feature "order index page" do
     order = create(:order)
 
     visit admin_orders_path
-    find("[data-testid='edit-order-#{order.id}']").click
+    find(%{a[href="#{edit_admin_order_path(order)}"]}).click
 
     expect(current_path).to eq(edit_admin_order_path(order))
   end
