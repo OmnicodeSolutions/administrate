@@ -25,8 +25,6 @@ describe "edit form" do
     with_translations(:en, translations) do
       visit new_admin_customer_path
 
-      save_and_open_page
-
       expect(page).to have_label(custom_label)
     end
   end

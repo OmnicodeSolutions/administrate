@@ -86,7 +86,7 @@ It renders the `_table` partial to display details about the resources.
 <div class="space-y-6">
   <!-- Page header -->
   <div class="border-b border-gray-200 pb-4">
-    <h1 class="text-2xl font-bold text-gray-900"><%= content_for(:title) %></h1>
+    <h1 class="text-2xl font-bold text-gray-900"><%= display_resource_name(page.resource_name) %></h1>
   </div>
 
   <!-- Collection table -->
