@@ -17,7 +17,7 @@ This partial renders an input element for polymorphic relationships.
 
 <%= f.fields_for field.attribute do |pf| %>
   <div class="block text-sm font-medium text-secondary-700 mb-1">
-    <%= pf.label :value, field.name.humanize, class: "block text-sm font-medium text-secondary-700 mb-1" %>
+    <%= pf.label :value, field.name.humanize %>
   </div>
 
   <div class="field-unit__field">
