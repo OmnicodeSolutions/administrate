@@ -207,12 +207,17 @@ RSpec.describe "customer show page", js: true do
     expect(page).to have_header("Edit #{displayed(customer)}")
   end
 
-  it "displays destroy link" do
+  it "displays destroy link", js: true do
     customer = create(:customer)
 
     visit admin_customer_path(customer)
 
-    expect { click_on "Destroy" }.to change(Customer, :count).from(1).to(0)
+    accept_confirm do
+      click_on t("administrate.actions.destroy")
+    end
+    expect(page).to have_flash(
+      t("administrate.controller.destroy.success", resource: "Customer")
+    )
   end
 
   it "displays translated labels" do

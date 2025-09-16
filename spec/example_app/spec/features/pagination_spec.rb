@@ -40,14 +40,14 @@ RSpec.feature "Pagination", type: :feature do
       expect(page).to have_header("Show #{customer.name}")
     end
 
-    it "allows reverse sorting" do
+    it "allows reverse sorting", js: true do
       create(:customer, name: "unique name one")
       create(:customer, name: "unique name two")
 
       visit admin_customers_path
       click_on "Name"
 
-      find('a', text: "Name", match: :first, wait: 5).click
+      click_link("Name", match: :first)
 
       expect_to_appear_in_order("unique name two", "unique name one")
     end
