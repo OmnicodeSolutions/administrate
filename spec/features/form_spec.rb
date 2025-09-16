@@ -33,13 +33,13 @@ describe "edit form" do
     visit new_admin_product_path
 
     required_field_translations = [
-      Product.human_attribute_name(:name),
-      Product.human_attribute_name(:description),
-      Product.human_attribute_name(:price),
-      Product.human_attribute_name(:image_url),
+      "#{Product.human_attribute_name(:name)} *",
+      "#{Product.human_attribute_name(:description)} *",
+      "#{Product.human_attribute_name(:price)} *",
+      "#{Product.human_attribute_name(:image_url)} *",
     ]
 
-    required_field_labels = find_all(".field-unit--required").map(&:text)
+    required_field_labels = find_all(".required").map(&:text)
 
     expect(required_field_labels).to match_array(required_field_translations)
   end
@@ -123,7 +123,7 @@ describe "edit form" do
       with_translations(:en, translations) do
         visit new_admin_customer_path
 
-        css_hint_element = ".field-unit > .field-unit__hint"
+        css_hint_element = ".field-unit > p"
         expect(page).to have_css(css_hint_element, text: field_hint)
       end
     end
