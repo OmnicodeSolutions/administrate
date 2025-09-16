@@ -22,7 +22,7 @@ RSpec.describe "product index page" do
     expect(page).to have_content(product.description)
   end
 
-  it "links to the edit page" do
+  it "links to the edit page", js: true do
     product = create(:product)
 
     visit admin_products_path
@@ -38,7 +38,7 @@ RSpec.describe "product index page" do
     expect(current_path).to eq(new_admin_product_path)
   end
 
-  scenario "product sorted by has_one association" do
+  scenario "product sorted by has_one association", js: true do
     create(
       :product,
       product_meta_tag: build(:product_meta_tag, meta_title: "Gamma"),
@@ -53,12 +53,12 @@ RSpec.describe "product index page" do
     )
 
     visit admin_products_path
-    expect(page).to have_content(/Gamma.*Alpha.*Beta/)
+    expect(page).to have_content(/Gamma.*Alpha.*Beta/m)
 
     click_on "Product Meta Tag"
-    expect(page).to have_content(/Alpha.*Beta.*Gamma/)
+    expect(page).to have_content(/Alpha.*Beta.*Gamma/m)
 
     click_on "Product Meta Tag"
-    expect(page).to have_content(/Gamma.*Beta.*Alpha/)
+    expect(page).to have_content(/Gamma.*Beta.*Alpha/m)
   end
 end
