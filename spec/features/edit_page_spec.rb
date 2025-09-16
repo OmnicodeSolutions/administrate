@@ -85,11 +85,11 @@ describe "customer edit page" do
       fill_in "Name", with: new_name
       fill_in "Email", with: new_email
       click_on "Save"
-    end
 
-    expect(page).to have_text(new_name)
-    expect(page).to have_text(new_email)
-    expect(page).to have_flash("Custom name was successfully updated.")
+      expect(page).to have_text(new_name)
+      expect(page).to have_text(new_email)
+      expect(page).to have_flash("Custom name was successfully updated.")
+    end
   end
 
   it "handles complex associations" do
