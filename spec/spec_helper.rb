@@ -9,4 +9,8 @@ RSpec.configure do |config|
   end
 
   config.order = :random
+
+  config.before(:each, js: true) do
+    page.driver.browser.manage.window.resize_to(1400, 900)
+  end
 end
