@@ -8,7 +8,7 @@ RSpec.feature "Pagination", type: :feature do
     expect(positions).to eq(positions.sort)
   end
 
-  it "paginates records based on a query param" do
+  it "paginates records based on a query param", js: true do
     customers = create_list(:customer, 2)
 
     visit admin_customers_path(per_page: 1)
