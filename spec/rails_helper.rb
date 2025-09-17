@@ -15,7 +15,7 @@ require "factories"
 
 require "webmock/rspec"
 
-WebMock.disable_net_connect!(allow_localhost: true, allow: %r{chromedriver\.storage\.googleapis\.com})
+WebMock.disable_net_connect!(allow_localhost: true, allow: 'googlechromelabs.github.io')
 
 Capybara.default_driver = :selenium_chrome_headless
 Capybara.javascript_driver = :selenium_chrome_headless
