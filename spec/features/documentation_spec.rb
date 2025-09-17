@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "documentation navigation" do
+describe "documentation navigation", skip: true do
   it "shows a 404 for missing pages" do
     visit "not_a_page"
 

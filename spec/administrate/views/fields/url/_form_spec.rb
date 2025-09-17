@@ -7,6 +7,7 @@ describe "fields/url/_form", type: :view do
     url = instance_double(
       "Administrate::Field::Url",
       attribute: :image_url,
+      required?: true,
       data: nil,
     )
 
