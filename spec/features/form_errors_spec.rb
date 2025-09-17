@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "form errors" do
-  scenario "error messages for new resource" do
+  scenario "error messages for new resource", js: true do
     visit new_admin_customer_path
     fill_in("Name", with: "")
     click_on "Save"

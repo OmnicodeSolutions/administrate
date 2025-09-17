@@ -6,6 +6,8 @@ describe "fields/has_many/_form", type: :view do
       has_many = double(
         attribute_key: :associated_object_ids,
         attribute: :associated_objects,
+        associated_resource_options: [["Option 1", 1], ["Option 2", 2]],
+        selected_options: [1],
       )
 
       render(

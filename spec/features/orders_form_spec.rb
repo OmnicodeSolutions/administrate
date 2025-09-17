@@ -31,7 +31,7 @@ describe "order form", js: true do
   end
 
   describe "has_many relationships" do
-    it "can select multiple options" do
+    it "can select multiple options", js: true do
       order = create(:order)
       line_items = create_list(:line_item, 3)
 
@@ -40,13 +40,14 @@ describe "order form", js: true do
       find("input[type='checkbox'][data-value='#{line_items.last.id}']").click
       click_on "Save"
 
+      sleep 1
       order.reload
       expect(order.line_items).to include(line_items.first)
       expect(order.line_items).to include(line_items.last)
       expect(order.line_items).not_to include(line_items[1])
     end
 
-    it "can unselect all options" do
+    it "can unselect all options", js: true do
       order = create(:order)
       line_item = create(:line_item, order: order)
 
@@ -55,6 +56,7 @@ describe "order form", js: true do
       multiselect.all("option[selected]").each { |opt| opt.unselect_option }
       click_on "Save"
 
+      sleep 1
       order.reload
       expect(order.line_items).to be_empty
       expect(page).to have_flash(
