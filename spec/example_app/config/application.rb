@@ -20,7 +20,6 @@ module AdministratePrototype
     config.logger.level = Logger::DEBUG
 
     config.i18n.enforce_available_locales = true
-    config.active_record.legacy_connection_handling = false
 
     config.generators do |generate|
       generate.helper false
