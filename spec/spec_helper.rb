@@ -11,6 +11,8 @@ RSpec.configure do |config|
   config.order = :random
 
   config.before(:each, js: true) do
-    page.driver.browser.manage.window.resize_to(1920, 1080)
+    if Capybara.current_driver == Capybara.javascript_driver
+      page.driver.browser.manage.window.resize_to(1920, 1080)
+    end
   end
 end

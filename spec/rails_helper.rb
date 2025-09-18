@@ -15,14 +15,6 @@ require "factories"
 
 require "webmock/rspec"
 
-WebMock.disable_net_connect!(
-  allow_localhost: true, 
-  allow: [
-    %r{chromedriver\.storage\.googleapis\.com},
-    %r{storage\.googleapis\.com/chrome-for-testing-public}
-  ]
-)
-
 Capybara.register_driver :selenium_chrome_headless do |app|
   options = Selenium::WebDriver::Chrome::Options.new
   options.add_argument('--headless')
@@ -53,15 +45,10 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
 
-  config.before(:each, type: :feature) do
-    if Capybara.current_driver == :selenium_chrome_headless
-      page.driver.browser.manage.delete_all_cookies
-    end
-  end
-
   config.after(:each, type: :feature) do
-    if Capybara.current_driver == :selenium_chrome_headless
-      page.driver.quit
+    if Capybara.current_driver == Capybara.javascript_driver
+      page.driver.browser.manage.delete_all_cookies
+      Capybara.reset_sessions!
     end
   end
 
