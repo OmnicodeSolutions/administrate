@@ -19,7 +19,6 @@ gem "tailwindcss-rails"
 gem "importmap-rails"
 gem "stimulus-rails"
 
-# Security updates - will be updated via bundle update
 
 group :development, :test do
   gem "appraisal"
