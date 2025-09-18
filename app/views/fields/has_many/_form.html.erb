@@ -41,6 +41,7 @@ and is augmented with [Selectize].
 
   <%= hidden_field_tag "#{f.object_name}[#{field.attribute_key}][]", "" %>
 
+  <!-- Select element that works both with and without JavaScript -->
   <select multiple
           class="multiselect__hidden"
           data-multiselect-target="hidden"
@@ -52,6 +53,7 @@ and is augmented with [Selectize].
         <option value="<%= value %>" <%= "selected" if selected %>><%= title %></option>
       <% end %>
     <% rescue %>
+      <!-- Handle test doubles gracefully -->
     <% end %>
   </select>
 </div>
