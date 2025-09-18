@@ -46,6 +46,13 @@ and is augmented with [Selectize].
           data-multiselect-target="hidden"
           name="<%= "#{f.object_name}[#{field.attribute_key}][]" %>"
           id="<%= "#{f.object_name}_#{field.attribute_key}" %>">
+    <% begin %>
+      <% field.associated_resource_options.each do |title, value| %>
+        <% selected = Array(field.selected_options).include?(value) %>
+        <option value="<%= value %>" <%= "selected" if selected %>><%= title %></option>
+      <% end %>
+    <% rescue %>
+    <% end %>
   </select>
 </div>
 
