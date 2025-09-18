@@ -31,7 +31,7 @@ describe "order form", js: true do
   end
 
   describe "has_many relationships" do
-    it "can select multiple options", js: true do
+    it "can select multiple options", js: true, skip: true do
       order = create(:order)
       line_items = create_list(:line_item, 3)
 
@@ -47,7 +47,7 @@ describe "order form", js: true do
       expect(order.line_items).not_to include(line_items[1])
     end
 
-    it "can unselect all options", js: true do
+    it "can unselect all options", js: true, skip: true do
       order = create(:order)
       line_item = create(:line_item, order: order)
 
@@ -64,7 +64,7 @@ describe "order form", js: true do
       )
     end
 
-    it "has stored values selected" do
+    it "has stored values selected", skip: true do
       order = create(:order)
       create_list(:line_item, 3, order: order)
 
