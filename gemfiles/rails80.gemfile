@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "3.2.2"
+ruby "3.3.0"
 
 gem "administrate-field-image"
 gem "faker"
@@ -62,4 +62,4 @@ group :staging, :production do
   gem "uglifier"
 end
 
-gemspec path: "../" 
+gemspec path: "../"
