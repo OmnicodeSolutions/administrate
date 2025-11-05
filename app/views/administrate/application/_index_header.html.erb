@@ -2,27 +2,29 @@
   <%= display_resource_name(page.resource_name) %>
 <% end %>
 
-<header class="main-content__header">
-  <h1 class="main-content__page-title" id="page-title">
+<header class="admin-header">
+  <h1 class="admin-title" id="page-title">
     <%= content_for(:title) %>
   </h1>
 
-  <% if show_search_bar %>
-    <%= render(
-      "search",
-      search_term: search_term,
-      resource_name: display_resource_name(page.resource_name)
-    ) %>
-  <% end %>
+  <div class="flex items-center space-x-4">
+    <% if show_search_bar %>
+      <%= render(
+        "search",
+        search_term: search_term,
+        resource_name: display_resource_name(page.resource_name)
+      ) %>
+    <% end %>
 
-  <div>
-    <%= link_to(
-      t(
-        "administrate.actions.new_resource",
-        name: display_resource_name(page.resource_name, singular: true).downcase
-      ),
-      [:new, namespace, page.resource_path.to_sym],
-      class: "button",
-    ) if accessible_action?(new_resource, :new) %>
+    <div>
+      <%= link_to(
+        t(
+          "administrate.actions.new_resource",
+          name: display_resource_name(page.resource_name, singular: true).downcase
+        ),
+        [:new, namespace, page.resource_path.to_sym],
+        class: "admin-btn admin-btn-primary",
+      ) if accessible_action?(new_resource, :new) %>
+    </div>
   </div>
 </header>

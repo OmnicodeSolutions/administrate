@@ -261,7 +261,7 @@ RSpec.describe "customer show page" do
     with_translations(:en, translations) do
       visit admin_customer_path(customer)
 
-      expect(page).to have_css(".cell-label", text: custom_label)
+      expect(page).to have_css("[class*='cell-label']", text: custom_label)
     end
   end
 

@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "3.2.2"
+ruby "3.3.0"
 
 gem "administrate-field-image"
 gem "faker"
@@ -24,6 +24,11 @@ gem "rack", "~> 3.0"
 gem "rails-html-sanitizer", ">= 1.6.1"
 gem "rails", "~> 8.0.0"
 gem "activesupport", "~> 8.0.0"
+
+gem "tailwindcss-rails", "~> 2.0"
+gem "@tailwindcss/forms"
+gem "@tailwindcss/typography"
+gem "@tailwindcss/aspect-ratio"
 
 group :development, :test do
   gem "appraisal"
@@ -57,4 +62,4 @@ group :staging, :production do
   gem "uglifier"
 end
 
-gemspec path: "../" 
+gemspec path: "../"

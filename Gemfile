@@ -1,7 +1,16 @@
 source 'https://rubygems.org'
-ruby "3.2.2" unless ENV["CI"]
+ruby "3.3.0" unless ENV["CI"]
 
 gemspec
+
+gem "net-imap", ">= 0.5.7"
+gem "nokogiri", ">= 1.18.8"
+gem "rack", ">= 2.2.14"
+
+gem "sprockets-rails"
+
+# Tailwind CSS para estilização
+gem "tailwindcss-rails", "~> 2.0"
 
 gem "administrate-field-image"
 gem "faker"
@@ -11,6 +20,7 @@ gem "kaminari-i18n"
 gem "pg"
 gem "pundit"
 gem "redcarpet"
+gem "sassc-rails"
 gem "sentry-rails"
 gem "sentry-ruby"
 gem "unicorn"

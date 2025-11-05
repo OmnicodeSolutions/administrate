@@ -8,6 +8,6 @@ describe "Associations" do
 
     visit admin_blog_post_url(post)
 
-    expect(page).to have_css(".cell-data", text: "foobarisms")
+    expect(page).to have_css("[class*='cell-data']", text: "foobarisms")
   end
 end

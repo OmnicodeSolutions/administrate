@@ -1,10 +1,17 @@
 require "kaminari"
-require "sassc-rails"
-require "selectize-rails"
-require "sprockets/railtie"
 
-# Only require jquery-rails if Rails is defined to avoid issues with Rails 8
-require "jquery-rails" if defined?(Rails)
+require "turbo-rails" if defined?(Rails)
+require "stimulus-rails" if defined?(Rails)
+
+begin
+  require "tailwindcss-rails" if defined?(Rails)
+rescue LoadError
+end
+
+begin
+  require "sprockets-rails" if defined?(Rails)
+rescue LoadError
+end
 
 require "administrate/namespace/resource"
 require "administrate/not_authorized_error"
@@ -25,10 +32,18 @@ module Administrate
     @@stylesheets = []
 
     initializer "administrate.assets.precompile" do |app|
-      app.config.assets.precompile += [
-        "administrate/application.js",
-        "administrate/application.css",
-      ]
+      if app.config.respond_to?(:assets) && app.config.assets.respond_to?(:precompile)
+        app.config.assets.precompile += [
+          "administrate/application.js",
+          "administrate/application.css",
+        ]
+      end
+    end
+
+    initializer "administrate.importmap", before: "importmap" do |app|
+      if app.config.respond_to?(:importmap)
+        app.config.importmap.cache_sweepers << Rails.root.join("app/assets/javascripts/administrate")
+      end
     end
 
     def self.add_javascript(script)
