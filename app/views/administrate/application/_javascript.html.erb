@@ -7,36 +7,8 @@ but each page can define additional JS sources
 by providing a `content_for(:javascript)` block.
 %>
 
-<%# Load jQuery from rails gem for better compatibility %>
-<% begin %>
-  <%= javascript_include_tag 'jquery3' %>
-<% rescue Sprockets::Rails::Helper::AssetNotFound %>
-  <%# Fallback to CDN if jquery-rails is not available %>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<% end %>
-
 <% Administrate::Engine.javascripts.each do |js_path| %>
   <%= javascript_include_tag js_path %>
 <% end %>
 
 <%= yield :javascript %>
-
-<% if Rails.env.test? %>
-  <%= javascript_tag do %>
-    // Ensure jQuery is available for tests with fallback
-    if (typeof $ === 'undefined') {
-      // Load jQuery from CDN as fallback
-      var script = document.createElement('script');
-      script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
-      script.onload = function() {
-        window.$ = window.jQuery = jQuery.noConflict();
-        $.fx.off = true;
-        $.ajaxSetup({ async: false });
-      };
-      document.head.appendChild(script);
-    } else {
-      $.fx.off = true;
-      $.ajaxSetup({ async: false });
-    }
-  <% end %>
-<% end %>
