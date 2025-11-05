@@ -1,5 +1,4 @@
 //= require turbo
-//= require rails-ujs
 //= require stimulus
 //= require ./components/associative
 //= require ./components/date_time_picker
@@ -8,11 +7,6 @@
 //= require ./controllers/table_controller
 //= require ./controllers/select_controller
 //= require ./controllers/datetime_picker_controller
-
-// Initialize Rails UJS
-if (typeof Rails !== 'undefined') {
-  Rails.start()
-}
 
 // Initialize Stimulus
 (function() {
@@ -36,25 +30,25 @@ function handleConfirmations(event) {
   if (confirmLink) {
     event.preventDefault()
     event.stopImmediatePropagation()
-    
+
     const message = confirmLink.getAttribute('data-confirm')
-    const confirmed = confirm(message)
-    
+    const confirmed = window.confirm(message)
+
     if (confirmed) {
       const method = confirmLink.getAttribute('data-method') || confirmLink.getAttribute('method')
-      
+
       if (method && method.toLowerCase() === 'delete') {
         const form = document.createElement('form')
         form.method = 'POST'
         form.action = confirmLink.href
         form.style.display = 'none'
-        
+
         const methodInput = document.createElement('input')
         methodInput.type = 'hidden'
         methodInput.name = '_method'
         methodInput.value = 'DELETE'
         form.appendChild(methodInput)
-        
+
         const csrfToken = document.querySelector('meta[name="csrf-token"]')
         if (csrfToken) {
           const csrfInput = document.createElement('input')
@@ -63,41 +57,41 @@ function handleConfirmations(event) {
           csrfInput.value = csrfToken.getAttribute('content')
           form.appendChild(csrfInput)
         }
-        
+
         document.body.appendChild(form)
         form.submit()
       } else {
         window.location.href = confirmLink.href
       }
     }
-    
+
     return false
   }
 }
 
 function handleTableRowClick(event) {
   if (event.target.closest('a[data-confirm]')) return
-  
-  if (event.target.tagName === 'A' || 
-      event.target.tagName === 'BUTTON' || 
+
+  if (event.target.tagName === 'A' ||
+      event.target.tagName === 'BUTTON' ||
       event.target.closest('a, button, input, select, textarea')) {
     return
   }
-  
+
   const elementWithUrl = event.target.closest('[data-url]')
   if (!elementWithUrl) return
-  
+
   if (window.location.hostname === '127.0.0.1') {
     document.title = 'DEBUG: Table click detected'
   }
-  
+
   const selection = window.getSelection().toString()
   if (selection.length > 0) return
-  
+
   const dataUrl = elementWithUrl.getAttribute('data-url')
   if (dataUrl) {
     event.preventDefault()
-    
+
     if (window.Turbo && window.Turbo.visit) {
       window.Turbo.visit(dataUrl)
     } else {
@@ -108,22 +102,22 @@ function handleTableRowClick(event) {
 
 function setupInteractions() {
   setupSearchForms()
-  
+
   if (window.location.hostname === '127.0.0.1') {
     const dataUrlElements = document.querySelectorAll('[data-url]')
     document.title = `DEBUG: Setup complete, ${dataUrlElements.length} data-url elements`
   }
-  
+
   if (window.adminConfirmHandler) {
     document.removeEventListener('click', window.adminConfirmHandler, true)
   }
   if (window.adminTableHandler) {
     document.removeEventListener('click', window.adminTableHandler, false)
   }
-  
+
   window.adminConfirmHandler = handleConfirmations
   window.adminTableHandler = handleTableRowClick
-  
+
   document.addEventListener('click', window.adminConfirmHandler, true)
   document.addEventListener('click', window.adminTableHandler, false)
 }
