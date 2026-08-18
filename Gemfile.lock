@@ -9,7 +9,7 @@ PATH
       kaminari (~> 1.2.2)
       stimulus-rails (~> 1.0)
       tailwindcss-rails (~> 2.0)
-      turbo-rails (~> 1.0)
+      turbo-rails (>= 1.0, < 3.0)
 
 GEM
   remote: https://rubygems.org/

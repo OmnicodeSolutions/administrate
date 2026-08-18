@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "3.2.2"
+ruby ">= 3.2.2"
 
 gem "administrate-field-image"
 gem "faker"
@@ -17,6 +17,8 @@ gem "sentry-ruby"
 gem "unicorn"
 gem "sprockets-rails"
 gem "tailwindcss-rails"
+gem "importmap-rails"
+gem "stimulus-rails"
 
 group :development, :test do
   gem "appraisal"
@@ -36,6 +38,7 @@ group :test do
   gem "formulaic"
   gem "launchy"
   gem "selenium-webdriver"
+  gem "webdrivers"
   gem "shoulda-matchers"
   gem "timecop"
   gem "webmock"
