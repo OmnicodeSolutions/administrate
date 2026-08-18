@@ -16,7 +16,7 @@ class Customer < ApplicationRecord
     "standard" => "kind:std",
     "vip" => "kind:vip",
   }.freeze
-  enum kind: KINDS
+  enum :kind, KINDS
 
   def admin?
     false

@@ -165,7 +165,7 @@ describe Administrate::Generators::DashboardGenerator, :generator do
         end
 
         class Shipment < Administrate::Generators::TestRecord
-          enum status: %i[ready processing shipped]
+          enum :status, %i[ready processing shipped]
           reset_column_information
         end
 
@@ -186,7 +186,7 @@ describe Administrate::Generators::DashboardGenerator, :generator do
         end
 
         class Shipment < Administrate::Generators::TestRecord
-          enum status: %i[ready processing shipped]
+          enum :status, %i[ready processing shipped]
           reset_column_information
         end
 
