@@ -13,14 +13,14 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,lib,docs}/**/*", "config/locales/**/*", "LICENSE", "Rakefile"]
 
-  s.add_dependency "actionpack", ">= 6.0", "< 8.0"
-  s.add_dependency "actionview", ">= 6.0", "< 8.0"
-  s.add_dependency "activerecord", ">= 6.0", "< 8.0"
+  s.add_dependency "actionpack", ">= 6.0", "< 9.0"
+  s.add_dependency "actionview", ">= 6.0", "< 9.0"
+  s.add_dependency "activerecord", ">= 6.0", "< 9.0"
 
   s.add_dependency "kaminari", "~> 1.2.2"
   s.add_dependency "tailwindcss-rails", "~> 2.0"
   s.add_dependency "hotwire-rails", "~> 0.1"
-  s.add_dependency "turbo-rails", "~> 1.0"
+  s.add_dependency "turbo-rails", ">= 1.0", "< 3.0"
   s.add_dependency "stimulus-rails", "~> 1.0"
 
   s.description = <<-DESCRIPTION

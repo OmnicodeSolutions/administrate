@@ -43,5 +43,7 @@ jobs:
       - run: cp spec/example_app/config/database.yml.sample spec/example_app/config/database.yml
       - name: Setup the database
         run: bundle exec rake db:setup
-      - name: Run tests
+      - name: Run tests (Rails 7.0)
         run: bundle exec appraisal rails70 rspec
+      - name: Run tests (Rails 8.1)
+        run: bundle exec appraisal rails81 rspec
