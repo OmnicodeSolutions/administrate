@@ -44,4 +44,19 @@ jobs:
       - name: Setup the database
         run: bundle exec rake db:setup
       - name: Run tests
-        run: bundle exec appraisal rails81 rspec
+        run: |
+          if bundle exec appraisal rails81 rspec; then exit 0; fi
+          # The feature specs drive a real headless Chrome, which occasionally
+          # crashes its session under CI and takes an unrelated example down
+          # with it. Retry only what failed, and only when RSpec lived long
+          # enough to record what that was, so a hard crash still fails.
+          if [ ! -s tmp/rspec_examples.txt ]; then
+            echo "::error::RSpec did not record example statuses. Not retrying."
+            exit 1
+          fi
+          if ! grep -q '| failed' tmp/rspec_examples.txt; then
+            echo "::error::The run failed with no failed example recorded. Not retrying."
+            exit 1
+          fi
+          echo "::warning::Retrying the failed examples, suspecting a browser flake."
+          bundle exec appraisal rails81 rspec --only-failures
